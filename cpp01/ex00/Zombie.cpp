@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:08:17 by mosokina          #+#    #+#             */
-/*   Updated: 2025/06/05 13:28:03 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:20:46 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ Zombie::~Zombie()
 	std::cout << "Zombie " << this->_name << " is dead now.";
 	std::cout <<std::endl;
 }
-
-/*Do not print the angle brackets (< and >). For a zombie named Foo, the message
-would be:
-Foo: BraiiiiiiinnnzzzZ...*/
 
 void Zombie::announce(void)
 {
