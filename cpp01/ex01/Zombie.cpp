@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:08:17 by mosokina          #+#    #+#             */
-/*   Updated: 2025/06/05 14:15:53 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:51:13 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include <iostream>   // for std::cin, std::cout
 #include <string>     // for std::string
 
-
-Zombie::Zombie(){};
+Zombie::Zombie() : _name("Unknown") {}
 
 Zombie::Zombie(std::string	zombie_name): _name(zombie_name)
 {
@@ -30,23 +29,10 @@ Zombie::~Zombie()
 	std::cout <<std::endl;
 }
 
-/*Do not print the angle brackets (< and >). For a zombie named Foo, the message
-would be:
-Foo: BraiiiiiiinnnzzzZ...*/
-
 void Zombie::announce(void)
 {
-	if (this->_name == "Foo")
-	{
-		std::cout << this->_name << ": BraiiiiiiinnnzzzZ...";
-		std::cout <<std::endl;		
-	}
-	else
-	{
-		std::cout << "<" << this->_name << ">: BraiiiiiiinnnzzzZ...";
-		std::cout <<std::endl;		
-	}
-
+	std::cout << "<" << this->_name << ">: BraiiiiiiinnnzzzZ...";
+	std::cout <<std::endl;
 }
 
 void Zombie::setName(std::string name)
