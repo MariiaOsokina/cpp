@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 18:16:48 by mosokina          #+#    #+#             */
-/*   Updated: 2025/06/10 12:25:03 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/12 15:08:32 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,20 @@
 #define WEAPON_HPP
 
 #include <string>
+/*const guarantees that calling getType() 
+won’t change _type or any other non-mutable data in Weapon.*/
+
+/* returning const std::string&:
+- avoids making a copy of _type
+- the caller can’t modify _type through the return value
+*/
 class Weapon
 {
 	public:
 		Weapon(std::string type);
 		~Weapon();
 		void setType(std::string new_type);
-		std::string getType() const;
+		const std::string& getType() const; //constant reference
 	private:
 		std::string _type;
 };

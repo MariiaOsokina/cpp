@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:18:00 by mosokina          #+#    #+#             */
-/*   Updated: 2025/06/10 13:36:24 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/12 15:21:58 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,17 @@
 #define HUMANB_HPP
 
 #include <string>
+
+/*
+HumanA takes the Weapon in its constructor, HumanB does not
+HumanB may not always have a weapon, whereas HumanA will always be
+armed
+*/
+
 class HumanB
 {
 	public:
-		HumanB(std::string name);
+		HumanB(const std::string name);
 		~HumanB();
 
         void attack();

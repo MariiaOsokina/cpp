@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:20:13 by mosokina          #+#    #+#             */
-/*   Updated: 2025/06/10 23:49:33 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/12 15:31:15 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,31 @@
 #include <iostream>
 #include <cstdlib>
 
-HumanB::HumanB(std::string name): _name(name), _weapon(NULL){};
+
+/*
+HumanA takes the Weapon in its constructor, HumanB does not
+HumanB may not always have a weapon, whereas HumanA will always be
+armed
+*/
+
+HumanB::HumanB(const std::string name): _name(name), _weapon(NULL){};
 HumanB::~HumanB(){};
 
 void HumanB::attack()
 {
-	if (this->_weapon != NULL)
-		std::cout << this->_name << " attacks with their " << this->_weapon->getType() << std::endl;
+	if (this->_weapon)
+	{
+		std::cout	<< this->_name
+					<< " attacks with their "
+					<< this->_weapon->getType()
+					<< std::endl;		
+	}
 	else
-		std::cout << this->_name << " has no weapon to attack with." << std::endl;
+	{
+		std::cout	<< this->_name
+					<< " has no weapon to attack with."
+					<< std::endl;
+	}
 };
 
 void HumanB::setWeapon(Weapon &weapon)
