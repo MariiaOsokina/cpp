@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 18:33:41 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/12 15:31:27 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:27:39 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void Weapon::setType(std::string new_type)
 {
 	this->_type = new_type;
 }
+
+/* getType() const - the method doesn’t modify the object
+It guarantees that inside getType(), you can’t change any member variables 
+(unless they are marked mutable).*/
 
 const std::string& Weapon::getType() const
 {
