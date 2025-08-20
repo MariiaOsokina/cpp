@@ -6,18 +6,27 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 09:45:20 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/20 23:07:18 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/20 23:34:36 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-Operator overloading:
-operators (like +/-/</= ) are special keywords in C++ and normally work with built-in types (int, float, etc.).
-But you can overload them so they also work with the class objects.
-To do this, we write a function that redefines each operator that we want to use with our class
-*/
-
 #include "../include/Fixed.hpp"
+
+/*Binary Space Partitioning (BSP) can store
+the triangle edges as dividing lines*/
+
+/*Use a cross product (or determinant) to determine 
+which side of the line P is on:
+
+For edge 𝐴𝐵
+(B−A)×(P−A)
+Positive → one side, 
+negative → other side, 
+zero → on the line.
+
+If P is on the same side of all three edges 
+(consistent orientation), it is inside the triangle.
+*/
 
 Fixed::Fixed(): _fixed_point_number(0){};
 
