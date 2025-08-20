@@ -6,14 +6,9 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 09:45:20 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/20 12:23:43 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/20 22:14:45 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-Copy constructor: needed when an object is first (!) created as a copy of another.
-Copy assignment operator: needed when an object already (!) exists and you want to copy into it.
-*/
 
 /*
 Operator overloading:
@@ -94,7 +89,6 @@ float Fixed::toFloat(void) const
 	return (float_value);
 };
 
-
 int Fixed::toInt(void) const
 {
 	int	int_value;
@@ -108,4 +102,3 @@ std::ostream& operator<<(std::ostream& os, Fixed const& fixed)
 	os << fixed.toFloat();
 	return (os);
 }
-
