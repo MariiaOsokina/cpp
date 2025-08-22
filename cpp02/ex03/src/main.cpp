@@ -6,12 +6,16 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 09:56:49 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/20 14:17:46 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/22 18:22:20 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Fixed.hpp"
-#include <iostream>
+
+
+
+
+
 
 int main(void)
 {
@@ -26,3 +30,4 @@ int main(void)
 	std::cout << Fixed::max( a, b ) << std::endl;
 	return 0;
 }
+
