@@ -2,7 +2,7 @@ NAME    = program
 CC      = c++
 CFLAGS  = -Wall -Werror -Wextra -std=c++98
 
-SRCS    = src/main.cpp src/Fixed.cpp
+SRCS    = src/main.cpp src/Fixed.cpp src/Point.cpp src/bsp.cpp
 
 OBJS 	= $(SRCS:.cpp=.o)
 
