@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 09:45:20 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/22 10:03:01 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/26 19:21:13 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Fixed::Fixed(const int number)
 
 Fixed::Fixed(const float number)
 {
-	_fixed_point_number = static_cast<int>(roundf(number * (1 << _number_of_fractional_bits))); // bitwise operators only work with integers
+	_fixed_point_number = static_cast<int>(roundf(number * (1 << _number_of_fractional_bits)));
 }
 
 Fixed::Fixed (const Fixed &other)
@@ -125,12 +125,6 @@ Fixed Fixed::operator/(const Fixed &other) const
 	return (Fixed(float_value));
 };
 
-/* these operators increase/ decrease the fixed-point value by
-the smallest representable step, i.e. ϵ = 1/256.*/
-
-/*++a --a (pre): increment the object then return new value (by reference).
-a++ a-- (post): return old value (by copy), then increment the object. */
-
 Fixed &Fixed::operator++(void) 
 {
 	_fixed_point_number += 1;
@@ -156,13 +150,6 @@ Fixed Fixed::operator--(int)
 	this->_fixed_point_number -= 1;
 	return (tmp);
 }
-
-/*
-Function overloading = same function name, different parameter lists.
-Non-const version: works on normal objects, can be modified through the returned reference.
-Const version: works on const objects, returned reference cannot be modified.
-This is overloading based on const-ness of parameters and return type.
-*/
 
 Fixed& Fixed::min(Fixed& a, Fixed& b)
 {
