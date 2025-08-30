@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 18:33:41 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/12 17:27:39 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/30 23:25:13 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ It guarantees that inside getType(), you can’t change any member variables
 
 const std::string& Weapon::getType() const
 {
-	return this->_type;
+	return (this->_type);
 }

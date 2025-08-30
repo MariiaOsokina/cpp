@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 18:27:43 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/14 11:29:37 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/30 23:25:33 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ bool	open_files(std::string filename, std::ifstream &infile, std::ofstream &outf
 
 std::string::npos is a special constant in C++ that means "not found"
 */
+
 void	read_and_replace(std::ifstream &infile, std::ofstream &outfile, char ** argv)
 {
 	std::string			line;

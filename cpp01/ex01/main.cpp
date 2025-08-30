@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:12:55 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/11 14:56:16 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/30 22:48:54 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@
 int main(void)
 {
 	Zombie	*zombie_arr;
-	int		N;
+	int	N = 5;
 
-	N = 5;
 	zombie_arr = zombieHorde(N, "Bobby");
-
 	if (zombie_arr)
 	{
 		for (int i = 0; i < N; i++)

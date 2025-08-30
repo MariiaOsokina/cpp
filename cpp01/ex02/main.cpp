@@ -6,19 +6,20 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:30:47 by mosokina          #+#    #+#             */
-/*   Updated: 2025/06/07 18:10:12 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/30 23:31:02 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <iostream>
+
 /* stringPTR (Pointer):
 A pointer is a variable that stores the memory address of another variable.
 stringPTR points to the memory location where str is stored.
 To access the actual value, you use the dereference operator *.
 
 stringREF (Reference):
-A reference is an alias for another variable.
+A reference is an ALIAS for another variable.
 stringREF refers directly to str, so any change through stringREF also changes str.
 References let you do what you would use pointers for in C — but with simpler syntax, more safety, and less risk of bugs.
 */

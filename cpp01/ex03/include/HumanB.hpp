@@ -6,22 +6,19 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:18:00 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/12 15:21:58 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/30 23:24:47 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/Weapon.hpp"
 
 #ifndef HUMANB_HPP
 #define HUMANB_HPP
 
 #include <string>
+#include "../include/Weapon.hpp"
 
-/*
-HumanA takes the Weapon in its constructor, HumanB does not
-HumanB may not always have a weapon, whereas HumanA will always be
-armed
-*/
+/*HumanA takes the Weapon in its constructor, HumanB does not;
+HumanB may not always have a weapon, whereas HumanA will always be armed*/
 
 class HumanB
 {
