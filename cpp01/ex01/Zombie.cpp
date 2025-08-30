@@ -6,13 +6,12 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:08:17 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/11 14:51:13 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/30 22:50:05 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
-#include <iostream>   // for std::cin, std::cout
-#include <string>     // for std::string
+#include <iostream>
 
 Zombie::Zombie() : _name("Unknown") {}
 
@@ -21,7 +20,6 @@ Zombie::Zombie(std::string	zombie_name): _name(zombie_name)
 	std::cout << "Zombie " << this->_name << " has appeared. Grrr!";
 	std::cout <<std::endl;
 }
-
 
 Zombie::~Zombie()
 {

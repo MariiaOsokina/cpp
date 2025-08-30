@@ -6,11 +6,15 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 13:50:15 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/11 14:56:38 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/30 23:14:04 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
+
+
+/*The function must allocate N Zombie objects in a single allocation:
+new[] allocates array of objects*/
 
 Zombie* zombieHorde( int N, std::string name )
 {

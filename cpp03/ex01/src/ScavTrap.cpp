@@ -1,23 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   randomChump.cpp                                    :+:      :+:    :+:   */
+/*   ScavTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 16:17:06 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/30 22:38:46 by mosokina         ###   ########.fr       */
+/*   Created: 2025/08/30 18:24:40 by mosokina          #+#    #+#             */
+/*   Updated: 2025/08/30 22:30:14 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
-#include <iostream>
-
-/*This function creates a zombie, names it, and makes it announce itself*/
-
-void randomChump( std::string name )
-{
-	Zombie  random_zombie(name);
-	random_zombie.announce();
-	return ;
-}
