@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:20:13 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/30 23:25:04 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/31 11:45:37 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 #include <cstdlib>
 
 
-/*
-HumanA takes the Weapon in its constructor, HumanB does not
-HumanB may not always have a weapon, whereas HumanA will always be
-armed
-*/
+/*HumanB MAY NOT always have a weapon, 
+so it uses a POINTER (Weapon*) to store its weapon.*/
 
 HumanB::HumanB(const std::string name): _name(name), _weapon(NULL){};
+
 HumanB::~HumanB(){};
 
 void HumanB::attack()

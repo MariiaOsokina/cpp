@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 18:25:29 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/30 23:24:57 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/31 11:45:14 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 #include <string>
 #include "../include/Weapon.hpp"
-
-/*HumanA takes the Weapon in its constructor, HumanB does not;
-HumanB may not always have a weapon, whereas HumanA will always be armed*/
 
 class HumanA
 {
@@ -31,4 +28,5 @@ class HumanA
 		std::string _name; //by value (copy)
 		Weapon& _weapon; //reference (link) to existing Weapon object
 };
+
 #endif

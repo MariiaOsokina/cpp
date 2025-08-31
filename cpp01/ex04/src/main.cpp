@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 18:27:43 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/30 23:25:33 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/31 11:58:26 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ void	read_and_replace(std::ifstream &infile, std::ofstream &outfile, char ** arg
 		outfile << outline << "\n";
 	}
 }
+
+/* In C++, a STREAM is an abstract object that represents a sequence of data flow.
+File Streams are used to read from and write to files:
+std::ifstream (input file stream) and std::ofstream (output file stream).*/
 
 int	main(int argc, char** argv)
 {
