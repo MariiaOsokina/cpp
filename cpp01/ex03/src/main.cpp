@@ -6,13 +6,16 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 18:27:43 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/31 11:38:49 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/31 13:43:41 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Weapon.hpp"
 #include "../include/HumanA.hpp"
 #include "../include/HumanB.hpp"
+
+/*HumanA takes the Weapon in its constructor, HumanB does not;
+HumanB may not always have a weapon, whereas HumanA will always be armed*/
 
 int main()
 {

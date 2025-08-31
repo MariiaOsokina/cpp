@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 12:38:42 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/31 12:36:30 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/31 12:44:25 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Harl::Harl() {}
 
 Harl::~Harl() {}
 
-/*/*Here the switch statement is inplimented, instead og a chain of if/else if statements.
+/*/*Here the switch statement is inplimented, instead of a chain of if/else if statements.
 Firstly, it finds the numerical index of the input level string. 
 Then, it uses this index to jump directly to the correct case label.*/
 
