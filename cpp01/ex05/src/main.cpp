@@ -6,11 +6,14 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 18:27:43 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/14 22:05:01 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/31 12:22:33 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Harl.hpp"
+
+/* Here is an array of pointers to member functions to implement the Harl class.
+This approach effectively replaces a chain of if/else if/else statements*/
 
 int main()
 {

@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:18:00 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/30 23:24:47 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/31 11:34:42 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ class HumanB
 		std::string _name;
         Weapon* _weapon;
 };
+
 #endif

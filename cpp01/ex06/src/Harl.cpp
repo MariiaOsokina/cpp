@@ -6,27 +6,20 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 12:38:42 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/14 22:17:53 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/08/31 12:36:30 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Harl.hpp"
 #include <iostream>
 
-/*
-
-void (Harl::*fptr[4])(): This declares an array of pointers to member functions of the Harl class.
-
-= {&Harl::_debug, &Harl::_info, ...}: This initializes the array with the memory addresses of the four private member functions. 
-The &Harl:: part is required to get the address of a member function.
-
-This array, fptr, holds a collection of addresses to the Harl object's methods.
-
-*/
-
 Harl::Harl() {}
 
 Harl::~Harl() {}
+
+/*/*Here the switch statement is inplimented, instead og a chain of if/else if statements.
+Firstly, it finds the numerical index of the input level string. 
+Then, it uses this index to jump directly to the correct case label.*/
 
 void Harl::complain(std::string level )
 {
