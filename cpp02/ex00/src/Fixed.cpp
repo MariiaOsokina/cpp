@@ -6,11 +6,11 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 09:45:20 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/03 00:20:51 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/03 10:32:55 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Ortodax Canonical Form for clases:
+/*Ortodox Canonical Form for clases:
 new - Copy constructor: needed when an object is first (!) created as a copy of another.
 new - Copy assignment operator: needed when an object already (!) exists and you want to copy into it.
 */
