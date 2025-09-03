@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:02:32 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/03 00:20:50 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:05:50 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ Point::Point(const float x, const float y): _x(Fixed(x)), _y(Fixed(y))
 Point::Point (const Point &other): _x(other._x), _y(other._y)
 {};
 
-// Copy assignment operator
-// This function cannot modify const members, so it's best to delete it to prevent misuse.
-// It is good practice to explicitly delete this operator when it's not possible to implement correctly.
+/*Copy assignment operator
+This function cannot modify const members.
+*/
+
 Point& Point::operator=(const Point &other)
 {
 	(void)other; // Cast to void to suppress unused parameter warnings
