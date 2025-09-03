@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 09:45:20 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/03 12:15:39 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/03 12:25:23 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ Fixed::Fixed(): _fixed_point_number(0)
 {
 	std::cout << "Default constructor called" << std::endl;
 }
-
-
 
 Fixed::Fixed(const int number)
 {
@@ -78,7 +76,7 @@ Fixed::Fixed (const Fixed &other)
 {
 	std::cout << "Copy constructor called" <<std::endl;
 	this->_fixed_point_number = other.getRawBits();
-};
+}
 
 Fixed & Fixed::operator=(const Fixed &other)
 {
@@ -86,12 +84,12 @@ Fixed & Fixed::operator=(const Fixed &other)
 	if (this != &other)
 		this->_fixed_point_number = other.getRawBits();
 	return (*this);
-};
+}
 
 Fixed::~Fixed()
 {
 	std::cout << "Destructor called" <<std::endl;
-};
+}
 
 int	Fixed::getRawBits( void ) const
 {

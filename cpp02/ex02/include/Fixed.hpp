@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 09:45:16 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/20 22:42:41 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/03 12:18:36 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ class Fixed
 	private:
 		int _fixed_point_number;
 		static const int _number_of_fractional_bits = 8;
+		int _getCappedValue(long long value);
+		int _getCappedValue(float value);
 };
 
 std::ostream& operator<<(std::ostream& os, Fixed const& other);

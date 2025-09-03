@@ -6,23 +6,27 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:38:41 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/03 00:23:47 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:03:39 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Point.hpp"
 
 /*Binary Space Partitioning:
+The BSP algorithm for a triangle works by checking if a point is on the same side of all three
+edges. The side of a line is determined by the sign of the cross product of two vectors.
 
 1. Define a Plane for Each Edge
 
 2. Test the Point:
 For edge AB and point P, the cross product is:
-(Bx - Ax)(Py - Ay()) - (By() - Ay())(Px - Ax)
+(Bx - Ax)(Py - Ay) - (By - Ay)(Px - Ax)
 
 3. Check the Sign of cross products: 
-P is on one side ((e.g., all positive or all negative, 
-depending on the vertex ordering))*/
+If all three cross products have the same sign (either all positive or all negative,
+depending on the vertex ordering), the point is inside the triangle.
+If any cross product is zero, the point is on an edge.
+*/
 
 bool bsp( Point const a, Point const b, Point const c, Point const point)
 {
