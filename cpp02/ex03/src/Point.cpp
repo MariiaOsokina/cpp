@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 10:02:32 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/26 18:58:05 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/03 00:20:50 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,3 @@ Fixed	Point::getY(void) const
 {
 	return (this->_y);
 };
-
