@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 09:45:20 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/20 23:07:18 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/03 00:52:59 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,25 +101,44 @@ bool Fixed::operator!=(const Fixed &other) const
 	return (this->_fixed_point_number != other._fixed_point_number);
 }
 
-Fixed Fixed::operator+(const Fixed &other) const
+// Fixed Fixed::operator+(const Fixed &other) const
+// {
+// 	float	float_value;
+
+// 	float_value = this->toFloat() + other.toFloat();
+// 	return (Fixed(float_value));
+// };
+
+// Fixed Fixed::operator-(const Fixed &other) const
+// {
+// 	float	float_value;
+
+// 	float_value = this->toFloat() - other.toFloat();
+// 	return (Fixed(float_value));
+// };
+
+// For addition:
+Fixed Fixed::operator+(const Fixed& other) const
 {
-	float	float_value;
+	Fixed result;
+	result.setRawBits(this->getRawBits() + other.getRawBits());
+	return (result);
+}
 
-	float_value = this->toFloat() + other.toFloat();
-	return (Fixed(float_value));
-};
-
-Fixed Fixed::operator-(const Fixed &other) const
+Fixed Fixed::operator-(const Fixed& other) const
 {
-	float	float_value;
+	Fixed result;
+	result.setRawBits(this->getRawBits() + other.getRawBits());
+	return (result);
+}
 
-	float_value = this->toFloat() - other.toFloat();
-	return (Fixed(float_value));
-};
 
 Fixed Fixed::operator*(const Fixed &other) const
-{	float	float_value;
-
+{
+	long long a_raw = static_cast<long long>(this->getRawBits());
+	long long
+	long long b_raw = static_cast<long long>(b_raw_int); // b_raw is a long long
+    long long temp = static_cast<long long>(this->getRawBits()) * other.getRawBits();
 	float_value = this->toFloat() * other.toFloat();
 	return (Fixed(float_value));
 };
