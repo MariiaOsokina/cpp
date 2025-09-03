@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 10:30:33 by mosokina          #+#    #+#             */
-/*   Updated: 2025/08/29 19:52:51 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:19:48 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 ClapTrap::ClapTrap(): _name("no name"), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
-	std::cout << "Default constructor created ClapTrap with no name." << std::endl;
+	std::cout << "Default constructor created ClapTrap with no name" << std::endl;
+	std::cout << std::endl;
 };
 
 ClapTrap::ClapTrap(const std::string &name): _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
 	std::cout << "Default constructor created ClapTrap with name " <<this->_name << std::endl;
+	std::cout << std::endl;
 };
 
 ClapTrap::ClapTrap(const ClapTrap &other)
@@ -29,6 +31,7 @@ ClapTrap::ClapTrap(const ClapTrap &other)
 	_attackDamage(other._attackDamage)
 {
 	std::cout << "Copy constructor: copied ClapTrap with name " << this->_name << std::endl;
+	std::cout << std::endl;
 };
 
 ClapTrap& ClapTrap::operator = (const ClapTrap &other)
@@ -40,40 +43,23 @@ ClapTrap& ClapTrap::operator = (const ClapTrap &other)
 		this->_energyPoints = other._energyPoints;
 		this->_attackDamage = other._attackDamage;
 		std::cout << "Copy assignment operator:  copied ClapTrap with name " << this->_name << std::endl;
+		std::cout << std::endl;
 	}
 	return (*this);
 };
 
-// const std::string	ClapTrap::getName(void) const
-// {
-// 	return (this->_name);
-// };
-
-// int		ClapTrap::getHitPoints(void) const
-// {
-// 	return(this->_hitPoints);
-// };
-// int		ClapTrap::getEnergyPoints(void) const
-// {
-// 	return(this->_energyPoints);
-// };
-// int		ClapTrap::getAttackDamage(void) const
-// {
-// 	return (this->_attackDamage);
-// };
-
 ClapTrap::~ClapTrap()
 {
 	std::cout << "Destractor: ClapTrap with name " << this->_name << " is deleted."<< std::endl;
-
+	std::cout << std::endl;
 };
 
 bool	ClapTrap::_isResourcesEnough(void)
 {
 	if (this->_hitPoints <= 0)
-		std::cout << "Sorry! ClapTrap with name " << this->_name << " has no Hit Points :(" << std::endl;
+		std::cout << "Sorry! ClapTrap with name " << this->_name << " has no Hit Points :(\n" << std::endl ;
 	else if (this->_energyPoints <= 0)
-		std::cout << "Sorry! ClapTrap with name " << this->_name << " has no Energy Points :(" << std::endl;
+		std::cout << "Sorry! ClapTrap with name " << this->_name << " has no Energy Points :(\n" << std::endl;
 	else
 		return (true);
 	return (false);
