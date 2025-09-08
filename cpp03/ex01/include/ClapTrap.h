@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 10:30:37 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/03 15:12:01 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/08 11:00:18 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ class ClapTrap
 		
 	private:
 		std::string _name;
+		static const std::string _defaultName;
 		unsigned int _hitPoints;
 		unsigned int _energyPoints;
 		unsigned int _attackDamage;
