@@ -6,21 +6,21 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 10:30:33 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/03 15:19:48 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/08 10:59:43 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ClapTrap.h"
 
-ClapTrap::ClapTrap(): _name("no name"), _hitPoints(10), _energyPoints(10), _attackDamage(0)
+ClapTrap::ClapTrap(): _name(_defaultName), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
-	std::cout << "Default constructor created ClapTrap with no name" << std::endl;
+	std::cout << "Default constructor created." << std::endl;
 	std::cout << std::endl;
 };
 
 ClapTrap::ClapTrap(const std::string &name): _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
-	std::cout << "Default constructor created ClapTrap with name " <<this->_name << std::endl;
+	std::cout << "Constructor created ClapTrap with name " <<this->_name << std::endl;
 	std::cout << std::endl;
 };
 
@@ -80,7 +80,7 @@ void ClapTrap::attack(const std::string& target)
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-	this->_hitPoints -= amount;
+	this->_hitPoints = (this->_hitPoints > amount) ? (this->_hitPoints - amount) : 0; // as unsigned int
 	std::cout << "ClapTrap with name " << this->_name << " took damage." << std::endl;
 	std::cout << "Attack damage: " << this->_attackDamage;
 	std::cout << ", Hit points: " << this->_hitPoints;	
@@ -99,3 +99,5 @@ void ClapTrap::beRepaired(unsigned int amount)
 		std::cout << ", Energy points: " << this->_energyPoints << std::endl << std::endl;			
 	}
 };
+
+const std::string ClapTrap::_defaultName = "no name";
