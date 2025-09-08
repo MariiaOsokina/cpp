@@ -1,14 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.h                                         :+:      :+:    :+:   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 10:30:37 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/08 11:00:18 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/08 12:05:38 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef CLAPTRAP_HPP
+#define CLAPTRAP_HPP
 
 #include <string>
 #include <iostream>
@@ -34,3 +37,5 @@ class ClapTrap
 		unsigned int _attackDamage;
 		bool	_isResourcesEnough(void);
 };
+
+#endif
