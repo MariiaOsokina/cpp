@@ -6,11 +6,11 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 10:30:33 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/08 10:59:43 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/08 12:19:20 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ClapTrap.h"
+#include "../include/ClapTrap.hpp"
 
 ClapTrap::ClapTrap(): _name(_defaultName), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
@@ -50,7 +50,7 @@ ClapTrap& ClapTrap::operator = (const ClapTrap &other)
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << "Destractor: ClapTrap with name " << this->_name << " is deleted."<< std::endl;
+	std::cout << "Destructor: ClapTrap with name " << this->_name << " is deleted."<< std::endl;
 	std::cout << std::endl;
 };
 
