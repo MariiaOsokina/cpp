@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:27:38 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/08 14:50:55 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:26:10 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ class DiamondTrap: public ScavTrap, public FragTrap
 		DiamondTrap(const std::string &name);
 		~DiamondTrap();
 		void attack(const std::string& target);
-
+	private:
+		std::string _name;
 };
 
 #endif

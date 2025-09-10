@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 13:48:40 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/08 14:40:20 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/09 12:35:37 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "../include/ClapTrap.hpp"
 
-/*New: VIRTUAL inheritance for solving the diamond problem:
+/*New: VIRTUAL inheritance for solving the DIAMOND PROBLEM:
 When inheriting from ClapTrap,  we tell the compiler to create 
 only a single shared instance of ClapTrap for all derived classes.*/
 

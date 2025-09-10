@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 10:30:30 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/08 14:51:09 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:26:19 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ int main(void)
 {
 	// Test constructor
 
-	DiamondTrap d0();
+	DiamondTrap d0;
 	DiamondTrap d1("diamond1");
-
-
+	
 	// Test copy constructor
 	DiamondTrap diamond_copy(d1);
 	
