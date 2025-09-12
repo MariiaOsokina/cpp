@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 14:27:50 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/12 12:33:07 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/12 13:22:23 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ DiamondTrap::DiamondTrap(const std::string &name): ClapTrap(name), ScavTrap(name
 {
 	this->_name = name;
 	this->ClapTrap::_name = name + "_clap_name";
-	this->_hitPoints =  FragTrap::_hitPoints;
-	this->_energyPoints = ScavTrap::_energyPoints;
-	this->_attackDamage = FragTrap::_attackDamage;
+	this->_energyPoints = 50;
 	std::cout << "DiamondTrap constructor created DiamondTrap with name " << this->_name << std::endl;
     std::cout << "ClapTrap name is set to " << this->ClapTrap::_name << std::endl;
 	std::cout << std::endl;
@@ -27,9 +25,8 @@ DiamondTrap::DiamondTrap(const std::string &name): ClapTrap(name), ScavTrap(name
 DiamondTrap::DiamondTrap(): ClapTrap(), ScavTrap(), FragTrap()
 {
 	this->_name = _defaultName;
-	_hitPoints = FragTrap::_hitPoints;
-	_energyPoints= ScavTrap::_energyPoints;
-	_attackDamage= FragTrap::_attackDamage;
+	this->ClapTrap::_name = _defaultName + "_clap_name";
+	this->_energyPoints = 50;
 	std::cout << "Default DiamondTrap constructor created." << std::endl;
 	std::cout << std::endl;
 };
