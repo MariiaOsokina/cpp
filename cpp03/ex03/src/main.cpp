@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 10:30:30 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/09 16:26:19 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/12 12:27:37 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,26 @@ int main(void)
 
 	DiamondTrap d0;
 	DiamondTrap d1("diamond1");
-	
-	// Test copy constructor
-	DiamondTrap diamond_copy(d1);
-	
-	// Test copy assignment operator
-	DiamondTrap another_diamond;
-	another_diamond = d1;
+
+	std::cout << "Data:\n" << std::endl;
+	d0.printData();
+	d1.printData();
 
 	std::cout << "Attack:\n" << std::endl << std::endl;
-
+	d0.attack("target");
 	d1.attack("target_test");
 
-	std::cout << "\nDamage and Repair:\n" << std::endl;
-	d0.takeDamage(5);
-	d0.beRepaired(3);
-	d1.takeDamage(10);
-	d1.beRepaired(5);
+	std::cout << "Special attribute:\n" << std::endl << std::endl;
+	d0.whoAmI();
+	d1.whoAmI();
 
-	std::cout << "\nSpecial Ability:\n" << std::endl;
+	std::cout << "\nMore tests with functions:\n" << std::endl;
 	d1.highFivesGuys();
 	d1.guardGate();
+	d1.printData();
+	d1.takeDamage(10);
+	d1.beRepaired(5);
+	
 	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 10:30:33 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/08 12:19:20 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/12 10:43:33 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 ClapTrap::ClapTrap(): _name(_defaultName), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
-	std::cout << "Default constructor created." << std::endl;
+	std::cout << "Default ClapTrap constructor created." << std::endl;
 	std::cout << std::endl;
 };
 
@@ -82,8 +82,9 @@ void ClapTrap::takeDamage(unsigned int amount)
 {
 	this->_hitPoints = (this->_hitPoints > amount) ? (this->_hitPoints - amount) : 0; // as unsigned int
 	std::cout << "ClapTrap with name " << this->_name << " took damage." << std::endl;
+	std::cout << "Amount of damage: " << amount << std::endl;
 	std::cout << "Attack damage: " << this->_attackDamage;
-	std::cout << ", Hit points: " << this->_hitPoints;	
+	std::cout << ", Hit points: " << this->_hitPoints;
 	std::cout << ", Energy points: " << this->_energyPoints << std::endl << std::endl;
 };
 
@@ -94,10 +95,19 @@ void ClapTrap::beRepaired(unsigned int amount)
 		this->_energyPoints --;
 		this->_hitPoints += amount;
 		std::cout << "ClapTrap with name " << this->_name << " has been repaired." << std::endl;
+		std::cout << "Amount of repairing points: " << amount << std::endl;
 		std::cout << "Attack damage: " << this->_attackDamage;
 		std::cout << ", Hit points: " << this->_hitPoints;	
 		std::cout << ", Energy points: " << this->_energyPoints << std::endl << std::endl;			
 	}
 };
+
+void ClapTrap::printData()
+{
+	std::cout << "ClapTrap with name " << this->_name << " has these data:" << std::endl;
+	std::cout << "Attack damage: " << this->_attackDamage;
+	std::cout << ", Hit points: " << this->_hitPoints;	
+	std::cout << ", Energy points: " << this->_energyPoints << std::endl << std::endl;	
+}
 
 const std::string ClapTrap::_defaultName = "no name";

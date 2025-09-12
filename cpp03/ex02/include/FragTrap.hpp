@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 13:48:40 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/08 14:17:41 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/12 12:51:47 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ class FragTrap: public ClapTrap
 	public:
 		FragTrap();
 		FragTrap(const std::string &name);
+		FragTrap(const FragTrap &other);
+		FragTrap &operator = (const FragTrap &other);
 		~FragTrap();
 		void highFivesGuys();
 };

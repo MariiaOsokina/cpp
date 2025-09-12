@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 10:30:37 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/08 12:05:35 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/12 10:44:28 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class ClapTrap
 		void attack(const std::string& target);
 		void takeDamage(unsigned int amount);
 		void beRepaired(unsigned int amount);
+		void printData();
 		
 	protected:
 		std::string _name;

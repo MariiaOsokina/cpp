@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 10:30:30 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/08 13:45:00 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/12 11:11:11 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ int main(void)
 	ScavTrap scav0;
 	ScavTrap scav1("scav1");
 
-
 	// Test copy constructor
 	ScavTrap scav_copy(scav1);
-
 	// Test copy assignment operator
 	ScavTrap another_scav;
 	another_scav = scav1;
@@ -38,8 +36,11 @@ int main(void)
 
 
 	std::cout << "\nDamage and Repair:\n" << std::endl;
+	clap1.printData();
 	clap1.takeDamage(5);
 	clap1.beRepaired(3);
+
+	scav1.printData();
 	scav1.takeDamage(10);
 	scav1.beRepaired(5);
 
