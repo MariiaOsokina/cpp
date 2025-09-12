@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 13:48:53 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/08 14:24:27 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/12 12:50:12 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ FragTrap::FragTrap(): ClapTrap()
 	std::cout << "Default FragTrap constructor created." << std::endl;
 	std::cout << std::endl;
 };
+
+FragTrap::FragTrap(const FragTrap &other): FragTrap(other)
+{
+	std::cout << "FragTrap copy constructor copied " << this->_name << std::endl;
+};
+
+FragTrap &FragTrap::operator = (const FragTrap &other)
+{
+	if (this != &other)
+	{
+		ClapTrap::operator=(other);
+		std::cout << "FragTrap copy assignment operator assigned " << this->_name << std::endl;
+	}
+	return *this;
+}
 
 FragTrap::~FragTrap()
 {

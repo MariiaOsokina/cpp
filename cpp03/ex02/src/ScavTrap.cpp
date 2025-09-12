@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 18:24:40 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/08 14:18:47 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/12 12:56:35 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,33 @@ ScavTrap::ScavTrap(const std::string &name): ClapTrap(name)
 	_hitPoints = 100;
 	_energyPoints= 50;
 	_attackDamage= 20;
-	std::cout << "ScavTrap constructor created ScavTrap with name " << this->_name << std::endl;
+	std::cout << "ScavTrap constructor created ScavTrap with name " <<this->_name << std::endl;
 	std::cout << std::endl;
 };
 
 ScavTrap::ScavTrap(): ClapTrap()
 {
 	_hitPoints = 100;
-	_energyPoints= 50;
-	_attackDamage= 20;
+	_energyPoints = 50;
+	_attackDamage = 20;
 	std::cout << "Default ScavTrap constructor created." << std::endl;
 	std::cout << std::endl;
 };
+
+ScavTrap::ScavTrap(const ScavTrap &other): ClapTrap(other)
+{
+	std::cout << "ScavTrap copy constructor copied " << this->_name << std::endl;
+};
+
+ScavTrap &ScavTrap::operator = (const ScavTrap &other)
+{
+	if (this != &other)
+	{
+		ClapTrap::operator=(other);
+		std::cout << "ScavTrap copy assignment operator assigned " << this->_name << std::endl;
+	}
+	return *this;
+}
 
 ScavTrap::~ScavTrap()
 {

@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 10:30:30 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/08 14:23:03 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/12 11:11:57 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,14 @@ int main(void)
 	frag1.attack("target5");
 
 	std::cout << "\nDamage and Repair:\n" << std::endl;
+	clap1.printData();
 	clap1.takeDamage(5);
 	clap1.beRepaired(3);
+	scav1.printData();
 	scav1.takeDamage(10);
 	scav1.beRepaired(5);
+
+	frag1.printData();
 	frag1.takeDamage(10);
 	frag1.beRepaired(5);	
 
