@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:23:11 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/16 15:02:49 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/16 15:42:06 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,14 @@ const std::string& Brain::getIdea(unsigned int i) const
 		throw std::out_of_range("Index is out of bounds.");
 	}
 	return (this->_ideas[i]);
+}
+
+void Brain::printIdeas() const
+{
+	std::cout << "List of ideas:" << std::endl;
+	for (int i = 0; i < (int)numberOfIdeas; i++)
+	{
+		std::cout << "No." << i << "\t" << this->_ideas[i] << std::endl;
+	}
+	std::cout << "-----------------------------------" << std::endl;
 }

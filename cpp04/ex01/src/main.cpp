@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 11:20:12 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/16 15:03:43 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/16 15:43:18 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,8 @@
 
 void additionalTests()
 {
-	std::cout << std::endl << "TEST COPY CONSTRUCTOR:" << std::endl;
 	Cat myCat;
-	Cat catCopy(myCat);
 
-	std::cout << std::endl << "TEST COPY ASSIGNMENT OPERATOR:" << std::endl;
-	Cat catAnother;
-	catAnother = myCat;
 
 	std::cout << std::endl << "TEST IDEAS:" << std::endl;
 	int i = 1;
@@ -42,8 +37,23 @@ void additionalTests()
 	std::cout << "Cat's idea number " << i << " is " << myCat.getCatIdea(i) << std::endl;
 	
 	myCat.setCatIdea(outRange, new_idea);
-	// std::cout << "Cat's idea number " << outRange << " is " << myCat.getCatIdea(outRange) << std::endl;
+	// std::cout << "Cat's idea number " << outRange << " is " << myCat.getCatIdea(outRange) << std::endl; //for testng
+	std::cout << "-----------------------------------" << std::endl;
+
+	std::cout << std::endl << "TEST COPY CONSTRUCTOR:" << std::endl;
+	Cat catCopy(myCat);
+	std::cout << std::endl << "printing out the ideas:" << std::endl;
+
+	catCopy.printCatIdeas();
+
+	std::cout << std::endl << "TEST COPY ASSIGNMENT OPERATOR:" << std::endl;
+	Cat catAnother;
+	catAnother = myCat;
+
+	catAnother.printCatIdeas();
+
 	std::cout << std::endl;
+
 }
 
 int main(void)
@@ -58,12 +68,15 @@ int main(void)
 		else
 			Animal[i] = new Dog();
 	}
-	
-	std::cout << std::endl << "DELETING AN ARRAY OF ANIMALS" << std::endl;
+	std::cout << "-----------------------------------" << std::endl;
+
+	std::cout << std::endl << "DELETING AN ARRAY OF ANIMALS:" << std::endl;
 	for (int i = 0; i < 10; i++)
 	{
 		delete Animal[i];
 	}
+	std::cout << "-----------------------------------" << std::endl;
+
 
 	additionalTests();
 

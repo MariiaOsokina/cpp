@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:20:12 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/16 14:23:38 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/16 15:36:47 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ class Brain
 		void setIdea(unsigned int i, const std::string& idea);
 		const std::string& getIdea(unsigned int i) const;
 		static const unsigned int numberOfIdeas = 100;
+		void printIdeas() const;
 
 	private:
 		std::string _ideas[100];
