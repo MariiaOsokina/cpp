@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:08:36 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/15 14:17:48 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/16 11:25:49 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ class Animal
 	public:
 		Animal();
 		Animal(const Animal &other);
-		Animal& operator = (const Animal &other);
+		Animal& operator=(const Animal &other);
 		virtual ~Animal();
 
 		virtual void makeSound() const;

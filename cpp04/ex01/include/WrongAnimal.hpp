@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Brain.hpp                                          :+:      :+:    :+:   */
+/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/15 14:20:12 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/16 14:23:38 by mosokina         ###   ########.fr       */
+/*   Created: 2025/09/11 13:11:55 by mosokina          #+#    #+#             */
+/*   Updated: 2025/09/11 14:44:00 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRAIN_HPP
-#define BRAIN_HPP
+#ifndef WRONGANIMAL_HPP
+#define WRONGANIMAL_HPP
 
 #include <string>
 #include <iostream>
 
-class Brain
+class WrongAnimal
 {
 	public:
-		Brain();
-		Brain(const Brain &other);
-		Brain& operator = (const Brain& other);
-		~Brain();
-		void setIdea(unsigned int i, const std::string& idea);
-		const std::string& getIdea(unsigned int i) const;
-		static const unsigned int numberOfIdeas = 100;
+		WrongAnimal();
+		WrongAnimal(const WrongAnimal &other);
+		WrongAnimal& operator = (const WrongAnimal &other);
+		~WrongAnimal(); // not virtual!!
 
-	private:
-		std::string _ideas[100];
+		void makeSound() const; // not virtual!!
+    	const std::string& getType() const;
+	protected:
+		std::string type;
 };
 
 #endif
