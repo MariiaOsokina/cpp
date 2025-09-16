@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 11:20:12 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/16 15:44:20 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/16 23:09:26 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,20 @@ void additionalTests()
 	std::cout << "Cat's idea number " << i << " is " << myCat.getCatIdea(i) << std::endl;
 	
 	myCat.setCatIdea(outRange, new_idea);
-	// std::cout << "Cat's idea number " << outRange << " is " << myCat.getCatIdea(outRange) << std::endl; //for testng
+
+	try
+	{
+		myCat.getCatIdea(outRange);
+	}
+	catch (const std::out_of_range &e)
+	{
+		std::cerr << "Caught exception: " << e.what() << std::endl; //continue execution instead of crashing.
+	}
 	std::cout << "-----------------------------------" << std::endl;
 
 	std::cout << std::endl << "TEST COPY CONSTRUCTOR:" << std::endl;
 	Cat catCopy(myCat);
-	std::cout << std::endl << "printing out the ideas:" << std::endl;
+	std::cout << std::endl << "printing the ideas:" << std::endl;
 
 	catCopy.printCatIdeas();
 
@@ -53,24 +61,23 @@ void additionalTests()
 int main(void)
 {
 	std::cout << "CREATING AN ARRAY OF ANIMALS:" << std::endl;
-	Animal *Animal[10];
+	Animal *animalsArray[10];
 
 	for (int i = 0; i < 10; i++)
 	{
 		if (i % 2 == 0)
-			Animal[i] = new Cat();
+			animalsArray[i] = new Cat();
 		else
-			Animal[i] = new Dog();
+			animalsArray[i] = new Dog();
 	}
 	std::cout << "-----------------------------------" << std::endl;
 
 	std::cout << std::endl << "DELETING AN ARRAY OF ANIMALS:" << std::endl;
 	for (int i = 0; i < 10; i++)
 	{
-		delete Animal[i];
+		delete animalsArray[i];
 	}
 	std::cout << "-----------------------------------" << std::endl;
-
 
 	additionalTests();
 
