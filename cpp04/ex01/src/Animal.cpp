@@ -6,11 +6,12 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:15:03 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/15 14:59:12 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/11 12:46:06 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Animal.hpp"
+
 
 Animal::Animal(): type("Animal")
 {
