@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:08:36 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/15 14:17:48 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/11 14:44:21 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,6 @@
 
 #include <string>
 #include <iostream>
-
-/**virtual destructor:
-- is the safeguard that guarantees proper cleanup in polymorphic hierarchies.
-*/
-
-/* The virtual keyword enables runtime polymorphism, 
-which allows you to call a derived class's function through a base class pointer.
-The compiler uses a virtual table (v-table) to look up the correct function at runtime.
-*/
 
 class Animal
 {

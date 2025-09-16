@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 11:20:12 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/15 14:17:45 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/11 14:47:53 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 #include "../include/WrongAnimal.hpp"
 #include "../include/WrongCat.hpp"
 
+/* The virtual keyword enables runtime polymorphism, 
+which allows you to call a derived class's function through a base class pointer.
+The compiler uses a virtual table (v-table) to look up the correct function at runtime.
+*/
 
 /*demonstrate runtime polymorphism in C++ using base class pointers.*/
 
@@ -42,19 +46,6 @@ not the object's actual type.
 makeSound() function is NOT (!) virtual, the compiler will call WrongAnimal::makeSound(), so
 Cat object will make an Animal sound.
 */
-
-void testWrongBehaviour(void) {
-	std::cout << std::endl << "TEST: Testing Wrong Behaviour" << std::endl;
-
-	WrongCat myWrongCat;
-	const WrongAnimal* wrongAnimalPtr = &myWrongCat;
-
-	std::cout << "Testing wrong makeSound() behavior:" << std::endl;
-	wrongAnimalPtr->makeSound();
-
-	std::cout << "Testing regular behavior:" << std::endl;
-	myWrongCat.makeSound();
-}
 
 void myTest1(void)
 {
@@ -83,6 +74,18 @@ void myTest2(void)
 	std::cout << "Assigned Dog type: " << assignedDog.getType() << std::endl;
 }
 
+void testWrongBehaviour(void) {
+	std::cout << std::endl << "TEST: Testing Wrong Behaviour" << std::endl;
+
+	WrongCat myWrongCat;
+	const WrongAnimal* wrongAnimalPtr = &myWrongCat;
+
+	std::cout << "Testing wrong makeSound() behavior:" << std::endl;
+	wrongAnimalPtr->makeSound();
+
+	std::cout << "Testing regular behavior:" << std::endl;
+	myWrongCat.makeSound();
+}
 
 int main(void)
 {
