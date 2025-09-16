@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:15:03 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/16 11:50:12 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/16 22:17:02 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void Animal::makeSound() const
 
 const std::string& Animal::getType() const
 {
-    return (type);
+	return (type);
 }

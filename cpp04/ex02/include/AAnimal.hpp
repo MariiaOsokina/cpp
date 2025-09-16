@@ -16,8 +16,9 @@
 #include <string>
 #include <iostream>
 
-/*
-ABSTRACT CLASS: is a blueprint for other classes. 
+/*AAnimal (renamed)
+
+ABSTRACT CLASS: is a blueprint for other classes. It cannot be instantiated.
 It defines an interface that its derived classes must follow.
 In C++, a class becomes abstract if it contains AT LEAST one pure virtual function.
 

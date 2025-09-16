@@ -6,10 +6,9 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 14:17:02 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/16 11:51:14 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/16 22:19:44 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/WrongCat.hpp"
 
@@ -21,7 +20,7 @@ WrongCat::WrongCat(): WrongAnimal()
 
 WrongCat::WrongCat(const WrongCat& other): WrongAnimal(other)
 {
-	std::cout << "Cat copy constructor called." << std::endl;
+	std::cout << "WrongCat copy constructor called." << std::endl;
 }
 
 WrongCat& WrongCat::operator=(const WrongCat& other)
