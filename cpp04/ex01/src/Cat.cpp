@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 12:52:48 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/15 15:05:30 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/16 15:07:34 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,23 @@
 Cat::Cat(): Animal()
 {
 	type = "Cat";
-	attribute =  new Brain();
+	_attribute =  new Brain();
 	std::cout << "Cat default constructor called." << std::endl;
-};
+}
 
+/*SHALLOW COPY: duplicates the object's top-level structure, but not the data it points to. 
+If the original object contains pointers, the shallow copy will contain pointers to the SAME (!) memory locations. 
+This can lead to a double-free error.
+
+DEEP COPY: duplicates the object's entire structure,  including the data pointed to by pointers. 
+The new object completely independent of the original. 
+Each object will then have its own unique set of resources to manage and deallocate.*/
 
 Cat::Cat(const Cat& other): Animal(other)
 {
-	attribute =  new Brain(*other.attribute); // deep copy
+	_attribute =  new Brain(*other._attribute); // deep (not shallow) copy
 	std::cout << "Cat copy constructor called." << std::endl;
-};
+}
 
 Cat& Cat::operator=(const Cat& other)
 {
@@ -32,18 +39,29 @@ Cat& Cat::operator=(const Cat& other)
 	if (this != &other)
 	{
 		Animal::operator=(other);
+		delete this->_attribute; // 2. Deallocate old brain to prevent a memory leak
+		this->_attribute = new Brain(*other._attribute);// 3. Allocate a new brain/ perform a deep copy
 	}
 	return (*this);
-};
+}
 
 Cat::~Cat()
 {
-	
-	delete attribute;
+	delete _attribute;
 	std::cout << "Cat destructor called."<< std::endl;
-};
+}
 
 void Cat::makeSound() const
 {
 	std::cout << "Cat is meowing: Meow! Meow!" << std::endl;
-};
+}
+
+void Cat::setCatIdea(unsigned int i, const std::string &idea)
+{
+	this->_attribute->setIdea(i, idea);
+}
+
+const std::string&  Cat::getCatIdea(unsigned int i) const
+{
+	return (this->_attribute->getIdea(i));
+}

@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Brain.hpp                                          :+:      :+:    :+:   */
+/*   WrongCat.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/15 14:20:12 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/16 14:23:38 by mosokina         ###   ########.fr       */
+/*   Created: 2025/09/11 13:12:54 by mosokina          #+#    #+#             */
+/*   Updated: 2025/09/16 14:08:22 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BRAIN_HPP
-#define BRAIN_HPP
+#ifndef WRONGCAT_HPP
+#define WRONGCAT_HPP
 
-#include <string>
-#include <iostream>
+#include "../include/WrongAnimal.hpp"
 
-class Brain
+class WrongCat: public WrongAnimal
 {
 	public:
-		Brain();
-		Brain(const Brain &other);
-		Brain& operator = (const Brain& other);
-		~Brain();
-		void setIdea(unsigned int i, const std::string& idea);
-		const std::string& getIdea(unsigned int i) const;
-		static const unsigned int numberOfIdeas = 100;
-
-	private:
-		std::string _ideas[100];
+		WrongCat();
+		WrongCat(const std::string &name);
+		WrongCat(const WrongCat& other);
+		WrongCat& operator=(const WrongCat& other);
+		~WrongCat();
+		void makeSound() const;  // not virtual!!
 };
 
 #endif

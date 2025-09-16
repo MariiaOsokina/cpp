@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 11:20:12 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/15 14:17:45 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/16 11:50:48 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 #include "../include/WrongAnimal.hpp"
 #include "../include/WrongCat.hpp"
 
-
-/*demonstrate runtime polymorphism in C++ using base class pointers.*/
+/*ex 00 demonstrates runtime polymorphism in C++ using base class pointers.*/
 
 void testPolymorphism(void)
 {
@@ -82,7 +81,6 @@ void myTest2(void)
 	std::cout << "Copied Dog type: " << copiedDog.getType() << std::endl;
 	std::cout << "Assigned Dog type: " << assignedDog.getType() << std::endl;
 }
-
 
 int main(void)
 {
