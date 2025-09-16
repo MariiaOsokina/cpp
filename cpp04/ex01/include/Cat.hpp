@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 12:52:06 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/16 15:05:25 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/16 15:39:57 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ class Cat: public Animal
 		virtual void makeSound() const;
 		void setCatIdea(unsigned int i, const std::string &str);
 		const std::string&  getCatIdea(unsigned int i) const;
+		void printCatIdeas() const;
 
 	private:
 		Brain *_attribute;

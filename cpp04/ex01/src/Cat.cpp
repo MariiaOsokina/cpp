@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 12:52:48 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/16 15:07:34 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/16 15:40:24 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,9 @@ void Cat::setCatIdea(unsigned int i, const std::string &idea)
 const std::string&  Cat::getCatIdea(unsigned int i) const
 {
 	return (this->_attribute->getIdea(i));
+}
+
+void Cat::printCatIdeas() const
+{
+	this->_attribute->printIdeas();
 }
