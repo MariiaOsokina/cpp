@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:15:03 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/16 22:17:02 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/17 16:30:57 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ Animal::Animal(const Animal &other): type(other.type)
 
 Animal& Animal::operator = (const Animal &other)
 {
-	std::cout << "Animal copy assignment operator called." << std::endl;
 	if (this != &other)
 		this->type = other.type;
 	return (*this);
