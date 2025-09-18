@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bureaucrat.h                                       :+:      :+:    :+:   */
+/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:11:52 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/17 22:39:51 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/18 17:42:08 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUREAUCRAT_H
-#define BUREAUCRAT_H
+#ifndef BUREAUCRAT_HPP
+#define BUREAUCRAT_HPP
 
 #include <string>
 #include <iostream>
@@ -26,7 +26,7 @@ class Bureaucrat
 		Bureaucrat();
 		Bureaucrat(const std::string& name, int grade);
 		Bureaucrat(const Bureaucrat &other);
-		Bureaucrat &operator = (const Bureaucrat &other);
+		Bureaucrat &operator = (const Bureaucrat &other); //??
 		~Bureaucrat();
 		
 		const std::string &getName() const;
