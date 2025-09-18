@@ -6,11 +6,11 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:03:10 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/17 23:18:27 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/18 17:42:31 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/Bureaucrat.h"
+#include "../include/Bureaucrat.hpp"
 
 
 /*EXCEPTIONS: flow
