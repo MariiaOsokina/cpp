@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:03:10 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/18 17:42:31 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/18 23:43:36 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	test1(void)
 	}
 	catch (const std::exception& e)
 	{
-		std::cerr << "Caught an unexpected exception: " << e.what() << '\n';
+		std::cerr << "\033[31m" << "Caught an unexpected exception: " << e.what() << "\033[0m" << std::endl;;
 	}
 }
 
@@ -51,7 +51,7 @@ void	test2(void)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << "Error: " << e.what() << '\n';
+		std::cerr << "\033[31m" << "Error: " << e.what() << "\033[0m" << std::endl;
 	}
 	
 	try
@@ -60,7 +60,7 @@ void	test2(void)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << "Error: " << e.what() << '\n';
+		std::cerr << "\033[31m" << "Error: " << e.what() << "\033[0m" << std::endl;
 	}
 }
 
@@ -76,7 +76,7 @@ void	test3(void)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << "Error: " << e.what() << '\n';
+		std::cerr << "\033[31m" << "Error: " << e.what() << "\033[0m" << std::endl;
 	}
 
 	try
@@ -87,7 +87,7 @@ void	test3(void)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << "Error: " << e.what() << '\n';
+		std::cerr << "\033[31m" << "Error: " << e.what() << "\033[0m" << std::endl;
 	}
 }
 
@@ -107,7 +107,7 @@ void test4(void)
 	}
 	catch (const std::exception& e)
 	{
-		std::cerr << "Caught an unexpected exception: " << e.what() << '\n';
+		std::cerr << "\033[31m" << "Caught an unexpected exception: " << e.what() << "\033[0m" << std::endl;
 	}
 }
 

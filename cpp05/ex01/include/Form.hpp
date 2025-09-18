@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:21:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/18 17:49:17 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/18 23:21:09 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 #include "../include/Bureaucrat.hpp"
 #include <string>
 #include <iostream>
+#include <iomanip>
 
-class Bureaucrat;
+/* Forward declaration for solving a "circular dependency" (a closed loop) */
+class Bureaucrat; 
 
 class Form
 {

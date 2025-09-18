@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:03:10 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/18 17:50:17 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/18 23:40:45 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ void	test1(void)
 {
 	try
 	{
-		std::cout << "\033[33m" << "Test1: successful creation and printing of Form" << "\033[0m" << std::endl;
+		std::cout << "\n\033[33m" << "Test1: successful creation and printing of Form" << "\033[0m" << std::endl;
 		Form testForm("Test Form", 100, 50);
 		std::cout << testForm << std::endl; // Test operator<< overload
-		// testForm.beSigned();
 	}
 	catch (const std::exception& e)
 	{
@@ -40,7 +39,7 @@ void	test1(void)
 
 void	test2(void)
 {
-	std::cout << "\033[33m" << "Test2:  instantiate a Form with an invalid grade (low and high) "
+	std::cout << "\n\033[33m" << "Test2:  instantiate a Form with an invalid grade (low and high) "
 					<< "\033[0m" << std::endl;
 	try
 	{
@@ -48,7 +47,7 @@ void	test2(void)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << "Error: " << e.what() << '\n';
+		std::cerr << "\033[31m" << "Error: " << e.what() << "\033[0m" << std::endl;
 	}
 	
 	try
@@ -57,7 +56,7 @@ void	test2(void)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << "Error: " << e.what() << '\n';
+		std::cerr << "\033[31m" << "Error: " << e.what() << "\033[0m" << std::endl;
 	}
 
 	try
@@ -66,7 +65,7 @@ void	test2(void)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << "Error: " << e.what() << '\n';
+		std::cerr << "\033[31m" << "Error: " << e.what() << "\033[0m" << std::endl;
 	}
 	try
 	{
@@ -74,51 +73,42 @@ void	test2(void)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << "Error: " << e.what() << '\n';
+		std::cerr << "\033[31m" << "Error: " << e.what() << "\033[0m" << std::endl;
 	}
 }
 
-// void	test3(void)
-// {
-// 	std::cout << "\033[33m" << "Test3: grade goes out of range after its increasement / decreasement"
-// 					<< "\033[0m" << std::endl;
-// 	try
-// 	{
-// 		Bureaucrat b1("Bob", 150);
-// 		std::cout << b1 << std::endl;
-// 		b1.decreaseGrade();
-// 	}
-// 	catch(const std::exception& e)
-// 	{
-// 		std::cerr << "Error: " << e.what() << '\n';
-// 	}
+void	test3(void)
+{
+	std::cout << "\n\033[33m" << "Test3: testing signForm funstion"
+					<< "\033[0m" << std::endl;
+	Form testForm("Test Form", 100, 50);
+	std::cout << testForm << std::endl;
 
-// 	try
-// 	{
-// 		Bureaucrat b2("Sam", 1);
-// 		std::cout << b2 << std::endl;
-// 		b2.increaseGrade();
-// 	}
-// 	catch(const std::exception& e)
-// 	{
-// 		std::cerr << "Error: " << e.what() << '\n';
-// 	}
-// }
+	Bureaucrat b1("Bob", 5);
+	std::cout << b1 << std::endl;
+	b1.signForm(testForm);
+	std::cout << testForm << std::endl;
+
+	Bureaucrat b2("Sam", 120);
+	std::cout << b2 << std::endl;
+	b2.signForm(testForm);
+	std::cout << testForm << std::endl;
+}
 
 void test4(void)
 {
-	std::cout << "\033[33m" << "Test4: Copy constructor" << "\033[0m" << std::endl;
+	std::cout << "\n\033[33m" << "Test4: Copy constructor" << "\033[0m" << std::endl;
 	try
 	{
 		Form f1("Original", 50, 10);
 		std::cout << f1 << std::endl;
 
 		Form f2(f1);
-		std::cout << "Copied form (f2): " << f2 << std::endl;
+		std::cout << "Copied form (f2): \n" << f2 << std::endl;
 	}
 	catch (const std::exception& e)
 	{
-		std::cerr << "Caught an unexpected exception: " << e.what() << '\n';
+		std::cerr << "\033[31m" << "Error: " << e.what() << "\033[0m" << std::endl;
 	}
 }
 
@@ -147,7 +137,7 @@ int main (void)
 {
 	test1();
 	test2();
-	// test3();
+	test3();
 	test4();
 	// test5();
 
