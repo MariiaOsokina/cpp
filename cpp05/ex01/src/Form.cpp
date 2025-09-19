@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:21:48 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/18 23:36:01 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/19 11:51:01 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ Form::Form(const Form &other): _name(other._name), _isSigned(other._isSigned), _
 	std::cout << "\033[32m" << "Form copy constructor called." << "\033[0m" << std::endl;
 }
 
+// Attention! It is a private member
 Form & Form::operator = (const Form &other)
 {
 	std::cout << "\033 [32m""Form copy assignment operator called." << "\033[0m" << std::endl;
 	if (this != &other)
 	{
-		//???
+		this->_isSigned = other._isSigned;
 	}
 	return *this;
 }

@@ -6,12 +6,11 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:11:49 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 11:48:13 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/19 15:21:02 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Bureaucrat.hpp"
-
 
 Bureaucrat::Bureaucrat(): _name("default_name"), _grade(150)
 {
@@ -31,17 +30,6 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other): _name(other._name)
 {
 	std::cout << "\033[32m" << "Bureaucrat copy constructor called." << "\033[0m" << std::endl;
 	this->_grade = other._grade;
-}
-
-// Attention! It is a private member
-Bureaucrat &Bureaucrat::operator = (const Bureaucrat &other)
-{
-	std::cout << "\033[32m" << "Bureaucrat copy assignment operator called." << "\033[0m" << std::endl;
-	if (this != &other)
-	{
-		this->_grade = other._grade;
-	}
-	return *this;
 }
 
 Bureaucrat::~Bureaucrat()
@@ -75,7 +63,7 @@ void Bureaucrat::decreaseGrade()
 	_grade ++;
 }
 
-void Bureaucrat::signForm(Form &form)
+void Bureaucrat::signForm(AForm &form)
 {
 	try
 	{
@@ -85,6 +73,20 @@ void Bureaucrat::signForm(Form &form)
 	catch(const std::exception& e)
 	{
 		std::cerr << "\033[31m" << this->_name << " couldn't sign form " << form.getName();
+		std::cerr << " because " << e.what() << "\033[0m" << std::endl;
+	}
+}
+
+void Bureaucrat::executeForm(AForm const & form) const
+{
+	try
+	{
+		form.execute(*this);
+		std::cout << this->_name << " executed form " << form.getName() << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << "\033[31m" << this->_name << " couldn't execute form " << form.getName();
 		std::cerr << " because " << e.what() << "\033[0m" << std::endl;
 	}
 }
