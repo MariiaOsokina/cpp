@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:11:52 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/18 22:57:50 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/19 11:47:31 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ class Bureaucrat
 
 		//The Rule of Three
 		Bureaucrat(const Bureaucrat &other);
-		Bureaucrat &operator = (const Bureaucrat &other); //??
 		~Bureaucrat();
 		
 		//Getters
@@ -57,6 +56,8 @@ class Bureaucrat
 		};
 
 	private:
+		// Attention! It's private as it doesn't copy const attribues from "other" object
+		Bureaucrat &operator = (const Bureaucrat &other);
 		const std::string _name;
 		int	_grade;
 };

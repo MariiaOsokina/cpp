@@ -6,22 +6,12 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:03:10 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/18 23:40:45 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/19 14:23:52 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Bureaucrat.hpp"
 #include "../include/Form.hpp"
-
-/*EXCEPTIONS: flow
-1. Code inside try { ... } executes.
-
-2. If no exception is thrown → catch is skipped.
-
-3. If an exception is thrown (e.g., throw ...;) → execution jumps immediately to the matching catch.
-
-4. If no matching catch is found → the program calls std::terminate() (usually crashes).
-*/
 
 void	test1(void)
 {
@@ -33,7 +23,7 @@ void	test1(void)
 	}
 	catch (const std::exception& e)
 	{
-		std::cerr << "Caught an unexpected exception: " << e.what() << '\n';
+		std::cerr << "\033[31m" << "Caught an unexpected exception: " << "\033[0m" << std::endl;
 	}
 }
 

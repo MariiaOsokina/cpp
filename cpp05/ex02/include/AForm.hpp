@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/17 23:21:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 11:49:46 by mosokina         ###   ########.fr       */
+/*   Created: 2025/09/19 11:20:06 by mosokina          #+#    #+#             */
+/*   Updated: 2025/09/19 15:15:47 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORM_H
-#define FORM_H
+#ifndef AFORM_HPP
+#define AFORM_HPP
 
 #include "../include/Bureaucrat.hpp"
 #include <string>
@@ -21,24 +21,22 @@
 /* Forward declaration for solving a "circular dependency" (a closed loop) */
 class Bureaucrat; 
 
-class Form
+class AForm
 {
 	public:
-		//Conctructor
-		Form(const std::string &name, int gradeToSign, int gradeToExecute);
-
-		//Rule of Three
-		Form(const Form &other);
-		~Form();
+		AForm(const std::string &name, int gradeToSign, int gradeToExecute);
+		AForm(const AForm &other);
+		virtual ~AForm();
 
 		//Getters
-		const	std::string &getName() const;
-		int		getGradeToSign() const;
-		int		getGradeToExecute() const;
-		bool	getIsSigned() const;
+		const std::string &getName() const;
+		int	getGradeToSign() const;
+		int	 getGradeToExecute() const;
+		bool getIsSigned() const;
 
 		//Other member functions
-		void	beSigned(const Bureaucrat &b);
+		void beSigned(const Bureaucrat &b);
+		void execute(Bureaucrat const & executor) const;
 
 		// Nested exception classes
 		class GradeTooHighException : public std::exception {
@@ -50,17 +48,22 @@ class Form
 			public:
 				const char* what() const throw();
 		};
+		class	FormNotSignedException : public std::exception {
+			public:
+				const char* what() const throw();
+		};
+
+	protected:
+		virtual void _executeAction() const = 0; // Pure virtual function
 
 	private:
-		// Attention! It's private as it doesn't copy const attribues from "other" object
-		Form &operator = (const Form &other);
+		AForm &operator = (const AForm &other); // Attention! It's private (as const attr)
 		const	std::string _name;
 		bool	_isSigned;
 		const	int _gradeToSign;
 		const	int _gradeToExecute;
 };
 
-// Overload the insertion (<<) operator
-std::ostream& operator<<(std::ostream& os, const Form& form);
+std::ostream& operator<<(std::ostream& os, const AForm& form);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:11:49 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/18 17:50:33 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/19 11:49:10 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other): _name(other._name)
 	this->_grade = other._grade;
 }
 
-//_name is const can't be chaged by the operator. find solution??
-
+// Attention! It is a private member
 Bureaucrat &Bureaucrat::operator = (const Bureaucrat &other)
 {
 	std::cout << "Bureaucrat copy assignment operator called." << std::endl;
@@ -79,8 +78,6 @@ void Bureaucrat::decreaseGrade()
 	_grade ++;
 }
 
-/*Since exceptions inherit from std::exception, you can override the what() function*/
-
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
 	return "Grade is too high! Must be between 1 and 150.";
@@ -91,11 +88,8 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 	return "Grade is too low! Must be between 1 and 150.";
 }
 
-
 std::ostream& operator<<(std::ostream& os, Bureaucrat const& other)
 {
 	os << other.getName() << ", bureaucrat grade " << other.getGrade() << ".";
 	return os;
 }
-
-
