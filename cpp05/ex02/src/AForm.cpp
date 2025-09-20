@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 11:54:42 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 15:19:45 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/21 00:14:31 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ void AForm::execute(Bureaucrat const & executor) const
 // Nested exception classes
 const char* AForm::GradeTooHighException::what() const throw()
 {
-	return "Grade is too high! Must be between 1 and 150.";
+	return "Grade is too high!";
 }
 
 const char* AForm::GradeTooLowException::what() const throw()
 {
-	return "Grade is too low! Must be between 1 and 150.";
+	return "Grade is too low!";
 }
 
 const char* AForm::FormNotSignedException::what() const throw()

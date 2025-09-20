@@ -2,7 +2,8 @@ NAME    = program
 CC      = c++
 CFLAGS  = -Wall -Werror -Wextra -std=c++98 
 
-SRCS    = src/main.cpp src/Bureaucrat.cpp src/AForm.cpp src/ShrubberyCreationForm.cpp
+SRCS    = src/main.cpp src/Bureaucrat.cpp src/AForm.cpp src/ShrubberyCreationForm.cpp \
+				src/RobotomyRequestForm.cpp src/PresidentialPardonForm.cpp
 
 OBJS 	= $(SRCS:.cpp=.o)
 
