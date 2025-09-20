@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 15:23:48 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 15:29:26 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/19 19:05:23 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ RobotomyRequestForm::~RobotomyRequestForm()
 
 void RobotomyRequestForm::_executeAction() const
 {
-		// Makes some drilling noises, then informs that <target> has been robotomized
-		// successfully 50% of the time. Otherwise, it informs that the robotomy failed.
+	std::cout << "* Drilling noises... *" << std::endl;
+	if (rand() % 2 == 0)
+		std::cout << this->_target << " has been robotomized successfully." << std::endl;
+	else
+		std::cout << "Robotomy for " << this->_target << " failed." << std::endl;
 }

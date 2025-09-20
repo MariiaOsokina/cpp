@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:11:49 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 15:21:02 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/21 00:26:20 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,16 @@ void Bureaucrat::executeForm(AForm const & form) const
 		form.execute(*this);
 		std::cout << this->_name << " executed form " << form.getName() << std::endl;
 	}
-	catch(const std::exception& e)
+	catch(const AForm::FormNotSignedException& e)
 	{
 		std::cerr << "\033[31m" << this->_name << " couldn't execute form " << form.getName();
 		std::cerr << " because " << e.what() << "\033[0m" << std::endl;
+	}
+	catch(const AForm::GradeTooLowException& e)
+	{
+		std::cerr << "\033[31m" << this->_name << " couldn't execute form " << form.getName();
+		std::cerr << " because " << e.what() ;
+		std::cerr << "\033[31m" << " Must be higher than " << form.getGradeToExecute() << "\033[0m" << std::endl;
 	}
 }
 
@@ -100,7 +106,6 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return "Grade is too low! Must be between 1 and 150.";
 }
-
 
 std::ostream& operator<<(std::ostream& os, Bureaucrat const& other)
 {
