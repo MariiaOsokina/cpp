@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:21:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 11:49:46 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:39:03 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,18 @@ class Bureaucrat;
 class Form
 {
 	public:
-		//Conctructor
 		Form(const std::string &name, int gradeToSign, int gradeToExecute);
-
-		//Rule of Three
 		Form(const Form &other);
 		~Form();
 
 		//Getters
-		const	std::string &getName() const;
-		int		getGradeToSign() const;
-		int		getGradeToExecute() const;
-		bool	getIsSigned() const;
+		const std::string &getName() const;
+		int	getGradeToSign() const;
+		int	getGradeToExecute() const;
+		bool getIsSigned() const;
 
 		//Other member functions
-		void	beSigned(const Bureaucrat &b);
+		void beSigned(const Bureaucrat &b);
 
 		// Nested exception classes
 		class GradeTooHighException : public std::exception {
@@ -52,15 +49,13 @@ class Form
 		};
 
 	private:
-		// Attention! It's private as it doesn't copy const attribues from "other" object
-		Form &operator = (const Form &other);
+		Form &operator = (const Form &other); // Attention! It's private (as const attr)
 		const	std::string _name;
 		bool	_isSigned;
 		const	int _gradeToSign;
 		const	int _gradeToExecute;
 };
 
-// Overload the insertion (<<) operator
 std::ostream& operator<<(std::ostream& os, const Form& form);
 
 #endif

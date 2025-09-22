@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 14:01:31 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/22 22:06:34 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 23:18:38 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ AForm *Intern::makeForm(const std::string &nameForm, const std::string &target)
 
 const char* Intern::InvalidForm::what() const throw()
 {
-	return "Invalid Form name";
+	return "Invalid Form name.\nAvailable forms: robotomy request, presidential pardon, shrubbery creation";
 }
 
 AForm* Intern::_createRobotomyRequestForm(const std::string& target)
@@ -74,4 +74,3 @@ AForm* Intern::_createShrubberyCreationForm(const std::string& target)
 {
 	return new ShrubberyCreationForm(target);
 }
-

@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:03:10 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/18 23:43:36 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:44:48 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,9 @@
 
 /*EXCEPTIONS: flow
 1. Code inside try { ... } executes.
-
 2. If no exception is thrown → catch is skipped.
-
 3. If an exception is thrown (e.g., throw ...;) → execution jumps immediately to the matching catch.
-
-4. If no matching catch is found → the program calls std::terminate() (usually crashes).
-*/
+4. If no matching catch is found → the program calls std::terminate() (usually crashes).*/
 
 void	test1(void)
 {
@@ -29,7 +25,7 @@ void	test1(void)
 	{
 		std::cout << "\033[33m" << "Test1: successful creation and printing" << "\033[0m" << std::endl;
 		Bureaucrat b("Anna", 75);
-		std::cout << b << std::endl; // Test operator<< overload
+		std::cout << b << std::endl;
 		b.increaseGrade();
 		std::cout << "After increasing grade: " << b << std::endl;
 		b.decreaseGrade();
@@ -78,7 +74,6 @@ void	test3(void)
 	{
 		std::cerr << "\033[31m" << "Error: " << e.what() << "\033[0m" << std::endl;
 	}
-
 	try
 	{
 		Bureaucrat b2("Sam", 1);
@@ -111,34 +106,12 @@ void test4(void)
 	}
 }
 
-void test5(void)
-{
-	std::cout << "\033[33m" << "Test5: Copy assignment operator" << "\033[0m" << std::endl;
-	try
-	{
-		Bureaucrat b1("Original", 50);
-		std::cout << b1 << std::endl;
-
-		Bureaucrat b3("Another One", 100);
-		std::cout << "Before assignment, b3 is: " << b3 << std::endl;
-		b3 = b1;
-		std::cout << "After assignment, b3 is: " << b3 << std::endl;
-		std::cout << "Note: b3's name remains constant, only the grade is updated." << std::endl;
-		std::cout << "Original bureaucrat (b1) remains unchanged: " << b1 << std::endl;
-	}
-	catch (const std::exception& e)
-	{
-		std::cerr << "Caught an unexpected exception: " << e.what() << '\n';
-	}
-}
-
 int main (void)
 {
 	test1();
 	test2();
 	test3();
 	test4();
-	test5();
 
 	return 0;
 }

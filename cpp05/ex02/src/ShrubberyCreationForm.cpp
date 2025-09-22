@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 11:20:26 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 15:21:17 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 23:08:06 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,5 @@ void ShrubberyCreationForm::_executeAction() const
 	newFile << "_- -   | | _- _" << "\n";
 	newFile << "  _--  | |   --_" << "\n";
 	newFile << "      // \\\\" << std::endl;
+	newFile.close();
 }

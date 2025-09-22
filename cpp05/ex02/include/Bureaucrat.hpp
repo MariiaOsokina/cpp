@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:11:52 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 15:15:42 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:54:08 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ class AForm;
 class Bureaucrat
 {
 	public:
-
 		Bureaucrat();
 		Bureaucrat(const std::string& name, int grade);
 		Bureaucrat(const Bureaucrat &other);

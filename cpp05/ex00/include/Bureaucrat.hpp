@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:11:52 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 11:46:49 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:27:53 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 #include <string>
 #include <iostream>
 
-
-/*NESTED CLASS: is a class defined inside another class, 
-Exception classes should be nested. */
+/*Exception classes should be nested. */
 
 class Bureaucrat
 {
@@ -28,26 +26,26 @@ class Bureaucrat
 		Bureaucrat(const Bureaucrat &other);
 		~Bureaucrat();
 		
+		//Getters
 		const std::string &getName() const;
 		int getGrade() const;
+		
+		//Other member functions
 		void increaseGrade();
 		void decreaseGrade();
-
 
 		// Nested exception classes
 		class GradeTooHighException : public std::exception {
 			public:
 				const char* what() const throw();
 		};
-
 		class GradeTooLowException : public std::exception {
 			public:
 				const char* what() const throw();
 		};
 
 	private:
-		// Attention! It's private as it doesn't copy const attribues from "other" object
-		Bureaucrat &operator = (const Bureaucrat &other); 
+		Bureaucrat &operator = (const Bureaucrat &other); // Attention! It's private (as const attr)
 		const std::string _name;
 		int	_grade;
 };
