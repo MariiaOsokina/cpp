@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 11:54:42 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/21 00:14:31 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 23:11:55 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ AForm::AForm(const AForm &other):
 		_gradeToExecute(other._gradeToExecute)
 {
 	std::cout << "\033[32m" << "AForm copy constructor called." << "\033[0m" << std::endl;
+}
+
+// Attention! It is a private member
+AForm & AForm::operator = (const AForm &other)
+{
+	std::cout << "\033 [32m" << "Form copy assignment operator called." << "\033[0m" << std::endl;
+	if (this != &other)
+	{
+		this->_isSigned = other._isSigned;
+	}
+	return *this;
 }
 
 AForm::~AForm()
@@ -89,7 +100,6 @@ const char* AForm::FormNotSignedException::what() const throw()
 {
 	return "Form is not signed.";
 }
-
 
 std::ostream& operator<<(std::ostream& os, const AForm& form) {
 	const int width = 20; // Define a consistent width for the labels

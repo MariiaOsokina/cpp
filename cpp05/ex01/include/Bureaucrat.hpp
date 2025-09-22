@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:11:52 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 11:47:31 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:35:17 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,12 @@
 /* Forward declaration for solving a "circular dependency" (a closed loop) */
 class Form;
 
-/*NESTED CLASS: is a class defined inside another class, 
-Exception classes should be nested.*/
-
 class Bureaucrat
 {
 	public:
 
 		Bureaucrat();
 		Bureaucrat(const std::string& name, int grade);
-
-		//The Rule of Three
 		Bureaucrat(const Bureaucrat &other);
 		~Bureaucrat();
 		
@@ -49,15 +44,13 @@ class Bureaucrat
 			public:
 				const char* what() const throw();
 		};
-
 		class GradeTooLowException : public std::exception {
 			public:
 				const char* what() const throw();
 		};
 
 	private:
-		// Attention! It's private as it doesn't copy const attribues from "other" object
-		Bureaucrat &operator = (const Bureaucrat &other);
+		Bureaucrat &operator = (const Bureaucrat &other); // Attention! It's private (as const attr)
 		const std::string _name;
 		int	_grade;
 };

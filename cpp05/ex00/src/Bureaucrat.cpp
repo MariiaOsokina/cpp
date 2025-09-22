@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:11:49 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 11:49:10 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:31:05 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 Bureaucrat::Bureaucrat(): _name("default_name"), _grade(150)
 {
-	std::cout << "Bureaucrat default constructor called." << std::endl;
+	std::cout << "\033[32m"<< "Bureaucrat default constructor called." << "\033[0m" << std::endl;
 }
 
-/*f an exception is thrown in a constructor, the object is not fully created.
+/*if an exception is thrown in a constructor, the object is not fully created.
 The constructor is immediately exited, and the object's memory is deallocated.
 The program immediately jumps out of the constructor and looks for a catch block.*/
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name), _grade(grade)
 {
-	std::cout << "Bureaucrat constructor called." << std::endl;
+	std::cout << "\033[32m" << "Bureaucrat constructor called." << "\033[0m" << std::endl;
 	if (_grade < 1)
 		throw Bureaucrat::GradeTooHighException();
 	else if (_grade > 150)
@@ -32,7 +32,7 @@ Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name), _grade(
 
 Bureaucrat::Bureaucrat(const Bureaucrat &other): _name(other._name)
 {
-	std::cout << "Bureaucrat copy constructor called." << std::endl;
+	std::cout << "\033[32m" << "Bureaucrat copy constructor called." << "\033[0m" << std::endl;
 	this->_grade = other._grade;
 }
 
@@ -49,7 +49,7 @@ Bureaucrat &Bureaucrat::operator = (const Bureaucrat &other)
 
 Bureaucrat::~Bureaucrat()
 {
-	std::cout << "Bureaucrat destructor called."<< std::endl;
+	std::cout << "\033[32m" << "Bureaucrat destructor called." << "\033[0m" << std::endl;
 }
 
 const std::string &Bureaucrat::getName() const

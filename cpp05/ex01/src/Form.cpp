@@ -6,14 +6,15 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:21:48 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 11:51:01 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:53:06 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Form.hpp"
 
 Form::Form(const std::string &name, int gradeToSign, int gradeToExecute):
-		_name(name), _isSigned(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
+		_name(name), _isSigned(false), _gradeToSign(gradeToSign),
+		_gradeToExecute(gradeToExecute)
 {
 	if (_gradeToSign < 1 || _gradeToExecute < 1)
 		throw Form::GradeTooHighException();
@@ -22,7 +23,9 @@ Form::Form(const std::string &name, int gradeToSign, int gradeToExecute):
 	std::cout << "\033[32m" << "Form constructor called." << "\033[0m" << std::endl;
 }
 
-Form::Form(const Form &other): _name(other._name), _isSigned(other._isSigned), _gradeToSign(other._gradeToSign), _gradeToExecute(other._gradeToExecute) 
+Form::Form(const Form &other):
+		_name(other._name), _isSigned(other._isSigned), _gradeToSign(other._gradeToSign),
+		_gradeToExecute(other._gradeToExecute) 
 {
 	std::cout << "\033[32m" << "Form copy constructor called." << "\033[0m" << std::endl;
 }
@@ -30,7 +33,7 @@ Form::Form(const Form &other): _name(other._name), _isSigned(other._isSigned), _
 // Attention! It is a private member
 Form & Form::operator = (const Form &other)
 {
-	std::cout << "\033 [32m""Form copy assignment operator called." << "\033[0m" << std::endl;
+	std::cout << "\033 [32m" << "Form copy assignment operator called." << "\033[0m" << std::endl;
 	if (this != &other)
 	{
 		this->_isSigned = other._isSigned;
@@ -64,12 +67,6 @@ bool	Form::getIsSigned() const
 	return this->_isSigned;
 }
 
-// Also, add a beSigned() member function to the Form that takes a Bureaucrat as a
-// parameter. It changes the form’s status to signed if the bureaucrat’s grade is high enough
-// (greater than or equal to the required one). Remember, grade 1 is higher than grade 2.
-// If the grade is too low, throw a Form::GradeTooLowException.
-
-
 //Other member functions
 void	Form::beSigned(const Bureaucrat &b)
 {
@@ -82,15 +79,14 @@ void	Form::beSigned(const Bureaucrat &b)
 // Nested exception classes
 const char* Form::GradeTooHighException::what() const throw()
 {
-	return "Grade is too high! Must be between 1 and 150.";
+	return "Grade is too high!";
 }
 
 const char* Form::GradeTooLowException::what() const throw()
 {
-	return "Grade is too low! Must be between 1 and 150.";
+	return "Grade is too low!";
 }
 
-// Overload the insertion (<<) operator
 std::ostream& operator<<(std::ostream& os, const Form& form) {
 	const int width = 20; // Define a consistent width for the labels
 

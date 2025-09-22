@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 11:20:06 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 15:15:47 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:53:50 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class AForm
 		//Getters
 		const std::string &getName() const;
 		int	getGradeToSign() const;
-		int	 getGradeToExecute() const;
+		int	getGradeToExecute() const;
 		bool getIsSigned() const;
 
 		//Other member functions

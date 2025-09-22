@@ -6,12 +6,11 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:11:49 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/19 11:48:13 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:36:04 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Bureaucrat.hpp"
-
 
 Bureaucrat::Bureaucrat(): _name("default_name"), _grade(150)
 {
@@ -98,7 +97,6 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return "Grade is too low! Must be between 1 and 150.";
 }
-
 
 std::ostream& operator<<(std::ostream& os, Bureaucrat const& other)
 {

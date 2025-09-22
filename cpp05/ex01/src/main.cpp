@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:03:10 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/20 23:19:16 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:52:02 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	test1(void)
 	}
 	catch (const std::exception& e)
 	{
-		std::cerr << "\033[31m" << "Caught an unexpected exception: " << "\033[0m" << std::endl;
+		std::cerr << "\033[31m" << "Caught an unexpected exception: " << e.what() << "\033[0m" << std::endl;
 	}
 }
 
@@ -69,7 +69,7 @@ void	test2(void)
 
 void	test3(void)
 {
-	std::cout << "\n\033[33m" << "Test3: testing signForm funstion"
+	std::cout << "\n\033[33m" << "Test3: testing signForm function"
 					<< "\033[0m" << std::endl;
 	Form testForm("Test Form", 100, 50);
 	std::cout << testForm << std::endl;
