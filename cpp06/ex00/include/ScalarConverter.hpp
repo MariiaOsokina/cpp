@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:05:18 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/23 15:49:44 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/24 15:40:44 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,39 @@
 #define SCALARCONVERTER_HPP
 
 #include <string>
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+#include <cstdlib> // For strtol, strtof, strtod
 
-enum LiteralType {
-    CHAR,
-    INT,
-    FLOAT,
-    DOUBLE,
-    UNKNOWN
-};
+typedef enum TypeLiteral {
+	CHAR,
+	INT,
+	FLOAT,
+	DOUBLE,
+	UNKNOWN
+} TypeLiteral;
+
+/*STATIC(!) function is called directly from class*/
 
 class ScalarConverter
 {
 	public:
-		static  void convert(const std::string &literal); //called directly from class
+		static  void convert(const std::string &literal);
 	private:
 		ScalarConverter();
 		ScalarConverter(const ScalarConverter &other);
 		ScalarConverter & operator= (const ScalarConverter &other);
 		~ScalarConverter();
 
-		LiteralType _determineType(const std::string& literal);
+		//private helper functions
+		static TypeLiteral _determineType(const std::string& literal);
 		static void _printChar(double value);
 		static void _printInt(double value);
 		static void _printFloat(double value);
 		static void _printDouble(double value);
+		static void _printImpossibleValue();
+
 };
 
 #endif
