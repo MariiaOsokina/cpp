@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:42:49 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/24 16:56:42 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/24 19:52:20 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,47 +17,34 @@ without losing the original address information*/
 #include "../include/Serializer.hpp"
 #include "../include/Data.hpp"
 
+struct Data;
+class Serializer;
 
 int main()
 {
-	std::cout << "\n\033[33m" <<  "TEST: Create a non-empty instance of the Data structure" << "\033[0m" << std::endl;
-	// 1. Create a non-empty instance of the Data structure.
-	Data original_data = {"Jack", 00123, 15.05};
+	Data originalData = {"Jack", 00123, 15.05};
 
-	std::cout << "Original Data:" << std::endl;
-	original_data.print();
-	std::cout << std::endl;
+	std::cout << "\n\033[33m" << "Original Data:" << "\033[0m" << std::endl;
+	originalData.printData();
 
-	// 2. Get the original pointer to the Data object.
-	Data* original_ptr = &original_data;
+	Data* originalPtr = &originalData;
 
-	std::cout << "Original pointer address: " << original_ptr << std::endl;
-	std::cout << std::endl;
+	std::cout << "\n\033[33m"<< "Original pointer address: " << "\033[0m" << originalPtr << std::endl;
 
-	// 3. Use serialize() to convert the pointer to an integer.
-	uintptr_t serialized_value = Serializer::serialize(original_ptr);
+	uintptr_t serializedValue = Serializer::serialize(originalPtr);
+	std::cout << "\n\033[33m"<< "Serialized value (uintptr_t): " << "\033[0m" << serializedValue << std::endl;
 
-	std::cout << "Serialized value (uintptr_t): " << serialized_value << std::endl;
-	std::cout << std::endl;
+	Data* deserializedPtr = Serializer::deserialize(serializedValue);
 
-	// 4. Use deserialize() to convert the integer back to a pointer.
-	Data* deserialized_ptr = Serializer::deserialize(serialized_value);
+	std::cout << "\n\033[33m" << "Deserialized pointer address: " << "\033[0m" << deserializedPtr << std::endl;
 
-	std::cout << "Deserialized pointer address: " << deserialized_ptr << std::endl;
-	std::cout << std::endl;
-
-	// 5. Check that the deserialized pointer is equal to the original pointer.
-	if (original_ptr == deserialized_ptr) {
-		std::cout << "Success! The deserialized pointer is equal to the original pointer." << std::endl;
+	if (originalPtr == deserializedPtr) {
+		std::cout << "\n\033[33m"<< "Success! The deserialized pointer is equal to the original pointer." << "\033[0m" << std::endl;
 	} else {
-		std::cout << "Failure! The pointers do not match." << std::endl;
+		std::cout<< "\n\033[33m" << "Failure! The pointers do not match." << "\033[0m" << std::endl;
 	}
-
-	std::cout << std::endl;
-
-	// We can also dereference the deserialized pointer to show that the data is intact.
-	std::cout << "Contents of the deserialized pointer:" << std::endl;
-	deserialized_ptr->print();
+	std::cout << "\n\033[33m" << "Contents of the deserialized pointer:" << "\033[0m" << std::endl;
+	deserializedPtr->printData();
 	
 	return 0;
 }

@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Data.hpp                                           :+:      :+:    :+:   */
+/*   C.hpp                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/24 16:29:48 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/24 19:42:41 by mosokina         ###   ########.fr       */
+/*   Created: 2025/09/25 13:43:03 by mosokina          #+#    #+#             */
+/*   Updated: 2025/09/25 13:51:23 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_HPP
-#define DATA_HPP
 
-#include <string>
-#include <iostream>
+#ifndef C_HPP
+#define C_HPP
 
-typedef struct Data
-{
-	std::string name;
-	int id;
-	float  score;
-	void printData();
-} Data;
+#include "../include/Base.hpp"
+
+class C: public Base{};
 
 #endif

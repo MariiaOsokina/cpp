@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Data.hpp                                           :+:      :+:    :+:   */
+/*   A.hpp                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/24 16:29:48 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/24 19:42:41 by mosokina         ###   ########.fr       */
+/*   Created: 2025/09/25 13:40:27 by mosokina          #+#    #+#             */
+/*   Updated: 2025/09/25 13:41:20 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_HPP
-#define DATA_HPP
+#ifndef A_HPP
+#define A_HPP
 
-#include <string>
-#include <iostream>
+#include "../include/Base.hpp"
 
-typedef struct Data
-{
-	std::string name;
-	int id;
-	float  score;
-	void printData();
-} Data;
+class A: public Base{};
 
 #endif
