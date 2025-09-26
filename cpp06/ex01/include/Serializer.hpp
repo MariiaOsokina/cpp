@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:20:57 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/24 16:52:56 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/24 19:54:53 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 #include <string>
 #include <iostream>
+#include <stdint.h>
 
 struct Data;
 
@@ -31,11 +32,6 @@ class Serializer
 		Serializer(const Serializer &other);
 		Serializer & operator= (const Serializer &other);
 		~Serializer();
-
 };
-
-#endif
-
-
 
 #endif
