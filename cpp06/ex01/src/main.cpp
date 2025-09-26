@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:42:49 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/24 19:52:20 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:56:15 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ class Serializer;
 
 int main()
 {
-	Data originalData = {"Jack", 00123, 15.05};
+	Data originalData = {"Jack", 00123, 15.05f};
 
 	std::cout << "\n\033[33m" << "Original Data:" << "\033[0m" << std::endl;
 	originalData.printData();
