@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:05:18 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/24 15:40:44 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:44:05 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@
 #include <string>
 #include <iostream>
 #include <cmath>
-#include <iomanip>
+#include <iomanip> // for std::fixed and std::setprecision()
 #include <cstdlib> // For strtol, strtof, strtod
+#include <limits> // for std::numeric_limits<T> min() and max()
 
-typedef enum TypeLiteral {
+typedef enum TypeLiteral
+{
 	CHAR,
 	INT,
 	FLOAT,
 	DOUBLE,
 	UNKNOWN
-} TypeLiteral;
+}TypeLiteral;
 
 /*STATIC(!) function is called directly from class*/
 
@@ -46,7 +48,6 @@ class ScalarConverter
 		static void _printFloat(double value);
 		static void _printDouble(double value);
 		static void _printImpossibleValue();
-
 };
 
 #endif
