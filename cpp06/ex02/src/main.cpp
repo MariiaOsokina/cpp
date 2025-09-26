@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:46:20 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/25 14:49:40 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/26 15:16:11 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,51 @@ void identify(Base* p)
 		std::cout << "Unindentifed" << std::endl;
 }
 
-/*When dynamic_cast is used on references, it works differently than with pointers:
+void identify(Base& p)
+{
+	std::cout << "The object referenced by p: ";
+	try
+	{
+		(void)(dynamic_cast<A&>(p));
+		std::cout << "class A" << std::endl;
+		return ;
+	}
+	catch(...){}
+	try
+	{
+		(void)(dynamic_cast<B&>(p));
+		std::cout << "class B" << std::endl;
+		return ;
+	}
+	catch(...){}
+		try
+	{
+		(void)(dynamic_cast<C&>(p));
+		std::cout << "class C" << std::endl;
+		return ;
+	}
+	catch(...)
+	{
+		std::cout << "Unidentified" << std::endl;
+	}
+}
 
-If the cast is successful, it returns a reference to the target type.
-
-If the cast fails, it throws a C++ exception of type std::bad_cast
-(which still comes from <typeinfo>, but is used here as a control flow mechanism).*/
-
-// void identify(Base& p)
-// {
-// 	//
-// }
-
+/*No #include <typeinfo>
+Using dynamic_cast correctly for both pointer and reference versions
+Using catch(...) to avoid any dependency on specific exception types
+No pointers used inside the reference version
+C++98 syntax*/
 
 int main()
 {
     std::srand(std::time(NULL));
 
 	Base *basePtr = generate();
+	Base &baseRef = *basePtr;
+
 	identify(basePtr);
+	identify(baseRef);
+
 	delete basePtr;
 	return 0;
 }

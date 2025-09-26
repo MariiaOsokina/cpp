@@ -6,12 +6,12 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:20:57 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/24 19:54:53 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:56:18 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERIIALIZER_HPP
-#define SERIIALIZER_HPP
+#ifndef SERIALIZER_HPP
+#define SERIALIZER_HPP
 
 
 #include "../include/Data.hpp" 
@@ -19,8 +19,6 @@
 #include <string>
 #include <iostream>
 #include <stdint.h>
-
-struct Data;
 
 class Serializer
 {
