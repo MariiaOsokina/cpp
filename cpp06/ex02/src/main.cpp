@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:46:20 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/26 15:16:11 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/29 23:07:46 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@
 #include <ctime>   // for std::time
 #include <string>
 #include <iostream>
-
-
-// void identify(Base* p);
-// It prints the actual type of the object pointed to by p: "A", "B", or "C".
-// void identify(Base& p);
-// It prints the actual type of the object referenced by p: "A", "B", or "C". Using a pointer
-// inside this function is forbidden.
 
 
 Base * generate(void)

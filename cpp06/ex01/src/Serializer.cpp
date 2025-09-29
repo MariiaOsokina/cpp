@@ -6,11 +6,15 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:20:51 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/24 19:31:51 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/29 23:53:42 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Serializer.hpp"
+
+/*reinterpret_cast:
+Low-level reinterpretation of the underlying bit pattern of an object.
+The most dangerous cast.*/
 
 /*uintptr_t:
  uintptr_t is an unsigned integer type that is CAPABLE of storing a pointer.
@@ -22,10 +26,8 @@ and on a 64-bit system, it is typically 64 bits.*/
 /*Serialization: 
 is the process of converting a data structure/object into a format that can be easily stored or transmitted
 Deserialization:
-is the reverse process, converted back into its original data structure/object.*/
-
-/*reinterpret_cast:*/
-
+is the reverse process, converted back into its original data structure/object.
+it's useful in practice primarily for low-level system programming */
 
 uintptr_t Serializer::serialize(Data* ptr)
 {

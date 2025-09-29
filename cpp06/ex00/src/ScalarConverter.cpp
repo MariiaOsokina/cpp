@@ -6,15 +6,21 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:13:36 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/26 14:49:00 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/29 23:38:52 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ScalarConverter.hpp"
 
+/*pseudo-literals: "nanf", "-inff", "+inff", "nan", "-inf", and "+inf"
+they are strings that standard C++ I/O or conversion functions (like strtof and strtod) 
+are explicitly designed to parse and convert into these special floating-point values.
+Infinity - e.g. dividing a positive number by zero
+Not number - e.g. such as dividing zero by zero */
+
 TypeLiteral ScalarConverter::_determineType(const std::string& literal)
 {
-	if (literal.size() == 3 && literal[0] == '\'' && literal[2] == '\'')
+	if (literal.size() == 1 && !isdigit(literal[0]))
 		return CHAR;
 	else if (literal == "nanf" || literal == "-inff" || literal == "+inff")
 		return FLOAT;
@@ -55,13 +61,19 @@ void ScalarConverter::_printImpossibleValue()
 	std::cout << "double: impossible" <<std::endl;
 }
 
+/*static_cast (explicit cast)
+Converting from a wider type (like double) to a narrower type (int or char) 
+involves truncating the fractional part and checking for overflow.
+Because the compiler knows these conversions can be unsafe,
+we must use an explicit (!) cast to force the action*/
+
 void ScalarConverter::_printChar(double valueD)
 {
 	char valueC = static_cast<char>(valueD);
 
 	if (std::isnan(valueD) || std::isinf(valueD) ||
-		valueD < std::numeric_limits<unsigned char>::min() ||
-		valueD > std::numeric_limits<unsigned char>::max())
+		valueD < std::numeric_limits<char>::min() ||
+		valueD > std::numeric_limits<char>::max())
 			std::cout << "char: impossible" << std::endl;
 	else if (!isprint(valueC))
 		std::cout << "char: Non displayable" << std::endl;
@@ -98,7 +110,7 @@ void ScalarConverter::_printFloat(double valueD)
 		std::cout << "float: " << (valueF > 0 ? "+inff" : "-inff") << std::endl;
 	else
 		std::cout << std::fixed << std::setprecision(1)
-				  << "float: " << valueF << "f" << std::endl; //??
+				  << "float: " << valueF << "f" << std::endl;
 }
 
 void ScalarConverter::_printDouble(double valueD)
@@ -117,6 +129,12 @@ void ScalarConverter::_printDouble(double valueD)
 					<< "double: " << valueD << std::endl;
 }
 
+
+/*double (!) as the single intermediate type (valueD):
+- Promote all initial input values (char, int, float) to the widest type (double).
+- Convert from this single, highest-fidelity type (double) down to all target types.*/
+
+
 void ScalarConverter::convert(const std::string &literal)
 {
 	TypeLiteral type = UNKNOWN;
@@ -124,7 +142,7 @@ void ScalarConverter::convert(const std::string &literal)
 
 	type = _determineType(literal);
 	if (type == CHAR)
-		valueD = static_cast<double>(literal[1]);
+		valueD = static_cast<double>(literal[0]);
 	else if (type == INT)
 		valueD = static_cast<double>(strtol(literal.c_str(), NULL, 10));
 	else if (type == FLOAT)
