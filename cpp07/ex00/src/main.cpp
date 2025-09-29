@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 12:28:57 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/29 14:01:04 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/29 14:42:31 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,6 @@ void	testMaxMin()
 	std::cout << "Max value:" << max(c1, c2) << std::endl;
 	std::cout << "Min value:" << min(c1, c2) << std::endl;
 }
-
-void	testMin(){}
-
 
 int main(void)
 {
