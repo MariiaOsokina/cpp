@@ -6,14 +6,17 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 12:33:12 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/29 13:51:21 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/30 22:07:59 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef TEMPLATES_HPP
 #define TEMPLATES_HPP
 
+
+/*Type Template Parameters:
+The keyword typename indicates that T is a placeholder for a type
+(like int, double, or a custom class).*/
 
 template <typename T>
 

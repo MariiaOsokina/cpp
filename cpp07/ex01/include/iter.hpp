@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 14:17:04 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/29 14:40:55 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/30 23:14:06 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ the compiler deduces T as int. The elements are mutable.
 When you pass an array of const elements (e.g., const int arr[]), 
 the compiler deduces T as const int. The elements are read-only.*/
 
-void iter(T *array, size_t length, F function)
+void iter(T *array, const size_t length, F function)
 {
 	for (size_t i = 0; i < length; ++i)
 	{
