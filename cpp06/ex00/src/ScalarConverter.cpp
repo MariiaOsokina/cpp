@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:13:36 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/29 23:38:52 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/30 11:45:53 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,10 @@ void ScalarConverter::_printImpossibleValue()
 	std::cout << "double: impossible" <<std::endl;
 }
 
-/*static_cast (explicit cast)
-Converting from a wider type (like double) to a narrower type (int or char) 
-involves truncating the fractional part and checking for overflow.
+/*STATIC_CAST(explicit cast)
+- well-defined and non-polymorphic;
+- Converting from a wider type (like double) to a narrower type (int or char) 
+- involves truncating the fractional part and checking for overflow.
 Because the compiler knows these conversions can be unsafe,
 we must use an explicit (!) cast to force the action*/
 
@@ -133,7 +134,6 @@ void ScalarConverter::_printDouble(double valueD)
 /*double (!) as the single intermediate type (valueD):
 - Promote all initial input values (char, int, float) to the widest type (double).
 - Convert from this single, highest-fidelity type (double) down to all target types.*/
-
 
 void ScalarConverter::convert(const std::string &literal)
 {

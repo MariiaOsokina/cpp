@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 13:46:20 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/29 23:07:46 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/30 11:39:02 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,39 @@
 #include <string>
 #include <iostream>
 
+/*srand:
+- std::time(NULL) returns the current time, which is used as the seed, 
+the initial value for the random number generator. 
+By using a different seed each time (like the current time), 
+we can ensure that the sequence of random numbers is different each time.*/
 
 Base * generate(void)
 {
 	Base *basePtr;
-// Seed the random number generator ONCE.
-    std::srand(std::time(NULL));
+	std::srand(std::time(NULL));
 
 	int randInt = rand() % 3;
 	if (randInt == 0)
 		basePtr = new A();
 	else if (randInt == 1)
 		basePtr = new B();
-	else // randInt must be 2
+	else
 		basePtr = new C();
 	return basePtr;
 }
 
+/*DYNAMIC CAST:
+- exclusively used for safe conversions within an inheritance hierarchy involving polymorphism.
+- The classes must be polymorphic (i.e., the base class must have at least one virtual function)
+because it uses the V-table (virtual table) to perform its runtime check.
 
-/* Runtime Type Information (RTTI) specifically via dynamic_cast.
-Attempt to cast the Base* pointer to each derived class type (A*, B*, C*) sequentially 
-If dynamic_cast fails, it returns NULL*/
+- savety: the only cast that performs a RUNTIME (!) check. 
+it fails gracefully by returning a nullptr (for pointers) 
+or throwing an exception (std::bad_cast (reference)).*/
 
-/*dynamic_cast only works on polymorphic types (types with at least one virtual function)*/
+/* Subjet doesn't allow to use typeid (from <typeinfo>). 
+So, we use anorther examle of Runtime Type Information (RTTI) via dynamic_cast.*/
+
 
 void identify(Base* p)
 {
@@ -75,7 +85,7 @@ void identify(Base& p)
 		return ;
 	}
 	catch(...){}
-		try
+	try
 	{
 		(void)(dynamic_cast<C&>(p));
 		std::cout << "class C" << std::endl;
@@ -87,15 +97,9 @@ void identify(Base& p)
 	}
 }
 
-/*No #include <typeinfo>
-Using dynamic_cast correctly for both pointer and reference versions
-Using catch(...) to avoid any dependency on specific exception types
-No pointers used inside the reference version
-C++98 syntax*/
-
 int main()
 {
-    std::srand(std::time(NULL));
+	std::srand(std::time(NULL));
 
 	Base *basePtr = generate();
 	Base &baseRef = *basePtr;

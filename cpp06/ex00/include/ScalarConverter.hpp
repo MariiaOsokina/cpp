@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:05:18 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/26 14:44:05 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/09/30 11:09:11 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef enum TypeLiteral
 	FLOAT,
 	DOUBLE,
 	UNKNOWN
-}TypeLiteral;
+} TypeLiteral;
 
 /*STATIC(!) function is called directly from class*/
 
