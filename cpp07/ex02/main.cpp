@@ -6,12 +6,15 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:36:17 by mosokina          #+#    #+#             */
-/*   Updated: 2025/09/30 22:38:04 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/01 14:36:50 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <Array.hpp>
+#include "Array.hpp"
+
+
+#include <cstdlib> // for std::srand
 
 #define MAX_VAL 750
 int main(int, char**)
