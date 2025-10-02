@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:37:50 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/01 13:00:52 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/02 21:56:41 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <iostream>
 
-template<typename T>
+template <typename T>
 
 class Array
 {
@@ -39,5 +39,6 @@ class Array
 the compiler must see the full template definition
 in the same translation unit where the template is instantiated.*/
 #include "Array.tpp"
+
 #endif
 
