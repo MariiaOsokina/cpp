@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:40:20 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/06 15:02:19 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/07 11:53:58 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void testVectors()
 
 	for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); ++it)
 	{
-        std::cout << " " << *it;
-    }
+		std::cout << " " << *it;
+	}
 	std::cout << std::endl;
 	testContainer(vec, 3);
 	testContainer(vec, 4);
