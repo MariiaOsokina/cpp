@@ -2,7 +2,7 @@ NAME    = program
 CC      = c++
 CFLAGS  = -Wall -Werror -Wextra -std=c++98 
 
-SRCS    = src/main.cpp src/Snap.cpp
+SRCS    = main.cpp Snap.cpp
 
 OBJS 	= $(SRCS:.cpp=.o)
 
