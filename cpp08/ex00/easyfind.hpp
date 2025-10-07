@@ -6,14 +6,14 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:40:38 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/07 11:53:18 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/07 14:19:23 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EASYFIND_HPP
 #define EASYFIND_HPP
 
-#include <algorithm>   // for std::find
+#include <algorithm> // for std::find
 #include <stdexcept> // for std::runtime_error
 
 /*T must be a type that behaves like a standard C++ container 
