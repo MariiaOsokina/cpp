@@ -6,14 +6,14 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:58:51 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/07 13:24:47 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/07 15:49:54 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
 
-#include "../include/Span.hpp"
+#include "Span.hpp"
 
 int main()
 {

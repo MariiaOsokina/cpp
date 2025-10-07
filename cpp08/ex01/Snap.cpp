@@ -6,11 +6,11 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 12:13:18 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/07 13:23:58 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/07 15:49:59 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/Span.hpp"
+#include "Span.hpp"
 
 Span::Span(unsigned int N): _maxSize(N)
 {}
