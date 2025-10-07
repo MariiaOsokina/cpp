@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:40:38 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/06 14:24:22 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/07 11:53:18 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ v.end() → position after the last element*/
 template <typename T>
 typename T::iterator easyfind(T& container, int value)
 {
-    typename T::iterator it = std::find(container.begin(), container.end(), value);
-    if (it == container.end())
-        throw std::runtime_error("Interger not found in container.");
-    return it;
+	typename T::iterator it = std::find(container.begin(), container.end(), value);
+	if (it == container.end())
+		throw std::runtime_error("Interger not found in container.");
+	return it;
 }
 
 #endif
