@@ -6,12 +6,13 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:40:20 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/07 11:53:58 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/08 22:24:52 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <algorithm>   // for std::find
 #include <vector>
+#include <list>
 #include <iostream>
 
 #include "easyfind.hpp"
@@ -53,7 +54,30 @@ void testVectors()
 	testContainer(vec, 4);
 }
 
+void testLists()
+{    
+	std::cout << "\n\033[33m" << "Test2: with lists" << "\033[0m" << std::endl;
+	std::list<int> testList;
+	testList.push_back(1);
+	testList.push_back(2);
+	testList.push_back(20);
+	testList.push_back(4);
+	testList.push_back(10);
+
+	std::cout << "List contents: ";
+
+	for (std::list<int>::iterator it = testList.begin(); it != testList.end(); ++it)
+	{
+		std::cout << " " << *it;
+	}
+	std::cout << std::endl;
+	testContainer(testList, 3);
+	testContainer(testList, 4);
+}
+
 int main (void)
 {
 	testVectors();
+	testLists();
+	return 0;
 }
