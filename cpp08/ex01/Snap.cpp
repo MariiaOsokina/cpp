@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 12:13:18 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/07 15:49:59 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/08 13:39:43 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,14 @@ int Span::longestSpan() const
 	std::vector<int>::const_iterator maxIt;
 	maxIt = std::max_element(_storage.begin(), _storage.end());	
 	return(*maxIt - *minIt);
+}
+
+/*It replaces hundreds or thousands of calls to push_back() in a loop.*/
+void Span::addRange(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+{
+	if ((_storage.size() + std::distance(begin, end)) > _maxSize)
+		throw FullSpanException();
+	_storage.insert(_storage.end(), begin, end);
 }
 
 void Span::printStorage() const
