@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 14:36:15 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/07 15:40:29 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/08 13:03:29 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 template <typename T>
 MutantStack<T>::MutantStack(){}
-
 
 template <typename T>
 MutantStack<T>::MutantStack(const MutantStack &other): std::stack<T>(other)
