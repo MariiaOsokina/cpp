@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 14:35:44 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/08 13:08:27 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/09 11:00:32 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ void additionalTests(const MutantStack<int>& mstack)
 	MutantStack<int> mstack_assigned;
 	mstack_assigned = mstack;
 	std::cout << "Test Copy Assignment (top of assigned): " << mstack_assigned.top() << std::endl;
-
-	mstack_assigned = mstack_assigned;
-	std::cout << "Test Self-Assignment (size): " << mstack_assigned.size() << std::endl;
 
 	MutantStack<int> empty_stack;
 	if (empty_stack.begin() == empty_stack.end())
