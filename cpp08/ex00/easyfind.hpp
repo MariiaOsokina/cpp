@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:40:38 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/08 14:29:30 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/09 10:48:18 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typename T::iterator easyfind(T& container, int value)
 {
 	typename T::iterator it = std::find(container.begin(), container.end(), value);
 	if (it == container.end())
-		throw std::runtime_error("Interger not found in container.");
+		throw std::runtime_error("Integer not found in container.");
 	return it;
 }
 

@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:55:40 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/08 14:21:03 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/09 10:50:48 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class Span
 {
 	public:
 
-		// Constructors / Rule of Three
+		// Rule of Three
 		Span(unsigned int N);
 		Span(const Span &other);
 		Span &operator= (const Span &other);
@@ -40,7 +40,7 @@ class Span
 		
 		void printStorage() const;
 
-		// Exception Classes ---
+		// Exception Classes
 		class FullSpanException : public std::exception {
 			public:
 				const char* what() const throw();
