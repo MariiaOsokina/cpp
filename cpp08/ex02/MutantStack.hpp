@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 14:36:18 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/08 13:08:11 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/09 10:51:30 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,17 @@ template <typename T>
 class MutantStack: public std::stack<T>
 {
 	public:
+		// Rule of Three
 		MutantStack();
 		MutantStack(const MutantStack &other);
 		MutantStack& operator =(const MutantStack &other);
 		~MutantStack();
+
 		typedef typename std::stack<T>::container_type::iterator iterator;
+
+		// Member Functions
 		iterator begin();
 		iterator end();
-
 };
 
 #include "MutantStack.tpp"
