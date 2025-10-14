@@ -6,13 +6,13 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 11:14:57 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/14 13:07:13 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:00:24 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
-bool valideFile(int argc, char *argv[], std::ifstream &infile)
+bool valideInputFile(int argc, char *argv[], std::ifstream &infile)
 {
 	if (argc != 2)
 	{
@@ -23,7 +23,7 @@ bool valideFile(int argc, char *argv[], std::ifstream &infile)
 	infile.open(filename.c_str());
 	if (!infile.is_open())
 	{
-		std::cerr << "\033[31m" << "Error: could not open file " << "\033[0m" << std::endl;
+		std::cerr << "\033[31m" << "Error: could not open file " << filename << "\033[0m" << std::endl;
 		return false;
 	}
 	return true;
@@ -31,14 +31,18 @@ bool valideFile(int argc, char *argv[], std::ifstream &infile)
 
 int main(int argc, char *argv[])
 {
-	std::ifstream infile;
-	std::ifstream exchangeRateFile;
-
-	std::map<std::string,float> btcMap;
-
-	if (!valideFile(argc, argv, infile))
+	std::ifstream infile;	
+	if (!valideInputFile(argc, argv, infile))
 		return 1;
-	if (!parsingExchangRate(exchangeRateFile, btcMap))
-		return 1;
+	Btc btcTest;
+	if (! btcTest.parsingExchangRate(CSV_FILE))
+			return 1;
+	std::string line;
+	while (std::getline(infile, line))
+	{
+		std::string dateToFind = "2012-04-02"; // // to be added function for parsing
+		float value = 1000; // to be added function for parsing
+		btcTest.calculateResult(dateToFind, value);
+	}	
 	return 0;
 }

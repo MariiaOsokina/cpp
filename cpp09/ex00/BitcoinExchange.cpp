@@ -6,30 +6,65 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 12:34:30 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/14 13:16:46 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:00:19 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
-bool parsingExchangRate(std::ifstream &exchangeRateFile, std::map<std::string,float> &btcMap)
+Btc::Btc()
+{}
+
+Btc::Btc(const Btc &other): _btcMap(other._btcMap)
+{}
+
+Btc& Btc::operator = (const Btc &other)
 {
-	std::string filename = "../data.csv";
-	std::string line;
-	exchangeRateFile.open(filename.c_str());
+	if (this != &other)
+		this->_btcMap = other._btcMap;
+	return (*this);
+}
+
+Btc::~Btc()
+{}
+
+bool Btc::parsingExchangRate(std::string filename)
+{
+	std::ifstream exchangeRateFile(filename.c_str());
 	if (!exchangeRateFile.is_open())
 	{
 		std::cerr << "\033[31m" << "Error: could not open file " << filename << "\033[0m" << std::endl;
 		return false;
 	}
+	std::string line;
 	while (std::getline(exchangeRateFile, line))
 	{
 		std::string date = "2012-04-02"; // // add function for parsing
-		float exchangeRate = 4.63; // add function for parsing
+		float exchangeRate = 1.1; // add function for parsing
 		
-		btcMap[date] = exchangeRate;
+		_btcMap[date] = exchangeRate;
 		std::cout << line << std::endl;
 	}
 	return true;
+}
+
+void Btc::calculateResult(std::string &dateToFind, float value)
+{
+	if (value < 0)
+	{
+		std::cerr << "\033[31m" << "Error: not a positive number." << "\033[0m" << std::endl;
+		return ;
+	}
+	// INT_MAX?? casting
+	if (value > 1000)
+	{
+		std::cerr << "\033[31m" << "Error: too large number." << "\033[0m" << std::endl;
+		return ;
+	}
+	std::map<std::string,float>::iterator it;
+
+	
+	float result = value *_btcMap[dateToFind];
+	std::cout << dateToFind << " => " << value << " = " << result << std::endl;
 }
 
