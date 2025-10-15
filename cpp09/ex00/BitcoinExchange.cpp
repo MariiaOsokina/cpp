@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 12:34:30 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/14 16:00:19 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/15 12:04:00 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ Btc& Btc::operator = (const Btc &other)
 Btc::~Btc()
 {}
 
-bool Btc::parsingExchangRate(std::string filename)
+bool Btc::parsingExchangRate(std::string &filename)
 {
 	std::ifstream exchangeRateFile(filename.c_str());
 	if (!exchangeRateFile.is_open())
@@ -55,7 +55,6 @@ void Btc::calculateResult(std::string &dateToFind, float value)
 		std::cerr << "\033[31m" << "Error: not a positive number." << "\033[0m" << std::endl;
 		return ;
 	}
-	// INT_MAX?? casting
 	if (value > 1000)
 	{
 		std::cerr << "\033[31m" << "Error: too large number." << "\033[0m" << std::endl;
@@ -63,7 +62,6 @@ void Btc::calculateResult(std::string &dateToFind, float value)
 	}
 	std::map<std::string,float>::iterator it;
 
-	
 	float result = value *_btcMap[dateToFind];
 	std::cout << dateToFind << " => " << value << " = " << result << std::endl;
 }
