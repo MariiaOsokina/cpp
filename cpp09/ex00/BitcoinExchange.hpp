@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 12:34:54 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/14 16:00:22 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/17 15:23:43 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ class Btc
 		~Btc();
 		bool parsingExchangRate(std::string &filename);
 		void calculateResult(std::string &dateToFind, float value);
+
+		typedef std::map<std::string,float>::iterator iterator;
+
 	private:
 		// void parseRate();
 		std::map<std::string,float> _btcMap;
