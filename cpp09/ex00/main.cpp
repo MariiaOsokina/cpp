@@ -6,12 +6,12 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 11:14:57 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/15 16:57:26 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/17 15:27:03 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-
+#include <stdlib.h>
 bool valideInputFile(int argc, char *argv[], std::ifstream &infile)
 {
 	if (argc != 2)
@@ -48,7 +48,7 @@ bool isLeap(int year) {
 	return false;
 }
 
-bool getMaxDays(int year, int month) {
+int getMaxDays(int year, int month) {
 	switch (month)
 		{
 		case 4: case 6: case 9: case 11:
@@ -85,11 +85,12 @@ bool checkDate(std::string &dateToFind)
 
 int main(int argc, char *argv[])
 {
-	std::ifstream infile;	
+	std::string fileCsv = CSV_FILE;
+	std::ifstream infile;
 	if (!valideInputFile(argc, argv, infile))
 		return 1;
 	Btc btcTest;
-	if (! btcTest.parsingExchangRate(CSV_FILE))
+	if (! btcTest.parsingExchangRate(fileCsv))
 			return 1;
 	std::string line;
 	while (std::getline(infile, line))
@@ -101,3 +102,6 @@ int main(int argc, char *argv[])
 	}	
 	return 0;
 }
+
+
+//at ???

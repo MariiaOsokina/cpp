@@ -6,13 +6,13 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 12:34:30 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/15 12:04:00 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/17 15:27:36 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
-Btc::Btc()
+Btc::Btc() //add default value for map???
 {}
 
 Btc::Btc(const Btc &other): _btcMap(other._btcMap)
@@ -48,6 +48,10 @@ bool Btc::parsingExchangRate(std::string &filename)
 	return true;
 }
 
+/* An element in an  is stored as a std::pair<const Key, T>.
+it->first Accesses the key stored in the pair pointed to by the iterator.
+it->second - Accesses the mapped value stored in the pair pointed to by the iterator.*/
+
 void Btc::calculateResult(std::string &dateToFind, float value)
 {
 	if (value < 0)
@@ -60,9 +64,15 @@ void Btc::calculateResult(std::string &dateToFind, float value)
 		std::cerr << "\033[31m" << "Error: too large number." << "\033[0m" << std::endl;
 		return ;
 	}
-	std::map<std::string,float>::iterator it;
-
-	float result = value *_btcMap[dateToFind];
+	Btc::iterator it = _btcMap.find(dateToFind);
+	float rate;
+	if (it != _btcMap.end())
+		rate = it->second;
+	else// key does not exist, seach the closest lower date 
+	{
+		it = _btcMap.lower_bound(dateToFind);
+		rate = it->second;
+	} 
+	float result = value * rate;
 	std::cout << dateToFind << " => " << value << " = " << result << std::endl;
 }
-
