@@ -6,12 +6,15 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 11:14:57 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/17 15:27:03 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/21 15:32:06 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 #include <stdlib.h>
+#include <cerrno>  // errno, ERANGE
+
+
 bool valideInputFile(int argc, char *argv[], std::ifstream &infile)
 {
 	if (argc != 2)
@@ -32,7 +35,11 @@ bool valideInputFile(int argc, char *argv[], std::ifstream &infile)
 long stringToLong(std::string string, long &result)
 {
 	char *endptr;
+
+	errno = 0;
 	result = strtol(string.c_str(), &endptr, 10);
+	if (errno == ERANGE) 
+		return false;
 	if (*endptr != '\0')
 		return false;
 	return true;
