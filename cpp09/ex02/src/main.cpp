@@ -6,15 +6,18 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 13:37:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/21 15:51:49 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/22 13:54:07 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <string>
+// #include <string>
 #include <limits>
 #include <cerrno>  // errno, ERANGE
 #include <climits> // Needed for INT_MAX
+#include <ctime> // for clock()
+#include <vector>
+#include <cstdlib>  // for strtol or atoi
 
 
 bool isItPositiveInt(const char *str)
@@ -35,28 +38,51 @@ bool isItPositiveInt(const char *str)
 	return true;
 }
 
-int checkArgs(int argc, char **argv)
+bool validateArgs(int argc, char **argv)
 {
 	if (argc == 1)
 	{
 		std::cerr << "Error\n" << "No arguments passed" << std::endl;
-		return 1;
+		return false;
 	}
-	for (int i = 1; argv[i]; i++)
+	for (int i = 1; i < argc; i++)
 	{
 		const char *arg_str = argv[i];
 		if (!isItPositiveInt(arg_str))
 		{
 			std::cerr << "Error\n" << "Should be only positive integers" << std::endl;
-			return 1;
+			return false;
 		}
 	}
-	return 0;
+	return true;
 }
+
+std::vector<int> argsToVec(int argc, char **argv)
+{
+	std::vector<int> vec;
+
+	for (int i = 1; i < argc; i++)
+        vec.push_back(std::atoi(argv[i]));
+		
+	return vec;
+}
+
+/*clock() returns the processor time (CPU time) used by your program.*/
 
 int main(int argc, char **argv)
 {
-	if (!checkArgs(argc, argv))
+	if (!validateArgs(argc, argv))
 		return 1;
+	std::vector<int> vec = argsToVec(argc, argv);
+	
+    clock_t start, end;
+    double cpuTimeUsed;
+    start = clock();
+	
+	end = clock();
+	cpuTimeUsed = static_cast<double>(end - start) / CLOCKS_PER_SEC;
+
+	std::cout << cpuTimeUsed << std::endl;
+
 	return 0;
 }
