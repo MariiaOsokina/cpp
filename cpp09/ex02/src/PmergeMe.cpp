@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 15:26:28 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/23 21:46:15 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/23 22:46:48 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,24 +81,25 @@ void PmergeMe::_storePend(std::vector<int>& pend, vecIt PairStart, vecIt PairEnd
 
 void PmergeMe::mergeInsertSort(std::vector<int> &vec, vecIt &startIt, vecIt &EndIt, size_t level)
 {
-	size_t totalNmbsInLevel = EndIt - startIt;
-	if (totalNmbsInLevel <= 1) //empty or  one element
+	size_t totalNmbsInLevel = EndIt - startIt; //?? +1
+	if (totalNmbsInLevel <= 1) //empty or  one nbr
 		return;
 
-	size_t nextNmbsInElement = 1 << (level + 1);
-    if (nextNmbsInElement > totalNmbsInLevel)
-		return;
-
+	// size_t nextNmbsInElement = 1 << level;
 	size_t nmbsInElement = 1 << level; //2 , 4, 8, 16, 32, 
+
+    if (nmbsInElement > totalNmbsInLevel)
+		return;
+
 	size_t nmbsInPair = nmbsInElement / 2;
 	size_t elementsInLevel = totalNmbsInLevel / nmbsInElement;
 	size_t pairsInLevel = totalNmbsInLevel / nmbsInPair;
 
 	_sortPairs(vec, elementsInLevel, nmbsInPair);
 
-	vecIt newEndIt = _next(startIt, (pairsInLevel * nmbsInPair));
-	if (elementsInLevel > 2)
-		mergeInsertSort(vec, startIt, newEndIt, level + 1); ////sort recursion
+	vecIt newEndIt = _next(startIt, (elementsInLevel * nmbsInElement));
+	// if (elementsInLevel > 2)
+	mergeInsertSort(vec, startIt, newEndIt, level + 1); ////sort recursion
 	
 	// vecIt mainChainEnd = _next(startIt, (pairsInLevel * nmbsInPair));
 	//continue insertion //
