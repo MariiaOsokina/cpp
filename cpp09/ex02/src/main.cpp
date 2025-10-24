@@ -6,9 +6,11 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 13:37:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/22 13:54:07 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/24 14:03:35 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../include/PmergeMe.hpp"
 
 #include <iostream>
 // #include <string>
@@ -18,7 +20,6 @@
 #include <ctime> // for clock()
 #include <vector>
 #include <cstdlib>  // for strtol or atoi
-
 
 bool isItPositiveInt(const char *str)
 {
@@ -62,7 +63,7 @@ std::vector<int> argsToVec(int argc, char **argv)
 	std::vector<int> vec;
 
 	for (int i = 1; i < argc; i++)
-        vec.push_back(std::atoi(argv[i]));
+		vec.push_back(std::atoi(argv[i]));
 		
 	return vec;
 }
@@ -75,14 +76,26 @@ int main(int argc, char **argv)
 		return 1;
 	std::vector<int> vec = argsToVec(argc, argv);
 	
-    clock_t start, end;
-    double cpuTimeUsed;
-    start = clock();
+	PmergeMe pm;
+
+	std::cout << "Before:	";
+	pm.printVector(vec);
+
+	clock_t start, end;
+	double cpuTimeUsed;
+	start = clock();
 	
+	std::vector<int>::iterator levelEndIt = vec.end();
+	pm.mergeInsertSort(vec, levelEndIt, 1);
+	size_t vecNmbComp =  pm.getNmbComp();
+
 	end = clock();
 	cpuTimeUsed = static_cast<double>(end - start) / CLOCKS_PER_SEC;
 
-	std::cout << cpuTimeUsed << std::endl;
+	std::cout << "After:	";
+	pm.printVector(vec);
+	std::cout << "Time to process a range of 3000 elements with std::[..] : " << cpuTimeUsed << " us" << std::endl;
+	std::cout << "Number of comparisons in std::vec" << vecNmbComp << std::endl;
 
 	return 0;
 }
