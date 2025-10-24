@@ -6,107 +6,136 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 15:26:28 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/23 22:46:48 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/10/24 14:45:22 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/PmergeMe.hpp"
 
-PmergeMe::vecIt PmergeMe::_next(vecIt &it, int dist)
+// PmergeMe::vecIt PmergeMe::_next(vecIt &it, int dist)
+// {
+// 	vecIt newIt(it);
+// 	std::advance(newIt, dist);
+// 	return newIt;
+// }
+
+void PmergeMe::printVector(const std::vector<int>& vec)
 {
-	vecIt newIt(it);
-	std::advance(newIt, dist);
-	return newIt;
+	std::cout << "[";
+	// Using index access:
+	for (size_t i = 0; i < vec.size(); ++i) {
+		std::cout << vec[i] << " ";
+	}
+	std::cout << "]" << std::endl;
 }
 
-void PmergeMe::_sortPairs(std::vector<int>& vec, size_t elementsInLevel, size_t nmbsInPair)
+size_t PmergeMe::getNmbComp() const
 {
-	vecIt lPairStart = vec.begin();
-	vecIt rPairStart, lPairEnd, rPairEnd;
+	return (this->_nmbComp);
+}
 
-	for (int i = 0; i < elementsInLevel; i++)
+void PmergeMe::_sortPairs(std::vector<int>& vec, size_t pairsInLevel, size_t nmbsInBlock) //?
+{
+	vecIt lBlockStart = vec.begin();
+	vecIt rBlockStart, lBlockEnd, rBlockEnd;
+
+	for (int i = 0; i < pairsInLevel; i++)
 	{
-		rPairStart = _next(lPairStart, nmbsInPair);
-		lPairEnd = _next(lPairStart, nmbsInPair - 1);
-		rPairEnd = _next(rPairStart, nmbsInPair - 1);
+		rBlockStart = lBlockStart + nmbsInBlock;
+		lBlockEnd = lBlockStart + (nmbsInBlock - 1);
+		rBlockEnd = rBlockStart + (nmbsInBlock - 1);
 
-		if (*lPairEnd > *rPairEnd) // Comparison and Swap
+		if (*lBlockEnd > *rBlockEnd) // Comparison and Swap
 		{
 			_nmbComp++;
-			vecIt leftMover = lPairStart;
-			vecIt rightMover = rPairStart;
-			for (int j = 0; j < nmbsInPair; j++)
-
+			vecIt leftMover = lBlockStart;
+			vecIt rightMover = rBlockStart;
+			for (int j = 0; j < nmbsInBlock; j++)
 			{
 				std::iter_swap(leftMover, rightMover);
 				leftMover++;
 				rightMover++;
 			}
 		}
-		lPairStart = _next(lPairStart, nmbsInPair * 2); //to the next element block
+		lBlockStart = lBlockStart + (nmbsInBlock * 2); //to the next element block
 	}
 }
 
-void PmergeMe::_storePend(std::vector<int>& pend, vecIt PairStart, vecIt PairEnd)
+std::vector<int> PmergeMe::_createPend(std::vector<int>& vec, vecIt &levelEndIt, size_t nmbsInBlock)
 {
-	std::copy(pendStart, pendEnd,  std::back_inserter(pend));
+	std::vector<int> pend;
+	
+	vecIt startIt  = vec.begin();
+	vecIt lBlockStart = startIt + (nmbsInBlock * 2);
+	vecIt lBlockEnd = lBlockStart + nmbsInBlock;
+	while (lBlockStart < levelEndIt)
+	{
+		std::copy(lBlockStart, lBlockEnd, std::back_inserter(pend));// copy leftPair;
+		std::advance(lBlockStart, nmbsInBlock * 2); // move to next element
+		std::advance(lBlockEnd, nmbsInBlock * 2); // move to next element
+	}
+	
+	return pend;
 }
 
-	// vecIt totalElementsEnd = _next(startIt, pairsInLevel * nmbsInPair);//???
-
-	// std::vector<int> tempPend();
-	// bool isOdd = false;
-	// if (nmbsToBeSorted % nmbsInElement != 0) //if odd pair
-	// 	isOdd = true;
-	// if (isOdd)
-	// {
-	// 	vecIt totalPairesEnd = _next(startIt, pairsInLevel * nmbsInPair);//???
-	// 	std::copy(totalElementsEnd + 1, pendEnd,  std::back_inserter(tempPend));
-	// }
-
-
-
-// 1. Pairing and Block-Swapping Phase 
-//    - Identify winners (Main Chain) and losers (Pendulums)
-
-// 2. Separate them (Conceptual)
-//    - Store Pendulums in a temporary container (T)
-//    - The Main Chain (M) is now contiguous at the front of vec
-
-// 3. Recursive Sort
-//mergeInsertSort(vec, end_of_main_chain_iterator, level + 1);
-
-// 4. Insertion Phase
-//    - Insert the elements from T into the sorted M using binary search in Jacobsthal order.
-
-void PmergeMe::mergeInsertSort(std::vector<int> &vec, vecIt &startIt, vecIt &EndIt, size_t level)
+std::vector<int> PmergeMe::_createMain(std::vector<int>& vec, vecIt &levelEndIt, size_t nmbsInBlock)
 {
-	size_t totalNmbsInLevel = EndIt - startIt; //?? +1
+	std::vector<int> main;
+	
+	vecIt startIt  = vec.begin();
+	vecIt firstPairEndIt  = startIt + (nmbsInBlock * 2);
+	std::copy(startIt, firstPairEndIt, std::back_inserter(main));// fisrt pair;
+
+
+	vecIt rBlockStart = firstPairEndIt + nmbsInBlock;
+	vecIt rBlockEnd = rBlockStart + nmbsInBlock;
+	while (rBlockStart < levelEndIt) //while (rBlockStart + nmbsInBlock <= levelEndIt)??
+	{
+		std::copy(rBlockStart, rBlockEnd, std::back_inserter(main));// copy rightPair;
+		std::advance(rBlockStart, nmbsInBlock * 2); // move to next element
+		std::advance(rBlockEnd, nmbsInBlock * 2); // move to next element
+	}
+	return main;
+}
+
+/*Insertion with specific order defined by the JACOBSTHAL number sequence
+to optimize the number of comparisons.*/
+
+void PmergeMe::_invertPendToMain(std::vector<int>& main, std::vector<int>& pend)
+{
+	//to be added;
+}
+
+void PmergeMe::_copyMainToVec(std::vector<int>& vec, std::vector<int>& main, size_t totalNmbsInLevel)
+{
+	
+	vecIt mainStartIt  = main.begin();
+	vecIt mainEndIt  = mainStartIt + totalNmbsInLevel;
+	std::copy(mainStartIt, mainEndIt, vec.begin());
+}
+
+void PmergeMe::mergeInsertSort(std::vector<int> &vec, vecIt &levelEndIt, size_t level)
+{
+	vecIt startIt  = vec.begin();
+	
+	size_t totalNmbsInLevel = levelEndIt - startIt; //?? +1
 	if (totalNmbsInLevel <= 1) //empty or  one nbr
 		return;
 
-	// size_t nextNmbsInElement = 1 << level;
-	size_t nmbsInElement = 1 << level; //2 , 4, 8, 16, 32, 
+	size_t nmbsInPair = 1 << level; //2 , 4, 8, 16, 32, 
 
-    if (nmbsInElement > totalNmbsInLevel)
+	if (nmbsInPair > totalNmbsInLevel)
 		return;
 
-	size_t nmbsInPair = nmbsInElement / 2;
-	size_t elementsInLevel = totalNmbsInLevel / nmbsInElement;
+	size_t nmbsInBlock = nmbsInPair / 2;
 	size_t pairsInLevel = totalNmbsInLevel / nmbsInPair;
 
-	_sortPairs(vec, elementsInLevel, nmbsInPair);
+	_sortPairs(vec, pairsInLevel, nmbsInBlock);
 
-	vecIt newEndIt = _next(startIt, (elementsInLevel * nmbsInElement));
-	// if (elementsInLevel > 2)
-	mergeInsertSort(vec, startIt, newEndIt, level + 1); ////sort recursion
-	
-	// vecIt mainChainEnd = _next(startIt, (pairsInLevel * nmbsInPair));
-	//continue insertion //
+	vecIt newLevelEndIt = startIt + (pairsInLevel * nmbsInPair);
+	mergeInsertSort(vec, newLevelEndIt, level + 1); ////sort recursion
+	std::vector<int> pend = _createPend(vec, levelEndIt, nmbsInBlock);
+	std::vector<int> main = _createMain(vec, levelEndIt, nmbsInBlock);
+	_invertPendToMain(main, pend);
+	_copyMainToVec(vec, main, totalNmbsInLevel);
 }
-
-// void PmergeMe::_storeTempPend(std::vector<int>& pend, vecIt PairStart, vecIt PairEnd)
-// {
-// 	std::copy(pendStart, pendEnd,  std::back_inserter(pend));
-// }
-
