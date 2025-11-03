@@ -6,14 +6,14 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 13:37:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/10/24 14:03:35 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/03 22:54:26 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/PmergeMe.hpp"
 
 #include <iostream>
-// #include <string>
+#include <string>
 #include <limits>
 #include <cerrno>  // errno, ERANGE
 #include <climits> // Needed for INT_MAX
@@ -34,7 +34,8 @@ bool isItPositiveInt(const char *str)
 	temp_long_value = strtol(str, &endptr, 10);
 	if (*endptr != '\0' || endptr == str || errno == ERANGE)
 		return false;
-	if (temp_long_value == 0 || temp_long_value > INT_MAX)
+	// if (temp_long_value == 0 || temp_long_value > INT_MAX) // without 0
+	if (temp_long_value > INT_MAX)
 		return false;
 	return true;
 }
@@ -84,10 +85,14 @@ int main(int argc, char **argv)
 	clock_t start, end;
 	double cpuTimeUsed;
 	start = clock();
-	
-	std::vector<int>::iterator levelEndIt = vec.end();
-	pm.mergeInsertSort(vec, levelEndIt, 1);
-	size_t vecNmbComp =  pm.getNmbComp();
+
+
+	std::vector<int>::iterator lastElementIt = vec.end();
+	lastElementIt --;
+	std::cout << "TEST Last Element : " << *lastElementIt << std::endl;
+
+	pm.mergeInsertSort(vec, lastElementIt, 1);
+	// size_t vecNmbComp =  pm.getNmbComp();
 
 	end = clock();
 	cpuTimeUsed = static_cast<double>(end - start) / CLOCKS_PER_SEC;
@@ -95,7 +100,7 @@ int main(int argc, char **argv)
 	std::cout << "After:	";
 	pm.printVector(vec);
 	std::cout << "Time to process a range of 3000 elements with std::[..] : " << cpuTimeUsed << " us" << std::endl;
-	std::cout << "Number of comparisons in std::vec" << vecNmbComp << std::endl;
+	// std::cout << "Number of comparisons in std::vec : " << vecNmbComp << std::endl;
 
 	return 0;
 }
