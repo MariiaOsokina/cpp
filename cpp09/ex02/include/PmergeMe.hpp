@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 13:54:50 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/03 21:51:45 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/04 11:36:15 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ class PmergeMe
 	
 		std::vector<vecIt> _createPend(std::vector<int>& vec, vecIt &levelLastElemIt, size_t nmbsInBlock);
 		void _insertPendToMain(std::vector<vecIt>& main, std::vector<vecIt>& pend);
+		void _jackNumInvertion(std::vector<vecIt>& main, std::vector<vecIt>& pend);
+		void _orderedInvertion(std::vector<vecIt>& main, std::vector<vecIt>& pend);
+
 		void _copyMainToVec(std::vector<int>& vec, std::vector<vecIt>& main, size_t nmbsInBlock);
 		long _jacobsthalNumber(long n);
 

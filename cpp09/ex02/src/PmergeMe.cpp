@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 15:26:28 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/03 21:55:16 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/04 13:35:32 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,14 +155,11 @@ partially ordered range to find the "UPPER BOUND" of a value in a range.
 It returns an iterator pointing to the first element in the range [first, last)
 whose value is greater than the specified search value.*/
 
-void PmergeMe::_insertPendToMain(std::vector<vecIt>& main, std::vector<vecIt>& pend)
+void PmergeMe::_jackNumInvertion(std::vector<vecIt>& main, std::vector<vecIt>& pend)
 {
-	if (pend.empty())
-		return ;
-	// int prevJN = _jacobsthalNumber(1); // 1
 	int prevJN = 1; // 1
 	int insertedCount = 0;
-	for (int k = 2;; k++)
+	for (size_t k = 2;; k++)
 	{
 		int currJN = _jacobsthalNumber(k);
 
@@ -178,11 +175,11 @@ void PmergeMe::_insertPendToMain(std::vector<vecIt>& main, std::vector<vecIt>& p
 		std::vector<vecIt>::iterator boundIt = main.begin() + (currJN + insertedCount);
 		// std::cout << "TEST4 boundIt it: " << boundIt << std::endl;
 
-		for (int i = jackDiff; i > 0; --i)
+		for (size_t i = jackDiff; i > 0; --i)
 		{
 			std::vector<vecIt>::iterator idxToInsert = std::upper_bound(main.begin(), boundIt, *pendIt, _comp);
-			// std::cout << "TEST3 pend it: " << *(*pendIt) << std::endl;
-			std::cout << "TEST5!!!!!!! idxToInsert it: " << *(*idxToInsert) << std::endl;
+			std::cout << "TEST3 pend it: " << "\n\033[33m" << *(*pendIt) << "\n\033[0m" << std::endl;
+			std::cout << "TEST5!!!!!!! idxToInsert it: " << "\n\033[33m" << *(*idxToInsert) << "\n\033[0m" << std::endl;
 
 			std::vector<vecIt>::iterator inserted = main.insert(idxToInsert, *pendIt);
 			pendIt = pend.erase(pendIt);
@@ -200,15 +197,66 @@ void PmergeMe::_insertPendToMain(std::vector<vecIt>& main, std::vector<vecIt>& p
 		prevJN = currJN;
 		insertedCount += jackDiff;
 	}
-	// Insert the remaining elements in the reversed order
+}
 
+
+// /* Insert the remaining elements in the reversed order. Here we also want to
+//        perform as less comparisons as possible, so we calculate the starting bound
+//        to insert pend number to be the pair of the first pend number. If the first
+//        pend number is b8, the bound is a8, if the pend number is b7, the bound is a7 etc.
+//        With the way I do it the index of bound is
+//        size_of_main - size_of_pend + index_of_current_pend. */
+//     for (ssize_t i = pend.size() - 1; i >= 0; i--)
+//     {
+//         typename std::vector<Iterator>::iterator curr_pend = next(pend.begin(), i);
+//         typename std::vector<Iterator>::iterator curr_bound =
+//             next(main.begin(), main.size() - pend.size() + i + is_odd);
+//         typename std::vector<Iterator>::iterator idx =
+//             std::upper_bound(main.begin(), curr_bound, *curr_pend, _comp<Iterator>);
+//         main.insert(idx, *curr_pend);
+//     }
+
+void PmergeMe::_orderedInvertion(std::vector<vecIt>& main, std::vector<vecIt>& pend)
+{
+	bool isOdd = false;
+	if (pend.size() + main.size() % 2 != 0)
+		isOdd = true;
+	for (size_t i = pend.size() - 1; i >= 0; i--)
+	{
+		std::vector<vecIt>::iterator pendIt = pend.begin() + (i - 1);
+		std::vector<vecIt>::iterator boundIt = main.begin() + (main.size() - 1  + i + isOdd);
+		std::vector<vecIt>::iterator idxToInsert = std::upper_bound(main.begin(), boundIt, *pendIt, _comp);
+		
+		std::cout << "TEST3 pend it: " << "\n\033[33m" << *(*pendIt) << "\n\033[0m" << std::endl;
+		std::cout << "TEST5!!!!!!! idxToInsert it: " << "\n\033[33m" << *(*idxToInsert) << "\n\033[0m" << std::endl;
+		
+		std::vector<vecIt>::iterator inserted = main.insert(idxToInsert, *pendIt);
+		(void)inserted;
+		pendIt = pend.erase(pendIt);
+		
+		
+		std::cout << "TEST6 pend after: " << std::endl;
+		this->printItVector(pend);
+		std::cout << "TEST6 main after: " << std::endl;
+		this->printItVector(main);
+	}
+}
+
+void PmergeMe::_insertPendToMain(std::vector<vecIt>& main, std::vector<vecIt>& pend)
+{
+	if (pend.empty())
+		return ;
+	_jackNumInvertion(main, pend);
+	std::cout << "TESTTTTTTTTTTTTTTTTTTTTTTTT" << std::endl;
+
+	_orderedInvertion(main, pend);
 }
 
 void PmergeMe::_copyMainToVec(std::vector<int>& vec, std::vector<vecIt>& main, size_t nmbsInBlock)
 {
 	std::vector<int> tmpVec;
 	tmpVec.reserve(vec.size());
-	for (int i = 0; i < static_cast<int>(main.size()); i ++)
+	for (size_t i = 0; i < static_cast<size_t>(main.size()); i ++)
 	{
 		std::vector<vecIt>::iterator itFromMain = main.begin() + i;
 		vecIt itInBlock = *itFromMain - (nmbsInBlock + 1);
@@ -263,7 +311,7 @@ void PmergeMe::mergeInsertSort(std::vector<int> &vec, vecIt &levelLastElemIt, si
 	mergeInsertSort(vec, newLevelEndIt, level + 1); ////sort recursion
 
 	std::vector<std::vector<int>::iterator> pend = _createPend(vec, levelLastElemIt, nmbsInBlock);
-	std::cout << "TEST pend level : " << level << std::endl;
+	std::cout << "\n\033[33m" << "TEST pend level : " << level << "\n\033[0m" << std::endl;
 	std::cout << "TEST vec: " << std::endl;
 	this->printVector(vec);
 	std::cout << "TEST pend before: " << std::endl;
