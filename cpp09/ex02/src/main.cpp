@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 13:37:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/03 22:54:26 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/05 16:56:02 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <ctime> // for clock()
 #include <vector>
 #include <cstdlib>  // for strtol or atoi
+#include <algorithm>
 
 bool isItPositiveInt(const char *str)
 {
@@ -64,10 +65,50 @@ std::vector<int> argsToVec(int argc, char **argv)
 	std::vector<int> vec;
 
 	for (int i = 1; i < argc; i++)
-		vec.push_back(std::atoi(argv[i]));
-		
+		vec.push_back(std::atoi(argv[i]));	
 	return vec;
 }
+
+size_t compTest(size_t elemNmb)
+{
+	size_t sum = 0;
+	for (size_t k = 1; k <= elemNmb; ++k)
+	{
+		double value = (3.0 / 4.0) * k;
+		sum += static_cast<int>(ceil(log2(value)));
+	}
+	return sum;
+}
+
+bool isVecSorted(const std::vector<int>& vec)
+{
+	if (vec.size() <= 1)
+		return true;
+	for (size_t i = 1; i < vec.size(); ++i)
+	{
+		if (vec[i] < vec[i - 1])
+			return false;
+	}
+	return true;
+}
+
+void additionalTests(const std::vector<int>& vec, size_t vecSize)
+{
+	std::cout << "\033[33m" << "\nTEST 1: Number of comparisons" << "\033[0m"  << std::endl;
+	size_t maxComp = compTest(vecSize);
+	if (maxComp >= PmergeMe::nmbComp)
+		std::cout << "\033[32m" << "Number osf comparisons do not exceed the max limit:" << compTest(vecSize) << "\n\033[0m" << std::endl;
+	else
+		std::cout << "\033[31m" << "Number osf comparisons EXCEEDS the max limit: " << compTest(vecSize) << "\n\033[0m" << std::endl;
+
+	std::cout << "\033[33m" << "TEST 2: Sorting" << "\033[0m"  << std::endl;
+
+	if (isVecSorted(vec))
+		std::cout << "\033[32m" << "VECTOR IS SORTED!" << "\n\033[0m" << std::endl;
+	else
+		std::cout << "\033[31m" << "VECTOR IS UNSORTED!" << "\n\033[0m" << std::endl;
+}
+
 
 /*clock() returns the processor time (CPU time) used by your program.*/
 
@@ -78,9 +119,11 @@ int main(int argc, char **argv)
 	std::vector<int> vec = argsToVec(argc, argv);
 	
 	PmergeMe pm;
+	// PmergeMe::nmbComp = 0;
 
 	std::cout << "Before:	";
 	pm.printVector(vec);
+	size_t vecSize = vec.size();
 
 	clock_t start, end;
 	double cpuTimeUsed;
@@ -89,7 +132,7 @@ int main(int argc, char **argv)
 
 	std::vector<int>::iterator lastElementIt = vec.end();
 	lastElementIt --;
-	std::cout << "TEST Last Element : " << *lastElementIt << std::endl;
+	// std::cout << "TEST Last Element : " << *lastElementIt << std::endl;
 
 	pm.mergeInsertSort(vec, lastElementIt, 1);
 	// size_t vecNmbComp =  pm.getNmbComp();
@@ -99,8 +142,7 @@ int main(int argc, char **argv)
 
 	std::cout << "After:	";
 	pm.printVector(vec);
-	std::cout << "Time to process a range of 3000 elements with std::[..] : " << cpuTimeUsed << " us" << std::endl;
-	// std::cout << "Number of comparisons in std::vec : " << vecNmbComp << std::endl;
-
-	return 0;
+	std::cout << "Time to process a range of " << vecSize << " elements with std::[..] : " << cpuTimeUsed << " us" << std::endl;
+	
+	additionalTests(vec, vecSize);
 }
