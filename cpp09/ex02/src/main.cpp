@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 13:37:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/05 16:56:02 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:20:34 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@
 #include <cerrno>  // errno, ERANGE
 #include <climits> // Needed for INT_MAX
 #include <ctime> // for clock()
+
 #include <vector>
+#include <list>
 #include <cstdlib>  // for strtol or atoi
 #include <algorithm>
+#include <cmath>
 
 bool isItPositiveInt(const char *str)
 {
@@ -65,9 +68,27 @@ std::vector<int> argsToVec(int argc, char **argv)
 	std::vector<int> vec;
 
 	for (int i = 1; i < argc; i++)
-		vec.push_back(std::atoi(argv[i]));	
+	{
+		long temp_long = std::strtol(argv[i], NULL, 10);
+		vec.push_back(static_cast<int>(temp_long));
+	}
 	return vec;
 }
+
+
+std::list<int> argsToList(int argc, char **argv)
+{
+	std::list<int> list;
+
+	for (int i = 1; i < argc; i++)
+	{
+		long temp_long = std::strtol(argv[i], NULL, 10);
+		list.push_back(static_cast<int>(temp_long));
+	}
+	return list;
+}
+
+
 
 size_t compTest(size_t elemNmb)
 {
@@ -75,7 +96,8 @@ size_t compTest(size_t elemNmb)
 	for (size_t k = 1; k <= elemNmb; ++k)
 	{
 		double value = (3.0 / 4.0) * k;
-		sum += static_cast<int>(ceil(log2(value)));
+		double log_base_2 = log(value) / log(2.0);
+		sum += static_cast<int>(ceil(log_base_2));
 	}
 	return sum;
 }
@@ -92,23 +114,51 @@ bool isVecSorted(const std::vector<int>& vec)
 	return true;
 }
 
-void additionalTests(const std::vector<int>& vec, size_t vecSize)
+bool isListSorted(const std::list<int>& list)
 {
-	std::cout << "\033[33m" << "\nTEST 1: Number of comparisons" << "\033[0m"  << std::endl;
-	size_t maxComp = compTest(vecSize);
-	if (maxComp >= PmergeMe::nmbComp)
-		std::cout << "\033[32m" << "Number osf comparisons do not exceed the max limit:" << compTest(vecSize) << "\n\033[0m" << std::endl;
-	else
-		std::cout << "\033[31m" << "Number osf comparisons EXCEEDS the max limit: " << compTest(vecSize) << "\n\033[0m" << std::endl;
+	if (list.size() <= 1)
+		return true;
+    std::list<int>::const_iterator current = list.begin();
+    std::list<int>::const_iterator previous = list.begin();
+	std::advance(current, 1); 
 
-	std::cout << "\033[33m" << "TEST 2: Sorting" << "\033[0m"  << std::endl;
+	while (current != list.end())
+	{
+		if (*current < *previous)
+			return false;
+		previous = current;
+		std::advance(current, 1);
+	}
+	return true;
+}
+
+void testCompNmbs(int argc)
+{
+	std::cout << "\033[33m" << "\nTEST: Number of comparisons" << "\033[0m"  << std::endl;
+	size_t maxComp = compTest(argc - 1);
+	if (maxComp >= PmergeMe::nmbCompVec)
+		std::cout << "\033[32m" << "Number osf comparisons do not exceed the max limit:" << maxComp << "\n\033[0m" << std::endl;
+	else
+		std::cout << "\033[31m" << "Number osf comparisons EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
+	if (maxComp >= PmergeMe::nmbCompVec)
+		std::cout << "\033[32m" << "Number osf comparisons do not exceed the max limit:" << maxComp << "\n\033[0m" << std::endl;
+	else
+		std::cout << "\033[31m" << "Number osf comparisons EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
+}
+
+void testSorting(const std::vector<int>& vec, const std::list<int>& list)
+{
+	std::cout << "\033[33m" << "TEST: Sorting" << "\033[0m"  << std::endl;
 
 	if (isVecSorted(vec))
 		std::cout << "\033[32m" << "VECTOR IS SORTED!" << "\n\033[0m" << std::endl;
 	else
 		std::cout << "\033[31m" << "VECTOR IS UNSORTED!" << "\n\033[0m" << std::endl;
+	if (isListSorted(list))
+		std::cout << "\033[32m" << "LIST IS SORTED!" << "\n\033[0m" << std::endl;
+	else
+		std::cout << "\033[31m" << "LIST IS UNSORTED!" << "\n\033[0m" << std::endl;
 }
-
 
 /*clock() returns the processor time (CPU time) used by your program.*/
 
@@ -116,27 +166,27 @@ int main(int argc, char **argv)
 {
 	if (!validateArgs(argc, argv))
 		return 1;
+
 	std::vector<int> vec = argsToVec(argc, argv);
+	size_t vecSize = vec.size();
 	
+	std::list<int> list = argsToList(argc, argv);
+	size_t listSize = list.size();
+
 	PmergeMe pm;
-	// PmergeMe::nmbComp = 0;
 
 	std::cout << "Before:	";
-	pm.printVector(vec);
-	size_t vecSize = vec.size();
+	for (int i = 1; i < argc; ++i)
+		std::cout << argv[i] << " ";
+	std::cout << std::endl;
 
 	clock_t start, end;
 	double cpuTimeUsed;
 	start = clock();
-
-
 	std::vector<int>::iterator lastElementIt = vec.end();
 	lastElementIt --;
 	// std::cout << "TEST Last Element : " << *lastElementIt << std::endl;
-
 	pm.mergeInsertSort(vec, lastElementIt, 1);
-	// size_t vecNmbComp =  pm.getNmbComp();
-
 	end = clock();
 	cpuTimeUsed = static_cast<double>(end - start) / CLOCKS_PER_SEC;
 
@@ -144,5 +194,6 @@ int main(int argc, char **argv)
 	pm.printVector(vec);
 	std::cout << "Time to process a range of " << vecSize << " elements with std::[..] : " << cpuTimeUsed << " us" << std::endl;
 	
-	additionalTests(vec, vecSize);
+	testCompNmbs(argc);
+	testSorting(vec, list);
 }

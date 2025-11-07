@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 13:54:50 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/05 16:41:08 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:04:49 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ class PmergeMe
 		// void printItVector(const std::vector<vecIt>& vec);
 
 		static bool compIetrators(vecIt lv, vecIt rv);
-		static size_t nmbComp;
+		static size_t nmbCompVec;
+		static size_t nmbCompList;
 
 
 	private:
