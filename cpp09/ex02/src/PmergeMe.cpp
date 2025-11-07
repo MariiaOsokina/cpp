@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 15:26:28 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/05 16:58:40 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:04:51 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 #include <cmath>
 
-size_t PmergeMe::nmbComp = 0;
+size_t PmergeMe::nmbCompVec = 0;
+size_t PmergeMe::nmbCompList = 0;
 
 PmergeMe::PmergeMe(){}
 
@@ -66,7 +67,7 @@ void PmergeMe::_sortPairs(std::vector<int>& vec, size_t pairsInLevel, size_t nmb
 
 		if (*lBlockEnd > *rBlockEnd) // Comparison and Swap
 		{
-			PmergeMe::nmbComp++;
+			PmergeMe::nmbCompVec++;
 			vecIt leftMover = lBlockStart;
 			vecIt rightMover = rBlockStart;
 			for (size_t j = 0; j < nmbsInBlock; j++)
@@ -91,7 +92,8 @@ std::vector<std::vector<int>::iterator> PmergeMe::_createPend(std::vector<int>& 
 
 	while (lBlockStart < levelLastElemIt) // while (rBlockLast < levelLastElemIt)??
 	{
-		pend.insert(pend.end(), lBlockLast);
+		// pend.insert(pend.end(), lBlockLast);
+		pend.push_back(lBlockLast);
 		std::advance(lBlockStart, nmbsInBlock * 2); // move to next element
 		std::advance(lBlockLast, nmbsInBlock * 2); // move to next element
 	}
@@ -105,15 +107,17 @@ std::vector<std::vector<int>::iterator> PmergeMe::_createMain(std::vector<int>& 
 	std::vector<vecIt> main;
 	
 	vecIt startIt  = vec.begin();
-	main.insert(main.end(), startIt + (nmbsInBlock - 1));
-	main.insert(main.end(), startIt + (nmbsInBlock * 2 - 1));
-	
+	// main.insert(main.end(), startIt + (nmbsInBlock - 1));
+	// main.insert(main.end(), startIt + (nmbsInBlock * 2 - 1));
+	main.push_back(startIt + (nmbsInBlock - 1));
+	main.push_back(startIt + (nmbsInBlock * 2 - 1));	
 	vecIt rBlockStart = startIt + (nmbsInBlock * 3);
 	vecIt rBlockLast = rBlockStart + (nmbsInBlock - 1);
 
 	while (rBlockStart < levelLastElemIt) // while (rBlockLast < levelLastElemIt)
 	{
-		main.insert(main.end(), rBlockLast);
+		// main.insert(main.end(), rBlockLast);
+		main.push_back(rBlockLast);
 		std::advance(rBlockStart, nmbsInBlock * 2); // move to next element
 		std::advance(rBlockLast, nmbsInBlock * 2); // move to next element
 	}
@@ -128,9 +132,19 @@ TO ADD!!!!!!!!! 3, 5, 11, ..
 
 */
 
+// long PmergeMe::_jacobsthalNumber(long n)
+// {
+// 	return round((pow(2, n + 1) + pow(-1, n)) / 3);
+// }
+
+#include <cmath> // make sure floor is available
+
 long PmergeMe::_jacobsthalNumber(long n)
 {
-	return round((pow(2, n + 1) + pow(-1, n)) / 3);
+	double powerOfTwo = pow(2.0, n + 1);
+	double powerOfNegOne = pow(-1.0, n);
+	double result = (powerOfTwo + powerOfNegOne) / 3.0;
+	return static_cast<long>(floor(result + 0.5));
 }
 
 /*std::upper_bound performs a BINARY SEARCH on a sorted or 
@@ -171,22 +185,50 @@ void PmergeMe::_jackNumInvertion(std::vector<vecIt>& main, std::vector<vecIt>& p
 	}
 }
 
+// void PmergeMe::_orderedInvertion(std::vector<vecIt>& main, std::vector<vecIt>& pend)
+// {
+// 	if (pend.empty())
+// 		return ;	
+// 	bool isOdd = false;
+// 	if (pend.size() + main.size() % 2 != 0)
+// 		isOdd = true;
+// 	for (int i = pend.size() - 1; i >= 0; i--)
+// 	{
+// 		std::vector<vecIt>::iterator pendIt = pend.begin() + i;
+// 		std::vector<vecIt>::iterator boundIt =
+// 			main.begin() + (main.size() - pend.size() + i + isOdd);
+// 			main.begin() + (main.size() - pend.size() + i);
+// 		std::vector<vecIt>::iterator idxToInsert =
+// 			std::upper_bound(main.begin(), boundIt, *pendIt, compIetrators);
+// 		main.insert(idxToInsert, *pendIt);
+// 	}
+// }
+
 void PmergeMe::_orderedInvertion(std::vector<vecIt>& main, std::vector<vecIt>& pend)
 {
-	if (pend.empty())
-		return ;	
-	bool isOdd = false;
-	if (pend.size() + main.size() % 2 != 0)
-		isOdd = true;
-	for (ssize_t i = pend.size() - 1; i >= 0; i--)
-	{
-		std::vector<vecIt>::iterator pendIt = pend.begin() + i;
-		std::vector<vecIt>::iterator boundIt =
-			main.begin() + (main.size() - pend.size() + i + isOdd);
-		std::vector<vecIt>::iterator idxToInsert =
-			std::upper_bound(main.begin(), boundIt, *pendIt, compIetrators);
-		main.insert(idxToInsert, *pendIt);
-	}
+    if (pend.empty())
+        return ;
+
+    // Safe countdown loop fixed previously
+    for (int i = pend.size() - 1; i >= 0; i--)
+    {
+        std::vector<vecIt>::iterator pendIt = pend.begin() + i;
+        
+        // Re-introduce the +1 correction, which addresses the straggler (odd element)
+        // that was causing the off-by-one boundary error.
+        std::vector<vecIt>::iterator boundIt =
+            main.begin() + (static_cast<int>(main.size()) - static_cast<int>(pend.size()) + i + 1); 
+            
+        // Use a safe upper bound (cannot exceed main.end())
+        if (boundIt > main.end()) {
+             boundIt = main.end();
+        }
+            
+        std::vector<vecIt>::iterator idxToInsert =
+            std::upper_bound(main.begin(), boundIt, *pendIt, compIetrators);
+            
+        main.insert(idxToInsert, *pendIt);
+    }
 }
 
 void PmergeMe::_insertPendToMain(std::vector<vecIt>& main, std::vector<vecIt>& pend)
@@ -214,14 +256,15 @@ void PmergeMe::_copyMainToVec(std::vector<int>& vec, std::vector<vecIt>& main, s
 		}
 	}
 
-	vecIt tmpIt  = tmpVec.begin();
-	vecIt vecIt  = vec.begin();
-	while(tmpIt != tmpVec.end())
-	{
-		*vecIt = *tmpIt;
-		tmpIt ++;
-		vecIt ++;
-	}		
+	// vecIt tmpIt  = tmpVec.begin();
+	// vecIt vecIt  = vec.begin();
+	std::copy(tmpVec.begin(), tmpVec.end(), vec.begin());
+	// while(tmpIt != tmpVec.end())
+	// {
+	// 	*vecIt = *tmpIt;
+	// 	tmpIt ++;
+	// 	vecIt ++;
+	// }		
 }
 
 void PmergeMe::mergeInsertSort(std::vector<int> &vec, vecIt &levelLastElemIt, size_t level)
@@ -256,7 +299,9 @@ void PmergeMe::mergeInsertSort(std::vector<int> &vec, vecIt &levelLastElemIt, si
 
 bool PmergeMe::compIetrators(vecIt lv, vecIt rv) //static function
 {
-	PmergeMe::nmbComp++;
-	return *lv <= *rv;
+	PmergeMe::nmbCompVec++;
+	// return *lv <= *rv; //??
+	return *lv < *rv; //??
+
 }
 
