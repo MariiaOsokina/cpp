@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 15:26:28 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/07 16:04:51 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/11 00:22:40 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void PmergeMe::printVector(const std::vector<int>& vec)
 
 }
 
+
+
 // void PmergeMe::printItVector(const std::vector<vecIt>& vec)
 // {
 // 	std::cout << "[";
@@ -64,10 +66,11 @@ void PmergeMe::_sortPairs(std::vector<int>& vec, size_t pairsInLevel, size_t nmb
 		rBlockStart = lBlockStart + nmbsInBlock;
 		lBlockEnd = lBlockStart + (nmbsInBlock - 1);
 		rBlockEnd = rBlockStart + (nmbsInBlock - 1);
+		
+		PmergeMe::nmbCompVec++; //fixed!!!
 
 		if (*lBlockEnd > *rBlockEnd) // Comparison and Swap
 		{
-			PmergeMe::nmbCompVec++;
 			vecIt leftMover = lBlockStart;
 			vecIt rightMover = rBlockStart;
 			for (size_t j = 0; j < nmbsInBlock; j++)
@@ -305,3 +308,140 @@ bool PmergeMe::compIetrators(vecIt lv, vecIt rv) //static function
 
 }
 
+void PmergeMe::mergeInsertSort(std::list<int> &list, listIt &levelLastElemIt, size_t level)
+{
+	std::cout << "level: " << level << std::endl;
+	listIt startIt  = list.begin();
+	
+	std::list<int>::difference_type totalCountSigned = std::distance(startIt, levelLastElemIt);
+	totalCountSigned++;
+	if (totalCountSigned <= 0)
+		return ;
+	size_t totalNmbsInLevel = static_cast<size_t>(totalCountSigned);
+	if (totalNmbsInLevel <= 1) //empty or one nbr
+		return ;
+
+	size_t nmbsInPair = 1 << level; //2 , 4, 8, 16, 32, ... 
+	if (nmbsInPair > totalNmbsInLevel)
+		return ;
+
+	size_t nmbsInBlock = nmbsInPair / 2;
+	size_t pairsInLevel = totalNmbsInLevel / nmbsInPair;
+	std::cout << "TEST1: list:\n";
+	printList(list);
+	_sortPairsList(list, list.begin(), pairsInLevel, nmbsInBlock);
+	std::cout << "TEST2: list:\n";
+	printList(list);
+	listIt newLevelEndIt = list.begin();
+	std::advance(newLevelEndIt, (pairsInLevel * nmbsInPair - 1));
+	mergeInsertSort(list, newLevelEndIt, level + 1); ////sort recursion
+
+	// std::list<std::list<int>::iterator> main = _createMain(list, levelLastElemIt, nmbsInBlock);
+	// std::vector<std::vector<int>::iterator> pend = _createPend(vec, levelLastElemIt, nmbsInBlock);
+	// if (level == 1 && vec.size() % 2 != 0) // the last odd element
+	// 	pend.push_back(levelLastElemIt);
+	
+	// _insertPendToMain(main, pend);
+	// _copyMainToVec(vec, main, nmbsInBlock);
+
+}
+
+
+
+
+
+// /*The std::list::splice() only changes the internal pointers of the nodes, 
+// making the block movement an O(1) operation,
+// regardless of the block size (nmbsInBlock).*/
+
+// void PmergeMe::_sortPairs(std::list<int>& list, size_t pairsInLevel, size_t nmbsInBlock)
+// {
+// 	std::cout << "TEST before sort: list:\n";
+// 	printList(list);
+	
+// 	listIt lBlockStart, rBlockStart, lBlockEnd, rBlockEnd;
+
+// 	for (size_t i = 0; i < pairsInLevel; i++)
+// 	{
+// 		listIt tmpIt = list.begin();
+// 		std::advance(tmpIt, (nmbsInBlock* 2 * i));
+// 		lBlockStart = tmpIt;
+// 		rBlockStart =  lBlockStart;
+// 		std::advance(rBlockStart, nmbsInBlock);
+// 		lBlockEnd = lBlockStart;
+// 		std::advance(lBlockEnd, nmbsInBlock - 1);
+// 		rBlockEnd = rBlockStart;
+// 		std::advance(rBlockEnd, (nmbsInBlock - 1));
+// 		PmergeMe::nmbCompList++;
+// 		if (*lBlockEnd > *rBlockEnd) // Comparison and Swap
+// 		{
+// 			listIt nextBlockStart = rBlockEnd;
+// 			nextBlockStart++;
+//             list.splice(lBlockStart, list, rBlockStart, nextBlockStart);
+// 		}
+// 	}
+// 	std::cout << "TEST after sort: list:\n";
+// 	printList(list);
+// }
+
+void PmergeMe::_sortPairsList(std::list<int>& list, listIt currentLevelStart, size_t pairsInLevel, size_t nmbsInBlock)
+{
+    listIt lBlockStart = currentLevelStart; 
+    listIt rBlockStart, lBlockEnd, rBlockEnd;
+
+    for (size_t i = 0; i < pairsInLevel; i++)
+    {
+        rBlockStart = lBlockStart;
+        std::advance(rBlockStart, nmbsInBlock);
+        lBlockEnd = rBlockStart;
+        --lBlockEnd;
+        rBlockEnd = rBlockStart;
+        std::advance(rBlockEnd, (nmbsInBlock - 1));
+
+        PmergeMe::nmbCompList++;
+        
+        if (*lBlockEnd > *rBlockEnd)
+        {
+            // O(1) Block Swap using splice
+            listIt nextBlockStart = rBlockEnd;
+            ++nextBlockStart;
+            list.splice(lBlockStart, list, rBlockStart, nextBlockStart);
+        }
+        std::advance(lBlockStart, (nmbsInBlock * 2)); 
+    }
+}
+
+void PmergeMe::printList(const std::list<int>& list)
+{
+	
+	std::list<int>::const_iterator it = list.begin();
+	while (it != list.end())
+	{
+		std::cout << *it << " ";
+		it++;
+	}
+	std::cout << std::endl;
+}
+
+// std::list<std::list<int>::iterator> PmergeMe::_createMain(std::list<int>& list, listIt &levelLastElemIt, size_t nmbsInBlock)
+// {
+// 	std::list<listIt> main;
+	
+// 	listIt startIt  = list.begin();
+// 	// main.insert(main.end(), startIt + (nmbsInBlock - 1));
+// 	// main.insert(main.end(), startIt + (nmbsInBlock * 2 - 1));
+// 	main.push_back(startIt + (nmbsInBlock - 1));
+// 	main.push_back(startIt + (nmbsInBlock * 2 - 1));	
+// 	vecIt rBlockStart = startIt + (nmbsInBlock * 3);
+// 	vecIt rBlockLast = rBlockStart + (nmbsInBlock - 1);
+
+// 	while (rBlockStart < levelLastElemIt) // while (rBlockLast < levelLastElemIt)
+// 	{
+// 		// main.insert(main.end(), rBlockLast);
+// 		main.push_back(rBlockLast);
+// 		std::advance(rBlockStart, nmbsInBlock * 2); // move to next element
+// 		std::advance(rBlockLast, nmbsInBlock * 2); // move to next element
+// 	}
+
+// 	return main;
+// }
