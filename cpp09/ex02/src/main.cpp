@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 13:37:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/07 16:20:34 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/10 14:27:29 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,34 +166,41 @@ int main(int argc, char **argv)
 {
 	if (!validateArgs(argc, argv))
 		return 1;
-
-	std::vector<int> vec = argsToVec(argc, argv);
-	size_t vecSize = vec.size();
-	
-	std::list<int> list = argsToList(argc, argv);
-	size_t listSize = list.size();
-
-	PmergeMe pm;
-
 	std::cout << "Before:	";
 	for (int i = 1; i < argc; ++i)
 		std::cout << argv[i] << " ";
 	std::cout << std::endl;
 
+	PmergeMe pm;
+	
+	std::vector<int> vec = argsToVec(argc, argv);
+	size_t vecSize = vec.size();
+	
 	clock_t start, end;
 	double cpuTimeUsed;
 	start = clock();
-	std::vector<int>::iterator lastElementIt = vec.end();
-	lastElementIt --;
+	std::vector<int>::iterator lastElementItVec = vec.end();
+	lastElementItVec --;
 	// std::cout << "TEST Last Element : " << *lastElementIt << std::endl;
-	pm.mergeInsertSort(vec, lastElementIt, 1);
+	pm.mergeInsertSort(vec, lastElementItVec, 1);
 	end = clock();
 	cpuTimeUsed = static_cast<double>(end - start) / CLOCKS_PER_SEC;
 
 	std::cout << "After:	";
 	pm.printVector(vec);
 	std::cout << "Time to process a range of " << vecSize << " elements with std::[..] : " << cpuTimeUsed << " us" << std::endl;
-	
+
+
+	std::list<int> list = argsToList(argc, argv);
+	std::cout << "TEST:list BEFORE:\n";
+	pm.printList(list);
+	// size_t listSize = list.size();
+	std::list<int>::iterator lastElementItList = list.end();
+	lastElementItList--;
+	pm.mergeInsertSort(list, lastElementItList, 1);
+
+
+
 	testCompNmbs(argc);
 	testSorting(vec, list);
 }
