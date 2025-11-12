@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 13:54:50 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/11 00:19:16 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/12 14:38:50 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ class PmergeMe
 		void mergeInsertSort(std::list<int> &list, listIt &levelLastElemIt, size_t level);
 		void printList(const std::list<int>& list);
 
-		// static bool compIetrators(listIt lv, listIt rv);
+		static bool compIetrators(listIt lv, listIt rv);
 		static size_t nmbCompList;
 
 	private:
@@ -53,8 +53,8 @@ class PmergeMe
 		void _orderedInvertion(std::vector<vecIt>& main, std::vector<vecIt>& pend);
 		void _copyMainToVec(std::vector<int>& vec, std::vector<vecIt>& main, size_t nmbsInBlock);
 
-		void _sortPairsList(std::list<int>& list, listIt currentLevelStart, size_t pairsInLevel, size_t nmbsInBlock);
-		// std::list<listIt> _createMain(std::list<int>& list, listIt &levelLastElemIt, size_t nmbsInBlock);	
+		void _sortPairs(std::list<int>& list, size_t pairsInLevel, size_t nmbsInBlock);
+		std::list<listIt> _createMain(std::list<int>& list, size_t pairsInLevel, size_t nmbsInBlock);	
 		// std::list<listIt> _createPend(std::list<int>& list, listIt &levelLastElemIt, size_t nmbsInBlock);
 		// void _insertPendToMain(std::list<vecIt>& main, std::list<vecIt>& pend);
 		// void _jackNumInvertion(std::list<listIt>& main, std::list<listIt>& pend);
