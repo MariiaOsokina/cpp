@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 13:37:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/10 14:27:29 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/17 13:03:51 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 #include <cstdlib>  // for strtol or atoi
 #include <algorithm>
 #include <cmath>
+#include <iomanip> // Needed for std::fixed and std::setprecision
+#include <sys/time.h> // Required for gettimeofday()
 
 bool isItPositiveInt(const char *str)
 {
@@ -137,13 +139,13 @@ void testCompNmbs(int argc)
 	std::cout << "\033[33m" << "\nTEST: Number of comparisons" << "\033[0m"  << std::endl;
 	size_t maxComp = compTest(argc - 1);
 	if (maxComp >= PmergeMe::nmbCompVec)
-		std::cout << "\033[32m" << "Number osf comparisons do not exceed the max limit:" << maxComp << "\n\033[0m" << std::endl;
+		std::cout << "\033[32m" << "Number of comparisons is " << PmergeMe::nmbCompVec << " and do not exceed the max limit:" << maxComp << "\n\033[0m" << std::endl;
 	else
-		std::cout << "\033[31m" << "Number osf comparisons EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
-	if (maxComp >= PmergeMe::nmbCompVec)
-		std::cout << "\033[32m" << "Number osf comparisons do not exceed the max limit:" << maxComp << "\n\033[0m" << std::endl;
+		std::cout << "\033[31m" << "Number of comparisons is " << PmergeMe::nmbCompVec << " and EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
+	if (maxComp >= PmergeMe::nmbCompList)
+		std::cout << "\033[32m" << "Number of comparisons is " << PmergeMe::nmbCompList << " and do not exceed the max limit:" << maxComp << "\n\033[0m" << std::endl;
 	else
-		std::cout << "\033[31m" << "Number osf comparisons EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
+		std::cout << "\033[31m" << "Number of comparisons is " << PmergeMe::nmbCompList << " and  EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
 }
 
 void testSorting(const std::vector<int>& vec, const std::list<int>& list)
@@ -164,6 +166,9 @@ void testSorting(const std::vector<int>& vec, const std::list<int>& list)
 
 int main(int argc, char **argv)
 {
+	struct timeval startVecTime, endVecTime;
+	struct timeval startListTime, endListTime;
+
 	if (!validateArgs(argc, argv))
 		return 1;
 	std::cout << "Before:	";
@@ -173,33 +178,38 @@ int main(int argc, char **argv)
 
 	PmergeMe pm;
 	
+	gettimeofday(&startVecTime, NULL);
+
 	std::vector<int> vec = argsToVec(argc, argv);
 	size_t vecSize = vec.size();
-	
-	clock_t start, end;
-	double cpuTimeUsed;
-	start = clock();
 	std::vector<int>::iterator lastElementItVec = vec.end();
 	lastElementItVec --;
-	// std::cout << "TEST Last Element : " << *lastElementIt << std::endl;
 	pm.mergeInsertSort(vec, lastElementItVec, 1);
-	end = clock();
-	cpuTimeUsed = static_cast<double>(end - start) / CLOCKS_PER_SEC;
+
+	gettimeofday(&endVecTime, NULL);
 
 	std::cout << "After:	";
-	pm.printVector(vec);
-	std::cout << "Time to process a range of " << vecSize << " elements with std::[..] : " << cpuTimeUsed << " us" << std::endl;
+	// pm.printVector(vec);
+	double cpuTimeUsedVec = (endVecTime.tv_sec - startVecTime.tv_sec) * 1000000.0 + (endVecTime.tv_usec - startVecTime.tv_usec);
+	std::cout << "Time to process a range of " << vecSize << " elements with std::vec : " 
+              << std::fixed << std::setprecision(5) << cpuTimeUsedVec << " us" << std::endl;
 
+	gettimeofday(&startListTime, NULL);
 
 	std::list<int> list = argsToList(argc, argv);
-	std::cout << "TEST:list BEFORE:\n";
-	pm.printList(list);
-	// size_t listSize = list.size();
+	size_t listSize = list.size();
 	std::list<int>::iterator lastElementItList = list.end();
 	lastElementItList--;
 	pm.mergeInsertSort(list, lastElementItList, 1);
 
+	gettimeofday(&endListTime, NULL);
+	
+	std::cout << "After:	";
+	pm.printList(list);
 
+	double cpuTimeUsedList = (endListTime.tv_sec - startListTime.tv_sec) * 1000000.0 + (endListTime.tv_usec - startListTime.tv_usec);
+	std::cout << "Time to process a range of " << listSize << " elements with std::list : " 
+              << std::fixed << std::setprecision(5) << cpuTimeUsedList << " us" << std::endl;
 
 	testCompNmbs(argc);
 	testSorting(vec, list);
