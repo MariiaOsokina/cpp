@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:34:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/17 14:49:48 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/17 22:59:11 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,7 @@ void PmergeMe::_jackNumInvertion(std::list<listIt>& main, std::list<listIt>& pen
 
             // 6. Cleanup Pend
             pendIt = pend.erase(pendIt);
-            pendIt--; 
+            pendIt--;
         }
         
         prevJN = currJN;
@@ -435,9 +435,11 @@ void PmergeMe::_orderedInvertion(std::list<listIt>& main, std::list<listIt>& pen
         // Safety clamp
         if (boundPos > main.size())
             boundPos = main.size();
+        size_t tmpnmbComp = PmergeMe::nmbCompList;
 
         // Perform Binary Search
         size_t idxToInsert = binarySearchIndex(main, *(*pendIt), boundPos);
+        std::cout << "List _orderedInvertion nmbCompList " << (PmergeMe::nmbCompList - tmpnmbComp) << std::endl;
 
         // Move iterator to insertion point
         std::list<listIt>::iterator iterToInsert = main.begin();
