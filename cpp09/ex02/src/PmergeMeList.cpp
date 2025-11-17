@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:34:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/17 13:18:29 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/17 14:49:48 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,52 +199,120 @@ bool PmergeMe::compIteratorsList(listIt lv, listIt rv)
 // 	}
 // }
 
-void PmergeMe::_jackNumInvertion(std::list<listIt>& main, std::list<listIt>& pend)
-{
-	int prevJN = 1; // 1
-	int insertedCount = 0;
-	for (size_t k = 2;; k++)
-	{
-		int currJN = _jacobsthalNumber(k);
+// /*PROPER VERSION!!!*/
+// void PmergeMe::_jackNumInvertion(std::list<listIt>& main, std::list<listIt>& pend)
+// {
+// 	int prevJN = 1; // 1
+// 	int insertedCount = 0;
+// 	for (size_t k = 2;; k++)
+// 	{
+// 		int currJN = _jacobsthalNumber(k);
 
-		int jackDiff =  currJN - prevJN;
-		int offset = 0;
-		if (jackDiff > static_cast<int>(pend.size()))
-			break ;
+// 		int jackDiff =  currJN - prevJN;
+// 		int offset = 0;
+// 		if (jackDiff > static_cast<int>(pend.size()))
+// 			break ;
 		
-		std::list<listIt>::iterator pendIt = pend.begin();
-		std::advance(pendIt, (jackDiff - 1));
-		std::list<listIt>::iterator boundIt = main.begin();
-		std::advance(boundIt, (currJN + insertedCount));
+// 		std::list<listIt>::iterator pendIt = pend.begin();
+// 		std::advance(pendIt, (jackDiff - 1));
+// 		std::list<listIt>::iterator boundIt = main.begin();
+// 		std::advance(boundIt, (currJN + insertedCount));
 
-		for (size_t i = jackDiff; i > 0; --i)
-		{
-			size_t tmpnmbComp = PmergeMe::nmbCompList;
+// 		for (size_t i = jackDiff; i > 0; --i)
+// 		{
+// 			size_t tmpnmbComp = PmergeMe::nmbCompList;
 
-			std::list<listIt>::iterator idxToInsert = std::upper_bound(main.begin(), boundIt, *pendIt, compIteratorsList);
-			std::cout << "List _jackNumInvertion nmbCompList " << (PmergeMe::nmbCompList - tmpnmbComp) << std::endl;
+// 			std::list<listIt>::iterator idxToInsert = std::upper_bound(main.begin(), boundIt, *pendIt, compIteratorsList);
+// 			std::cout << "List _jackNumInvertion nmbCompList " << (PmergeMe::nmbCompList - tmpnmbComp) << std::endl;
 
-			// size_t index = std::distance(main.begin(), idxToInsert);
-			// std::cout << "LIST: _jackNumInvertion INDEX TO INSERT" << index << std::endl << std::endl;
+// 			// size_t index = std::distance(main.begin(), idxToInsert);
+// 			// std::cout << "LIST: _jackNumInvertion INDEX TO INSERT" << index << std::endl << std::endl;
 
 			
-			std::list<listIt>::iterator inserted = main.insert(idxToInsert, *pendIt);
-			pendIt = pend.erase(pendIt);
-			pendIt --;
-			// if (inserted - main.begin() == currJN + insertedCount)
-			// 		offset ++;
-			if (inserted == boundIt)
-				offset++;
-			boundIt = main.begin();
-			size_t newBoundPos = static_cast<size_t>(currJN + insertedCount - offset);
-			if (newBoundPos > main.size()) 
-				newBoundPos = main.size();
-			std::advance(boundIt, newBoundPos);
-		}
-		prevJN = currJN;
-		insertedCount += jackDiff;
-	}
+// 			std::list<listIt>::iterator inserted = main.insert(idxToInsert, *pendIt);
+// 			pendIt = pend.erase(pendIt);
+// 			pendIt --;
+// 			// if (inserted - main.begin() == currJN + insertedCount)
+// 			// 		offset ++;
+// 			if (inserted == boundIt)
+// 				offset++;
+// 			boundIt = main.begin();
+// 			size_t newBoundPos = static_cast<size_t>(currJN + insertedCount - offset);
+// 			if (newBoundPos > main.size()) 
+// 				newBoundPos = main.size();
+// 			std::advance(boundIt, newBoundPos);
+// 		}
+// 		prevJN = currJN;
+// 		insertedCount += jackDiff;
+// 	}
+// }
+
+
+void PmergeMe::_jackNumInvertion(std::list<listIt>& main, std::list<listIt>& pend)
+{
+    int prevJN = 1;
+    int insertedCount = 0;
+    
+    // To match vector, we loop until jacobsthal numbers are exhausted
+    for (size_t k = 2;; k++)
+    {
+        int currJN = _jacobsthalNumber(k);
+        int jackDiff = currJN - prevJN;
+        
+        if (jackDiff > static_cast<int>(pend.size()))
+            break;
+
+        // Point to the element in Pend we want to insert (starting from the Jacobsthal peak)
+        std::list<listIt>::iterator pendIt = pend.begin();
+        std::advance(pendIt, (jackDiff - 1));
+        
+        int offset = 0;
+
+        // Insert the batch backwards
+        for (size_t i = jackDiff; i > 0; --i)
+        {
+            // 1. Calculate the Boundary exactly like Vector
+            // Vector logic: boundIt = main.begin() + (currJN + insertedCount - offset)
+            size_t boundPos = currJN + insertedCount - offset;
+            
+            // Safety clamp
+            if (boundPos > main.size()) 
+                boundPos = main.size();
+
+			size_t tmpnmbComp = PmergeMe::nmbCompList;
+
+            // 2. Find Index (O(log N) comparisons)
+            size_t idxToInsert = binarySearchIndex(main, *(*pendIt), boundPos);
+
+			std::cout << "List _jackNumInvertion nmbCompList " << (PmergeMe::nmbCompList - tmpnmbComp) << std::endl;
+
+            // 3. Move Iterator to that index (O(N) runtime, irrelevant for comp count)
+            std::list<listIt>::iterator iterToInsert = main.begin();
+            std::advance(iterToInsert, idxToInsert);
+
+            // 4. Insert
+            std::list<listIt>::iterator inserted = main.insert(iterToInsert, *pendIt);
+
+            // 5. CRITICAL FIX: Update Offset logic using Distance
+            // In vector: if (inserted - main.begin() == currJN + insertedCount)
+            // We use std::distance to get the index of 'inserted'.
+            long insertedIdx = std::distance(main.begin(), inserted);
+            
+            if (insertedIdx == (currJN + insertedCount))
+            {
+                offset++;
+            }
+
+            // 6. Cleanup Pend
+            pendIt = pend.erase(pendIt);
+            pendIt--; 
+        }
+        
+        prevJN = currJN;
+        insertedCount += jackDiff;
+    }
 }
+
 
 // void PmergeMe::_orderedInvertion(std::list<listIt>& main, std::list<listIt>& pend)
 // {
@@ -274,95 +342,206 @@ void PmergeMe::_jackNumInvertion(std::list<listIt>& main, std::list<listIt>& pen
 // 	}
 // }
 
+// void PmergeMe::_orderedInvertion(std::list<listIt>& main, std::list<listIt>& pend)
+// {
+// 	if (pend.empty())
+// 		return ;
+
+// 	std::list<listIt>::iterator pendIt = pend.end();
+// 	pendIt--; //last elem in pend
+// 	for (int i = pend.size() - 1; i >= 0; i--)
+// 	{
+// 		size_t boundPos = static_cast<int>(main.size()) - static_cast<int>(pend.size()) + i + 1;
+// 		// std::cout << "pendIt " << *(*pendIt) << std::endl;
+// 		size_t tmpnmbComp = PmergeMe::nmbCompList;
+
+// 		size_t idxToInsert = binarySearchIndex(main, *(*pendIt), boundPos);
+
+// 		// std::cout << "TEST list comp i is " << i <<std::endl;
+// 		std::cout << "List _orderedInvertion nmbCompList " << (PmergeMe::nmbCompList - tmpnmbComp) << std::endl;
+
+
+// 		std::list<listIt>::iterator iterToInsert = main.begin();
+// 		std::advance(iterToInsert, idxToInsert);
+
+// 		// std::cout << "LIST INDEX TO INSERT" << idxToInsert << std::endl << std::endl;
+
+// 		main.insert(iterToInsert, *pendIt);
+// 		pendIt = pend.erase(pendIt);
+// 		if (i > 0)
+// 			 pendIt--;
+// 	}
+// }
+
+// /*SECOND VERSION*/
+// void PmergeMe::_orderedInvertion(std::list<listIt>& main, std::list<listIt>& pend)
+// {
+//     if (pend.empty())
+//         return;
+
+//     std::list<listIt>::iterator pendIt = pend.end();
+//     pendIt--; 
+
+//     // Track how many elements we have inserted in this specific loop
+//     size_t addedCount = 0;
+
+//     for (int i = pend.size() - 1; i >= 0; i--)
+//     {
+//         // PROBLEM: In List, pend.size() decreases and main.size() increases.
+//         // This causes boundPos to grow larger than the Vector version.
+//         // FIX: Subtract 'addedCount' to counteract the shift and keep boundPos constant.
+//         size_t boundPos = main.size() - pend.size() + i + 1 - addedCount;
+        
+//         // Safety clamp
+//         if (boundPos > main.size())
+//             boundPos = main.size();
+//         size_t tmpnmbComp = PmergeMe::nmbCompList;
+
+//         size_t idxToInsert = binarySearchIndex(main, *(*pendIt), boundPos);
+
+//         std::cout << "List _orderedInvertion nmbCompList " << (PmergeMe::nmbCompList - tmpnmbComp) << std::endl;
+
+//         std::list<listIt>::iterator iterToInsert = main.begin();
+//         std::advance(iterToInsert, idxToInsert);
+
+//         main.insert(iterToInsert, *pendIt);
+        
+//         // Increment the count of added elements
+//         addedCount++;
+        
+//         pendIt = pend.erase(pendIt);
+//         if (i > 0)
+//              pendIt--;
+//     }
+// }
+
 void PmergeMe::_orderedInvertion(std::list<listIt>& main, std::list<listIt>& pend)
 {
-	if (pend.empty())
-		return ;
+    if (pend.empty())
+        return;
 
-	std::list<listIt>::iterator pendIt = pend.end();
-	pendIt--; //last elem in pend
-	for (int i = pend.size() - 1; i >= 0; i--)
-	{
-		size_t boundPos = static_cast<int>(main.size()) - static_cast<int>(pend.size()) + i + 1;
-		// std::cout << "pendIt " << *(*pendIt) << std::endl;
-		size_t tmpnmbComp = PmergeMe::nmbCompList;
+    // 1. Setup iterator at the last element of pend
+    std::list<listIt>::iterator pendIt = pend.end();
+    pendIt--; 
 
-		size_t idxToInsert = binarySearchIndex(main, *(*pendIt), boundPos);
+    // 2. Loop backwards (matching vector index logic)
+    for (int i = pend.size() - 1; i >= 0; i--)
+    {
+        // Exact Vector Logic: 
+        // Bound = Current_Main_Size - Fixed_Pend_Size + current_i + 1
+        // Since we are NOT erasing pend, pend.size() is constant, matching Vector.
+        size_t boundPos = main.size() - pend.size() + i + 1;
+        
+        // Safety clamp
+        if (boundPos > main.size())
+            boundPos = main.size();
 
-		// std::cout << "TEST list comp i is " << i <<std::endl;
-		std::cout << "List _orderedInvertion nmbCompList " << (PmergeMe::nmbCompList - tmpnmbComp) << std::endl;
+        // Perform Binary Search
+        size_t idxToInsert = binarySearchIndex(main, *(*pendIt), boundPos);
 
+        // Move iterator to insertion point
+        std::list<listIt>::iterator iterToInsert = main.begin();
+        std::advance(iterToInsert, idxToInsert);
 
-		std::list<listIt>::iterator iterToInsert = main.begin();
-		std::advance(iterToInsert, idxToInsert);
-
-		// std::cout << "LIST INDEX TO INSERT" << idxToInsert << std::endl << std::endl;
-
-		main.insert(iterToInsert, *pendIt);
-		pendIt = pend.erase(pendIt);
-		if (i > 0)
-			 pendIt--;
-	}
+        // Insert
+        main.insert(iterToInsert, *pendIt);
+        
+        // Move pendIt backwards for the next iteration (manually)
+        // We do NOT erase here, to keep pend.size() constant for the math above.
+        if (i > 0)
+             pendIt--;
+    }
+    
+    // 3. Clear pend after the loop is done (optional, but good for cleanup)
+    pend.clear();
 }
-
 
 size_t PmergeMe::binarySearchIndex(std::list<listIt>& main, int value, size_t boundPos)
 {
-    // Start iterator for the search range
-    std::list<listIt>::iterator first = main.begin();
-    
-    // Total size of the search range (from first to boundPos)
     size_t len = boundPos;
+    size_t idx = 0; // Relative index from the start of search range
+    std::list<listIt>::iterator current = main.begin();
 
-    // Use a temporary iterator to advance the start to boundPos
-    std::list<listIt>::iterator temp_it = main.begin();
-    std::advance(temp_it, boundPos);
-    // The 'right' boundary is not strictly needed for the loop, but the size 'len' is.
-
-    // Index tracking (optional, but necessary for the size_t return type)
-    size_t current_index = 0;
-
-    // The loop continues as long as there are elements in the range
     while (len > 0)
     {
-        // 1. Calculate the 'step' (midpoint offset)
-        size_t step = len / 2;
+        size_t half = len / 2;
+        std::list<listIt>::iterator middle = current;
+        std::advance(middle, half);
 
-        // 2. Find the midpoint iterator 'it'
-        std::list<listIt>::iterator it = first;
-        // The expensive O(N) step, but is only O(len/2) from 'first'
-        std::advance(it, step);
-
-        // 3. Comparison
-        nmbCompList++;
+        PmergeMe::nmbCompList++; // Count comparison
         
-        if (value == *(*it))
-            return current_index + step; // Found exact match
-        
-        else if (value < *(*it))
+        if (value < *(*middle)) // upper_bound logic: value < element
         {
-            // Value is in the left half (range before 'it')
-            // 'first' remains the same. The right boundary (len) is reduced.
-            len = step; 
+            len = half;
         }
-        else // value > *(*it)
+        else
         {
-            // Value is in the right half (range after 'it')
-            // The left boundary ('first') is moved past 'it'
-            first = ++it; // Move 'first' to the element *after* 'it'
-            
-            // The starting index is updated
-            current_index += step + 1;
-            
-            // The search size is reduced by the elements we just skipped (step + 1)
-            len = len - (step + 1); 
+            current = middle;
+            ++current;
+            idx += half + 1; // Accumulate index
+            len = len - half - 1;
         }
     }
-    
-    // When the loop finishes, 'current_index' holds the insertion position.
-    // It corresponds to the index where 'first' ended up.
-    return current_index;
+    return idx;
 }
+
+// size_t PmergeMe::binarySearchIndex(std::list<listIt>& main, int value, size_t boundPos)
+// {
+//     // Start iterator for the search range
+//     std::list<listIt>::iterator first = main.begin();
+    
+//     // Total size of the search range (from first to boundPos)
+//     size_t len = boundPos;
+
+//     // Use a temporary iterator to advance the start to boundPos
+//     std::list<listIt>::iterator temp_it = main.begin();
+//     std::advance(temp_it, boundPos);
+//     // The 'right' boundary is not strictly needed for the loop, but the size 'len' is.
+
+//     // Index tracking (optional, but necessary for the size_t return type)
+//     size_t current_index = 0;
+
+//     // The loop continues as long as there are elements in the range
+//     while (len > 0)
+//     {
+//         // 1. Calculate the 'step' (midpoint offset)
+//         size_t step = len / 2;
+
+//         // 2. Find the midpoint iterator 'it'
+//         std::list<listIt>::iterator it = first;
+//         // The expensive O(N) step, but is only O(len/2) from 'first'
+//         std::advance(it, step);
+
+//         // 3. Comparison
+//         nmbCompList++;
+        
+//         if (value == *(*it))
+//             return current_index + step; // Found exact match
+        
+//         else if (value < *(*it))
+//         {
+//             // Value is in the left half (range before 'it')
+//             // 'first' remains the same. The right boundary (len) is reduced.
+//             len = step; 
+//         }
+//         else // value > *(*it)
+//         {
+//             // Value is in the right half (range after 'it')
+//             // The left boundary ('first') is moved past 'it'
+//             first = ++it; // Move 'first' to the element *after* 'it'
+            
+//             // The starting index is updated
+//             current_index += step + 1;
+            
+//             // The search size is reduced by the elements we just skipped (step + 1)
+//             len = len - (step + 1); 
+//         }
+//     }
+    
+//     // When the loop finishes, 'current_index' holds the insertion position.
+//     // It corresponds to the index where 'first' ended up.
+//     return current_index;
+// }
 
 // size_t	PmergeMe::binarySearchIndex(std::list<listIt>& main, int value, size_t boundPos)
 // {
