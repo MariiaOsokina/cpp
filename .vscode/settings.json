@@ -52,6 +52,8 @@
         "sstream": "cpp",
         "climits": "cpp",
         "list": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "chrono": "cpp",
+        "ratio": "cpp"
     }
 }
