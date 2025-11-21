@@ -6,22 +6,24 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 11:14:57 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/20 12:04:47 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/20 18:58:43 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-#include <stdlib.h>
-#include <cerrno>  // errno, ERANGE
 
 int main(int argc, char *argv[])
 {
-	if (argc != 2)
+	if (argc == 1)
 	{
-		std::cerr << "\033[31m" << "Error: It should be ./btc [file] " << "\033[0m" << std::endl;
-		return false;
+		std::cerr << "Error: could not open file." << std::endl;
+		return 1;
 	}
-
+	if (argc > 2)
+	{
+		std::cerr << "Error: only one parameter." << std::endl;
+		return 1;
+	}
 	Btc btc;
 	try
 	{
@@ -34,6 +36,3 @@ int main(int argc, char *argv[])
 	
 	return 0;
 }
-
-
-//at ???

@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:36:28 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/17 12:55:28 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 01:04:07 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ whose value is greater than the specified search value.*/
 bool PmergeMe::compIteratorsVec(vecIt lv, vecIt rv)
 {
 	PmergeMe::nmbCompVec++;
-	// std::cout << nmbCompVec << " ";
 	return *lv < *rv;
 }
 
@@ -123,14 +122,7 @@ void PmergeMe::_jackNumInvertion(std::vector<vecIt>& main, std::vector<vecIt>& p
 
 		for (size_t i = jackDiff; i > 0; --i)
 		{
-			size_t tmpnmbComp = PmergeMe::nmbCompVec;
-
 			std::vector<vecIt>::iterator idxToInsert = std::upper_bound(main.begin(), boundIt, *pendIt, compIteratorsVec);
-			// std::cout << "TEST _jackNumInvertion vec comp i is " << i <<std::endl;
-			std::cout << "Vec _jackNumInvertion nmbCompVec " << PmergeMe::nmbCompVec -  tmpnmbComp << std::endl;
-
-			// size_t index = std::distance(main.begin(), idxToInsert);
-			// std::cout << "VEC: _jackNumInvertion INDEX TO INSERT" << index << std::endl << std::endl;
 		
 			std::vector<vecIt>::iterator inserted = main.insert(idxToInsert, *pendIt);
 			pendIt = pend.erase(pendIt);
@@ -153,28 +145,15 @@ void PmergeMe::_orderedInvertion(std::vector<vecIt>& main, std::vector<vecIt>& p
 	for (int i = pend.size() - 1; i >= 0; i--)
 	{
 		std::vector<vecIt>::iterator pendIt = pend.begin() + i;
-		// Re-introduce the +1 correction, which addresses the straggler (odd element)
-		// that was causing the off-by-one boundary error.
+
 		std::vector<vecIt>::iterator boundIt =
 			main.begin() + (static_cast<int>(main.size()) - static_cast<int>(pend.size()) + i + 1); 
 		// Use a safe upper bound (cannot exceed main.end())
 		if (boundIt > main.end())
 			 boundIt = main.end();
-		// std::cout << "\n boundIt is " << *(*boundIt) <<std::endl;
-		// std::cout << "pendIt " << *(*pendIt) << std::endl;
-
-		size_t tmpnmbComp = PmergeMe::nmbCompVec;
 
 		std::vector<vecIt>::iterator idxToInsert =
 			std::upper_bound(main.begin(), boundIt, *pendIt, compIteratorsVec);
-		std::cout << "Vec _orderedInvertion nmbCompVec " << PmergeMe::nmbCompVec - tmpnmbComp << std::endl;
-		// std::cout << "TEST vec comp i is " << i <<std::endl;
-		// std::cout << "nmbCompVec " << PmergeMe::nmbCompVec << std::endl;
-
-		// size_t index = std::distance(main.begin(), idxToInsert);
-		// std::cout << "VEC: INDEX TO INSERT" << index << std::endl << std::endl;
-
-
 		main.insert(idxToInsert, *pendIt);
 	}
 }
@@ -184,9 +163,7 @@ void PmergeMe::_insertPendToMain(std::vector<vecIt>& main, std::vector<vecIt>& p
 	if (pend.empty())
 		return ;
 	_jackNumInvertion(main, pend);
-	// std::cout << "TEST: _jackNumInvertion PmergeMe::nmbCompVec " << PmergeMe::nmbCompVec << std::endl;
 	_orderedInvertion(main, pend);
-	// std::cout << "TEST: _orderedInvertion PmergeMe::nmbCompVec " << PmergeMe::nmbCompVec << std::endl;
 
 }
 
@@ -231,34 +208,12 @@ void PmergeMe::mergeInsertSort(std::vector<int> &vec, vecIt &levelLastElemIt, si
 	std::vector<std::vector<int>::iterator> main = _createMain(vec, levelLastElemIt, nmbsInBlock);
 	std::vector<std::vector<int>::iterator> pend = _createPend(vec, levelLastElemIt, nmbsInBlock);
 	
-	// std::cout << "Level Vec:\n" << level << std::endl;
-	// std::cout << "Main1 Vec:\n";
-	// printItVector(main);
-	// std::cout << "Pend1 Vec:\n";
-	// printItVector(pend);
-
 	if (level == 1 && vec.size() % 2 != 0) // the last odd element
 		pend.push_back(levelLastElemIt);
-	// std::cout << "PendXXX Vec:\n";
-	// printItVector(pend);
 
 	_insertPendToMain(main, pend);
-	
-	// std::cout << "Level Vec:\n" << level << std::endl;
-	// std::cout << "Main2 Vec:\n";
-	// printItVector(main);
-	// std::cout << "Pend2 Vec:\n";
-	// printItVector(pend);
+
 	
 	_copyMainToVec(vec, main, nmbsInBlock);
 }
 
-
-// void printItVector(const std::vector<std::vector<int>::iterator>& vec)
-// {
-// 	std::cout << "[";
-// 	for (size_t i = 0; i < vec.size(); ++i) {
-// 		std::cout << *(vec[i]) << " ";
-// 	}
-// 	std::cout << "]" << std::endl;
-// }

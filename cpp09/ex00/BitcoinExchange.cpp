@@ -6,13 +6,13 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 12:34:30 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/20 13:25:11 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 00:17:06 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
-Btc::Btc() //add default value for map???
+Btc::Btc()
 {}
 
 Btc::Btc(const Btc &other): _btcMap(other._btcMap)
@@ -28,88 +28,61 @@ Btc& Btc::operator = (const Btc &other)
 Btc::~Btc()
 {}
 
-void Btc::_calculateResult(std::string &dateToFind, float value)
+// /* An element in an  is stored as a std::pair<const Key, T>.
+// it->first Accesses the key stored in the pair pointed to by the iterator.
+// it->second - Accesses the mapped value stored in the pair pointed to by the iterator.*/
+void Btc::_calculateResult(const std::string &dateToFind, float value)
 {
-    Btc::iterator it = _btcMap.lower_bound(dateToFind);
-    float rate;
+	Btc::iterator it = _btcMap.lower_bound(dateToFind);
+	float rate;
 
-    if (it != _btcMap.end() && it->first == dateToFind) 
-        rate = it->second; //exact date match found
-    else 
-    {
-        if (it != _btcMap.begin()) 
-        {
-            it--;
-            rate = it->second;
-        }
-        else 
-        {
-            std::cerr << "Error: Date " << dateToFind << " is before the first exchange rate date." << std::endl;
-            return;
-        }
-    }
-    
-    float result = value * rate;
-    std::cout << dateToFind << " => " << value << " = " << result << std::endl;
+	if (it != _btcMap.end() && it->first == dateToFind)
+		rate = it->second; //exact date match found
+	else
+	{
+		if (it != _btcMap.begin())
+		{
+			it--;
+			rate = it->second;
+		}
+		else
+		{
+			std::cerr << "Error: Date " << dateToFind << " is before the first exchange rate date."  << std::endl;
+			return;
+		}
+	}
+	
+	float result = value * rate;
+	std::cout << dateToFind << " => " << value << " = " << result << std::endl;
 }
 
 void Btc::_handleLine(std::string &line)
 {
-    size_t delimiterPos = line.find(" | ");
-    
-    if (delimiterPos == std::string::npos || line.length() < 14)
-    {
-        std::string errorMsg = "Error: bad input => " + line;
-        throw InvalidInput(errorMsg);
-    }
-    std::string dateToFind = line.substr(0, delimiterPos);
-    if (!_checkDate(dateToFind))
-    {
-        std::string errorMsg = "Error: bad input => " + line;
-        throw InvalidInput(errorMsg);
-    }
-
-    std::string valueStr = line.substr(delimiterPos + 3); 
-    float value;
-    std::istringstream iss(valueStr);
-    
-    if (!(iss >> value) || !iss.eof())
-        throw InvalidInput("Input error: invalid exchange rate value.");
-    if (value < 0.0f)
-        throw InvalidInput("Error: not a positive number.");
-        
-    if (value > 1000.0f) 
-        throw InvalidInput("Error: too large number.");
-    _calculateResult(dateToFind, value);
-}
-
-void Btc::execute(const std::string &inputFile)
-{
-	std::ifstream infile;
-	infile.open(inputFile.c_str());
-	if (!infile.is_open())
-		throw InvalidInput("Database error: file could not be opened.");
-
-	std::string databaseCSV = CSV_FILE;
-	_parsingExchangRate(databaseCSV);
-
-	std::string line;
-	if (!std::getline(infile, line)) // skip the header and check "is empty"
-		throw InvalidDatabase("Input error: file is empty or missing header.");
-	while (std::getline(infile, line))
+	size_t delimiterPos = line.find(" | ");
+	
+	if (delimiterPos == std::string::npos || line.length() < 14)
+		throw InvalidInput("Error: bad input => " + line);
+	std::string dateToFind = line.substr(0, delimiterPos);
+	if (!_checkDate(dateToFind))
 	{
-		try
-		{
-			_handleLine(line);
-		}
-		catch(const std::exception& e)
-		{
-			std::cerr << e.what() << std::endl;
-		}
+		std::string errorMsg = "Error: bad input => " + line;
+		throw InvalidInput(errorMsg);
 	}
+
+	std::string valueStr = line.substr(delimiterPos + 3);
+	float value;
+	std::istringstream iss(valueStr);
+
+	if (!(iss >> value) || !iss.eof())
+		throw InvalidInput("Error: bad input => " + line);
+	if (value < 0.0f)
+		throw InvalidInput("Error: not a positive number.");
+	if (value > 1000.0f) 
+		throw InvalidInput("Error: too large a number.");
+	_calculateResult(dateToFind, value);
 }
 
-bool Btc::_stringToLong(const std::string string, long &result)
+bool Btc::_stringToLong(const std::string &string, long &result)
 {
 	char *endptr;
 	const char* startptr = string.c_str();
@@ -119,9 +92,9 @@ bool Btc::_stringToLong(const std::string string, long &result)
 	{
 		return false;
 	}	
-    if (endptr == startptr) //empty/non numeric
+	if (endptr == startptr) //empty/non numeric
 	{
-        return false;
+		return false;
 	}
 	if (*endptr != '\0') // trailing junk
 	{
@@ -161,9 +134,9 @@ bool Btc::_checkDate(std::string &dateToFind)
 		|| !_stringToLong(dateToFind.substr(5,2), month)
 		|| !_stringToLong(dateToFind.substr(8,2), day))
 			return false;
-	
+
 	if (month < 1 || month > 12)
-        return false;
+		return false;
 	if (day < 1 || day > _getMaxDays(year, month))
 		return false;
 	return true;
@@ -173,12 +146,11 @@ void Btc::_parsingExchangRate(std::string &databaseCSV)
 {
 	std::ifstream exchangeRateFile(databaseCSV.c_str());
 	if (!exchangeRateFile.is_open())
-		throw InvalidDatabase("Database error: file could not be opened.");
+		throw InvalidDatabase("Database error: could not open CSV file.");
 
 	std::string line;
 	if (!std::getline(exchangeRateFile, line)) // skip the header and check "is empty"
 		throw InvalidDatabase("Database error: file is empty or missing header.");
-
 	std::string dateStr;
 	std::string rateStr;
 	float exchangeRate;
@@ -197,28 +169,35 @@ void Btc::_parsingExchangRate(std::string &databaseCSV)
 		if (!(iss >> exchangeRate) || !iss.eof())
 			throw InvalidDatabase("Database error: invalid exchange rate value.");
 		if (exchangeRate < 0)
-			throw InvalidDatabase("Database error:negative exchange rate.");
+			throw InvalidDatabase("Database error: negative exchange rate.");
 		_btcMap[dateStr] = exchangeRate;
 	}
 }
 
-// /* An element in an  is stored as a std::pair<const Key, T>.
-// it->first Accesses the key stored in the pair pointed to by the iterator.
-// it->second - Accesses the mapped value stored in the pair pointed to by the iterator.*/
+void Btc::execute(const std::string &inputFile)
+{
+	std::ifstream infile;
+	infile.open(inputFile.c_str());
+	if (!infile.is_open())
+		throw InvalidInput("Error: could not open file.");
 
-// void Btc::_calculateResult(std::string &dateToFind, float value)
-// {
-// 	Btc::iterator it = _btcMap.find(dateToFind);
-// 	float rate;
-// 	if (it != _btcMap.end())
-// 		rate = it->second;
-// 	else// key does not exist, seach the closest lower date 
-// 	{
-// 		it = _btcMap.lower_bound(dateToFind);
-// 		rate = it->second;
-// 	} 
-// 	float result = value * rate;
-// 	std::cout << dateToFind << " => " << value << " = " << result << std::endl;
-// }
+	std::string databaseCSV = CSV_FILE;
+	_parsingExchangRate(databaseCSV);
 
-
+	std::string line;
+	if (!std::getline(infile, line))
+		throw InvalidDatabase("Error: empty file");
+	if (line != "date | value")
+		_handleLine(line);
+	while (std::getline(infile, line))
+	{
+		try
+		{
+			_handleLine(line);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+	}
+}

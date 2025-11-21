@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 13:37:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/17 13:03:51 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 01:08:48 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ bool isItPositiveInt(const char *str)
 	temp_long_value = strtol(str, &endptr, 10);
 	if (*endptr != '\0' || endptr == str || errno == ERANGE)
 		return false;
-	// if (temp_long_value == 0 || temp_long_value > INT_MAX) // without 0
 	if (temp_long_value > INT_MAX)
 		return false;
 	return true;
@@ -90,8 +89,6 @@ std::list<int> argsToList(int argc, char **argv)
 	return list;
 }
 
-
-
 size_t compTest(size_t elemNmb)
 {
 	size_t sum = 0;
@@ -139,13 +136,13 @@ void testCompNmbs(int argc)
 	std::cout << "\033[33m" << "\nTEST: Number of comparisons" << "\033[0m"  << std::endl;
 	size_t maxComp = compTest(argc - 1);
 	if (maxComp >= PmergeMe::nmbCompVec)
-		std::cout << "\033[32m" << "Number of comparisons is " << PmergeMe::nmbCompVec << " and do not exceed the max limit:" << maxComp << "\n\033[0m" << std::endl;
+		std::cout << "\033[32m" << "Number of comparisons in VECTOR is " << PmergeMe::nmbCompVec << " and do not exceed the max limit: " << maxComp << "\n\033[0m" << std::endl;
 	else
-		std::cout << "\033[31m" << "Number of comparisons is " << PmergeMe::nmbCompVec << " and EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
+		std::cout << "\033[31m" << "Number of comparisons in VECTOR is " << PmergeMe::nmbCompVec << " and EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
 	if (maxComp >= PmergeMe::nmbCompList)
-		std::cout << "\033[32m" << "Number of comparisons is " << PmergeMe::nmbCompList << " and do not exceed the max limit:" << maxComp << "\n\033[0m" << std::endl;
+		std::cout << "\033[32m" << "Number of comparisons in LIST is " << PmergeMe::nmbCompList << " and do not exceed the max limit: " << maxComp << "\n\033[0m" << std::endl;
 	else
-		std::cout << "\033[31m" << "Number of comparisons is " << PmergeMe::nmbCompList << " and  EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
+		std::cout << "\033[31m" << "Number of comparisons in LIST is " << PmergeMe::nmbCompList << " and  EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
 }
 
 void testSorting(const std::vector<int>& vec, const std::list<int>& list)
@@ -178,6 +175,8 @@ int main(int argc, char **argv)
 
 	PmergeMe pm;
 	
+	std::cout << "\033[32m" << "VECTOR:	" << "\033[0m" << std::endl;
+
 	gettimeofday(&startVecTime, NULL);
 
 	std::vector<int> vec = argsToVec(argc, argv);
@@ -189,7 +188,10 @@ int main(int argc, char **argv)
 	gettimeofday(&endVecTime, NULL);
 
 	std::cout << "After:	";
-	// pm.printVector(vec);
+	pm.printVector(vec);
+
+	std::cout << "\033[32m" << "LIST:	" << "\033[0m" << std::endl;
+
 	double cpuTimeUsedVec = (endVecTime.tv_sec - startVecTime.tv_sec) * 1000000.0 + (endVecTime.tv_usec - startVecTime.tv_usec);
 	std::cout << "Time to process a range of " << vecSize << " elements with std::vec : " 
               << std::fixed << std::setprecision(5) << cpuTimeUsedVec << " us" << std::endl;
