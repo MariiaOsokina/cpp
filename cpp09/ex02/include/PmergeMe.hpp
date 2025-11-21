@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 13:54:50 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/21 01:03:42 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 12:01:54 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 #include <cstddef> //for size_t 
 #include <cmath>
 
-
 class PmergeMe
 {
 	public:
@@ -31,22 +30,22 @@ class PmergeMe
 		~PmergeMe();
 
 		// --- Vector Part---
-
 		static size_t nmbCompVec;
-
 		typedef std::vector<int>::iterator vecIt;
+	
 		void mergeInsertSort(std::vector<int> &vec, vecIt &levelLastElemIt, size_t level);
 		void printVector(const std::vector<int>& vec);
+	
 		static bool compIteratorsVec(vecIt lv, vecIt rv);
 
 		// --- List Part---
 		static size_t nmbCompList;
-
 		typedef std::list<int>::iterator listIt;
+	
 		void mergeInsertSort(std::list<int> &list, listIt &levelLastElemIt, size_t level);
 		void printList(const std::list<int>& list);
+		
 		static bool compIteratorsList(listIt lv, listIt rv);
-		size_t	binarySearchIndex(std::list<listIt>& main, int value, size_t boundPos);
 
 	private:
 		// --- Vector Helpers---
@@ -61,10 +60,11 @@ class PmergeMe
 		// --- List Helpers---
 		void _sortPairs(std::list<int>& list, size_t pairsInLevel, size_t nmbsInBlock);
 		std::list<listIt> _createMain(std::list<int>& list, size_t totalNmbsInLevel, size_t nmbsInBlock);	
-		std::list<listIt>  _createPend(std::list<int>& list, size_t totalNmbsInLevel, size_t nmbsInBlock);
+		std::list<listIt> _createPend(std::list<int>& list, size_t totalNmbsInLevel, size_t nmbsInBlock);
 		void _insertPendToMain(std::list<listIt>& main, std::list<listIt>& pend);
 		void _jackNumInvertion(std::list<listIt>& main, std::list<listIt>& pend);
 		void _orderedInvertion(std::list<listIt>& main, std::list<listIt>& pend);
+		size_t	_binarySearchIndex(std::list<listIt>& main, int value, size_t boundPos);
 		void _copyMainToList(std::list<int>& list, std::list<listIt>& main, size_t nmbsInBlock);
 
 		// --Math Helper

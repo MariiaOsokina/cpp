@@ -6,13 +6,14 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 11:45:35 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/21 00:29:32 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 11:52:17 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/RPN.hpp"
 
-RPN::RPN(){}
+RPN::RPN()
+{}
 
 RPN::RPN(const RPN &other): _operands(other._operands)
 {}
@@ -37,6 +38,20 @@ bool RPN::_isOperator(const std::string& token) const
 		return false ;
 }
 
+/*std::stringstream belongs to the family of C++ iostreams. 
+It combines three major components into one object, 
+allowing you to treat a string like a file or standard input/output:
+
+1. The Stream Buffer (std::stringbuf);
+2. The Input/Output Logic (std::istream/std::ostream), Reading (>>), Writing (<<);
+3. State Management - manages several flags related to the state of the I/O operations:
+-e.g. eofbit (End-of-File)*/
+
+/*Reading (>>): When you use ss >> token,
+- extracts characters from the buffer until it hits whitespace;
+- converts the token string into a standard C++ std::string;
+
+It updates the internal read position pointer past the consumed token and any trailing whitespace.*/
 
 bool RPN::_checkInput(const std::string& expression)
 {
