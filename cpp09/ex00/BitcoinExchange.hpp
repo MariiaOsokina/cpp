@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 12:34:54 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/21 00:22:00 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 11:35:56 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ class Btc
 		class InvalidInput : public std::exception
 		{
 			private:
-				std::string _message; // Store the dynamic message
+				std::string _message;
 			public:
 				InvalidInput(const std::string& msg) : _message(msg) {}
 				virtual const char *what() const throw()
@@ -63,7 +63,7 @@ class Btc
 		class InvalidDatabase : public std::exception
 		{
 			private:
-				std::string _message; // Store the dynamic message
+				std::string _message;
 			public:
 				InvalidDatabase(const std::string& msg) : _message(msg) {}
 				virtual const char *what() const throw()

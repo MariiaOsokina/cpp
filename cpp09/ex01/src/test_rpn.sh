@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==========================================
-#        RPN 42/CPP Module 09 Tester
+#        CPPP 09 Ex01 Tester
 # ==========================================
 
 # Colors for output

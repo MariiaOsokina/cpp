@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 12:34:30 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/21 00:17:06 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 11:42:46 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ Btc& Btc::operator = (const Btc &other)
 Btc::~Btc()
 {}
 
-// /* An element in an  is stored as a std::pair<const Key, T>.
-// it->first Accesses the key stored in the pair pointed to by the iterator.
-// it->second - Accesses the mapped value stored in the pair pointed to by the iterator.*/
+/* std::pair<const Key, T>.
+it->first Accesses the key stored in the pair pointed to by the iterator.
+it->second - Accesses the mapped value stored in the pair pointed to by the iterator.*/
+
 void Btc::_calculateResult(const std::string &dateToFind, float value)
 {
 	Btc::iterator it = _btcMap.lower_bound(dateToFind);
@@ -103,7 +104,8 @@ bool Btc::_stringToLong(const std::string &string, long &result)
 	return true;
 }
 
-bool Btc::_isLeap(int year) {
+bool Btc::_isLeap(int year)
+{
 	if (year % 400 == 0)
 		return true;
 	if (year % 100 == 0)
@@ -113,7 +115,8 @@ bool Btc::_isLeap(int year) {
 	return false;
 }
 
-int Btc::_getMaxDays(int year, int month) {
+int Btc::_getMaxDays(int year, int month)
+{
 	switch (month)
 		{
 		case 4: case 6: case 9: case 11:
@@ -149,20 +152,20 @@ void Btc::_parsingExchangRate(std::string &databaseCSV)
 		throw InvalidDatabase("Database error: could not open CSV file.");
 
 	std::string line;
-	if (!std::getline(exchangeRateFile, line)) // skip the header and check "is empty"
+	if (!std::getline(exchangeRateFile, line)) // skip the header and check empty file
 		throw InvalidDatabase("Database error: file is empty or missing header.");
 	std::string dateStr;
 	std::string rateStr;
 	float exchangeRate;
-	size_t delimiterInx;
+	size_t delimiterPos;
 
 	while (std::getline(exchangeRateFile, line))
 	{
-		delimiterInx = line.find(',');
-		if (delimiterInx == std::string::npos)
+		delimiterPos = line.find(',');
+		if (delimiterPos == std::string::npos)
 			throw InvalidDatabase("Database error: missing delimiter.");
-		dateStr = line.substr(0, delimiterInx);
-		rateStr = line.substr(delimiterInx + 1);
+		dateStr = line.substr(0, delimiterPos);
+		rateStr = line.substr(delimiterPos + 1);
 		if (!_checkDate(dateStr))
 				throw InvalidDatabase("Database error: invalid date format.");
 		std::istringstream iss(rateStr);

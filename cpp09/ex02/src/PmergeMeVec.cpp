@@ -6,20 +6,19 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:36:28 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/21 01:04:07 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 12:23:37 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/PmergeMe.hpp"
 
-void printItVector(const std::vector<std::vector<int>::iterator>& vec)
-{
-	std::cout << "[";
-	for (size_t i = 0; i < vec.size(); ++i) {
-		std::cout << *(vec[i]) << " ";
-	}
-	std::cout << "]" << std::endl;
-}
+// void printItVector(const std::vector<std::vector<int>::iterator>& vec)
+// {
+// 	for (size_t i = 0; i < vec.size(); ++i) {
+// 		std::cout << *(vec[i]) << " ";
+// 	}
+// 	std::cout << std::endl;
+// }
 
 void PmergeMe::_sortPairs(std::vector<int>& vec, size_t pairsInLevel, size_t nmbsInBlock)
 {
@@ -57,9 +56,8 @@ std::vector<std::vector<int>::iterator> PmergeMe::_createPend(std::vector<int>& 
 	vecIt lBlockStart = startIt + (nmbsInBlock * 2);
 	vecIt lBlockLast = lBlockStart + (nmbsInBlock - 1);
 
-	while (lBlockStart < levelLastElemIt) // while (rBlockLast < levelLastElemIt)??
+	while (lBlockStart < levelLastElemIt)
 	{
-		// pend.insert(pend.end(), lBlockLast);
 		pend.push_back(lBlockLast);
 		std::advance(lBlockStart, nmbsInBlock * 2); // move to next element
 		std::advance(lBlockLast, nmbsInBlock * 2); // move to next element
@@ -82,7 +80,7 @@ std::vector<std::vector<int>::iterator> PmergeMe::_createMain(std::vector<int>& 
 	vecIt rBlockLast = rBlockStart + (nmbsInBlock - 1);
 
 	// Adding R2, R3, R4...
-	while (rBlockStart < levelLastElemIt) // while (rBlockLast < levelLastElemIt)
+	while (rBlockStart < levelLastElemIt)
 	{
 		main.push_back(rBlockLast);
 		std::advance(rBlockStart, nmbsInBlock * 2); // move to next element
@@ -95,18 +93,18 @@ std::vector<std::vector<int>::iterator> PmergeMe::_createMain(std::vector<int>& 
 partially ordered range to find the "UPPER BOUND" of a value in a range.
 It returns an iterator pointing to the first element in the range [first, last)
 whose value is greater than the specified search value.*/
+
 bool PmergeMe::compIteratorsVec(vecIt lv, vecIt rv)
 {
 	PmergeMe::nmbCompVec++;
 	return *lv < *rv;
 }
 
-
 // Vector: Uses $O(1)$ random access arithmetic to find iterators
 // Vector: std::upper_bound is $O(\log N)$ comparisons and O(\log N) iterator movements.
 void PmergeMe::_jackNumInvertion(std::vector<vecIt>& main, std::vector<vecIt>& pend)
 {
-	int prevJN = 1; // 1
+	int prevJN = 1;
 	int insertedCount = 0;
 	for (size_t k = 2;; k++)
 	{
@@ -148,7 +146,6 @@ void PmergeMe::_orderedInvertion(std::vector<vecIt>& main, std::vector<vecIt>& p
 
 		std::vector<vecIt>::iterator boundIt =
 			main.begin() + (static_cast<int>(main.size()) - static_cast<int>(pend.size()) + i + 1); 
-		// Use a safe upper bound (cannot exceed main.end())
 		if (boundIt > main.end())
 			 boundIt = main.end();
 
@@ -171,7 +168,6 @@ void PmergeMe::_copyMainToVec(std::vector<int>& vec, std::vector<vecIt>& main, s
 {
 	std::vector<int> tmpVec;
 	tmpVec.reserve(vec.size());
-	// 1. Create the temporary list with sorted values
 	for (size_t i = 0; i < static_cast<size_t>(main.size()); i ++)
 	{
 		std::vector<vecIt>::iterator itFromMain = main.begin() + i;
@@ -212,8 +208,5 @@ void PmergeMe::mergeInsertSort(std::vector<int> &vec, vecIt &levelLastElemIt, si
 		pend.push_back(levelLastElemIt);
 
 	_insertPendToMain(main, pend);
-
-	
 	_copyMainToVec(vec, main, nmbsInBlock);
 }
-

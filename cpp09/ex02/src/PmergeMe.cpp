@@ -6,19 +6,17 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 15:26:28 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/21 00:40:20 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 12:22:58 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/PmergeMe.hpp"
-
 
 /*Difference between vector and list:
 1.  iterator.std::vector has Random Access Iterators, which allow O(1) arithmetic like it + 5, it - 3, and comparisons like it1 < it2. 
 
 2. std::list has Bidirectional Iterators, which only allow O(1) operations like ++it, --it, and *it (dereferencing).
 Any movement by N steps must use std::advance(it, N), which is an O(N) operation.*/
-
 
 size_t PmergeMe::nmbCompVec = 0;
 size_t PmergeMe::nmbCompList = 0;
@@ -47,9 +45,9 @@ void PmergeMe::printVector(const std::vector<int>& vec)
 	std::cout << std::endl;
 }
 
-
 /*Insertion with specific order defined by the JACOBSTHAL number sequence
-to optimize the number of comparisons.*/
+to optimize the number of comparisons.
+3, 5, 11, 21, 43, 85 ...*/
 
 long PmergeMe::_jacobsthalNumber(long n)
 {

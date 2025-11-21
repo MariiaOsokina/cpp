@@ -6,22 +6,22 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:34:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/21 00:47:10 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 12:23:12 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/PmergeMe.hpp"
 
-void printListIter(const std::list<std::list<int>::iterator>& itList)
-{
-	std::list<std::list<int>::iterator>::const_iterator it = itList.begin();
-	while (it != itList.end())
-	{
-		std::cout << *(*it) << " ";
-		it++;
-	}
-	std::cout << std::endl;
-}
+// void printListIter(const std::list<std::list<int>::iterator>& itList)
+// {
+// 	std::list<std::list<int>::iterator>::const_iterator it = itList.begin();
+// 	while (it != itList.end())
+// 	{
+// 		std::cout << *(*it) << " ";
+// 		it++;
+// 	}
+// 	std::cout << std::endl;
+// }
 
 void PmergeMe::_sortPairs(std::list<int>& list, size_t pairsInLevel, size_t nmbsInBlock)
 {
@@ -55,7 +55,6 @@ void PmergeMe::_sortPairs(std::list<int>& list, size_t pairsInLevel, size_t nmbs
 		currentPos++; 
 	}
 }
-
 
 /*PmergeMe::_createPend: Populates pend with iterators to the last element of L2, L3, L4...*/
 std::list<std::list<int>::iterator> PmergeMe::_createPend(std::list<int>& list, size_t totalNmbsInLevel, size_t nmbsInBlock)
@@ -110,143 +109,112 @@ std::list<std::list<int>::iterator> PmergeMe::_createMain(std::list<int>& list, 
 	return main;
 }
 
-// /*Populates main with iterators to the last element of L1, R1, R2, R3...*/
-
 bool PmergeMe::compIteratorsList(listIt lv, listIt rv)
 {
 	PmergeMe::nmbCompList++;
-	// std::cout << nmbCompList << " ";
 	return *lv < *rv;
 }
 
-// // std::upper_bound works on std::list iterators (O(N) runtime, but O(log N) comparisons)
-// // List: Must use $O(k)$ std::advance to move iterators:
-// //List: std::upper_bound is O(log N) comparisons but O(N) iterator movements (since it must step one by one).
-
 void PmergeMe::_jackNumInvertion(std::list<listIt>& main, std::list<listIt>& pend)
 {
-    int prevJN = 1;
-    int insertedCount = 0;
-    
-    // To match vector, we loop until jacobsthal numbers are exhausted
-    for (size_t k = 2;; k++)
-    {
-        int currJN = _jacobsthalNumber(k);
-        int jackDiff = currJN - prevJN;
-        
-        if (jackDiff > static_cast<int>(pend.size()))
-            break;
+	int prevJN = 1;
+	int insertedCount = 0;
+	
+	for (size_t k = 2;; k++)
+	{
+		int currJN = _jacobsthalNumber(k);
+		int jackDiff = currJN - prevJN;
+		
+		if (jackDiff > static_cast<int>(pend.size()))
+			break;
 
-        // Point to the element in Pend we want to insert (starting from the Jacobsthal peak)
-        std::list<listIt>::iterator pendIt = pend.begin();
-        std::advance(pendIt, (jackDiff - 1));
-        
-        int offset = 0;
+		std::list<listIt>::iterator pendIt = pend.begin();
+		std::advance(pendIt, (jackDiff - 1));
+		
+		int offset = 0;
 
-        // Insert the batch backwards
-        for (size_t i = jackDiff; i > 0; --i)
-        {
-            // 1. Calculate the Boundary exactly like Vector
-            // Vector logic: boundIt = main.begin() + (currJN + insertedCount - offset)
-            size_t boundPos = currJN + insertedCount - offset;
-            
-            // Safety clamp
-            if (boundPos > main.size()) 
-                boundPos = main.size();
+		for (size_t i = jackDiff; i > 0; --i)
+		{
+			size_t boundPos = currJN + insertedCount - offset;
+			if (boundPos > main.size()) 
+				boundPos = main.size();
 
-            // 2. Find Index (O(log N) comparisons)
-            size_t idxToInsert = binarySearchIndex(main, *(*pendIt), boundPos);
+			size_t idxToInsert = _binarySearchIndex(main, *(*pendIt), boundPos);
+			std::list<listIt>::iterator iterToInsert = main.begin();
+			std::advance(iterToInsert, idxToInsert);
+	
+			std::list<listIt>::iterator inserted = main.insert(iterToInsert, *pendIt);
 
-            // 3. Move Iterator to that index (O(N) runtime, irrelevant for comp count)
-            std::list<listIt>::iterator iterToInsert = main.begin();
-            std::advance(iterToInsert, idxToInsert);
-
-            // 4. Insert
-            std::list<listIt>::iterator inserted = main.insert(iterToInsert, *pendIt);
-
-            long insertedIdx = std::distance(main.begin(), inserted);
-            
-            if (insertedIdx == (currJN + insertedCount))
-            {
-                offset++;
-            }
-            pendIt = pend.erase(pendIt);
-            pendIt--;
-        }
-        
-        prevJN = currJN;
-        insertedCount += jackDiff;
-    }
+			long insertedIdx = std::distance(main.begin(), inserted);
+			
+			if (insertedIdx == (currJN + insertedCount))
+			{
+				offset++;
+			}
+			pendIt = pend.erase(pendIt);
+			pendIt--;
+		}
+		
+		prevJN = currJN;
+		insertedCount += jackDiff;
+	}
 }
 
 void PmergeMe::_orderedInvertion(std::list<listIt>& main, std::list<listIt>& pend)
 {
-    if (pend.empty())
-        return;
+	if (pend.empty())
+		return;
 
-    // 1. Setup iterator at the last element of pend
-    std::list<listIt>::iterator pendIt = pend.end();
-    pendIt--; 
+	std::list<listIt>::iterator pendIt = pend.end();
+	pendIt--; 
 
-    // 2. Loop backwards (matching vector index logic)
-    for (int i = pend.size() - 1; i >= 0; i--)
-    {
-        // Exact Vector Logic: 
-        // Bound = Current_Main_Size - Fixed_Pend_Size + current_i + 1
-        // Since we are NOT erasing pend, pend.size() is constant, matching Vector.
-        size_t boundPos = main.size() - pend.size() + i + 1;
-        
-        // Safety clamp
-        if (boundPos > main.size())
-            boundPos = main.size();
+	for (int i = pend.size() - 1; i >= 0; i--)
+	{
+		size_t boundPos = main.size() - pend.size() + i + 1;
+		
+		if (boundPos > main.size())
+			boundPos = main.size();
 
-        // Perform Binary Search
-        size_t idxToInsert = binarySearchIndex(main, *(*pendIt), boundPos);
+		size_t idxToInsert = _binarySearchIndex(main, *(*pendIt), boundPos);
 
-        // Move iterator to insertion point
-        std::list<listIt>::iterator iterToInsert = main.begin();
-        std::advance(iterToInsert, idxToInsert);
+		std::list<listIt>::iterator iterToInsert = main.begin();
+		std::advance(iterToInsert, idxToInsert);
 
-        // Insert
-        main.insert(iterToInsert, *pendIt);
-        
-        // Move pendIt backwards for the next iteration (manually)
-        // We do NOT erase here, to keep pend.size() constant for the math above.
-        if (i > 0)
-             pendIt--;
-    }
-    
-    // 3. Clear pend after the loop is done (optional, but good for cleanup)
-    pend.clear();
+		main.insert(iterToInsert, *pendIt);
+		
+		if (i > 0)
+			 pendIt--;
+	}	
+	pend.clear();
 }
 
-size_t PmergeMe::binarySearchIndex(std::list<listIt>& main, int value, size_t boundPos)
+size_t PmergeMe::_binarySearchIndex(std::list<listIt>& main, int value, size_t boundPos)
 {
-    size_t len = boundPos;
-    size_t idx = 0; // Relative index from the start of search range
-    std::list<listIt>::iterator current = main.begin();
+	size_t len = boundPos;
+	size_t idx = 0;
+	std::list<listIt>::iterator current = main.begin();
 
-    while (len > 0)
-    {
-        size_t half = len / 2;
-        std::list<listIt>::iterator middle = current;
-        std::advance(middle, half);
+	while (len > 0)
+	{
+		size_t half = len / 2;
+		std::list<listIt>::iterator middle = current;
+		std::advance(middle, half);
 
-        PmergeMe::nmbCompList++; // Count comparison
-        
-        if (value < *(*middle)) // upper_bound logic: value < element
-        {
-            len = half;
-        }
-        else
-        {
-            current = middle;
-            ++current;
-            idx += half + 1; // Accumulate index
-            len = len - half - 1;
-        }
-    }
-    return idx;
+		PmergeMe::nmbCompList++;
+		
+		if (value < *(*middle))
+		{
+			len = half;
+		}
+		else
+		{
+			current = middle;
+			++current;
+			idx += half + 1;
+			len = len - half - 1;
+		}
+	}
+	return idx;
 }
 
 void PmergeMe::_insertPendToMain(std::list<listIt>& main, std::list<listIt>& pend)
@@ -261,7 +229,6 @@ void PmergeMe::_copyMainToList(std::list<int>& list, std::list<listIt>& main, si
 {
 	std::list<int> tmpList;
 	std::list<listIt>::iterator itFromMain;
-	// 1. Create the temporary list with sorted values
 	for (itFromMain = main.begin(); itFromMain != main.end(); ++itFromMain)
 	{
 		listIt blockEndIt = *itFromMain;
@@ -279,13 +246,12 @@ void PmergeMe::_copyMainToList(std::list<int>& list, std::list<listIt>& main, si
 			++itInBlock;
 		}
 	}
-	// 2. Copy values from tmpList over the original list
 	std::list<int>::iterator destIt = list.begin();
 	std::list<int>::iterator srcIt = tmpList.begin();
 
 	while (srcIt != tmpList.end())
 	{
-		*destIt = *srcIt; // Overwrite the value
+		*destIt = *srcIt;
 		
 		++destIt;
 		++srcIt;
@@ -323,11 +289,8 @@ void PmergeMe::mergeInsertSort(std::list<int> &list, listIt &levelLastElemIt, si
 	_copyMainToList(list, main, nmbsInBlock);
 }
 
-
-
 void PmergeMe::printList(const std::list<int>& list)
 {
-	
 	std::list<int>::const_iterator it = list.begin();
 	while (it != list.end())
 	{
@@ -336,4 +299,3 @@ void PmergeMe::printList(const std::list<int>& list)
 	}
 	std::cout << std::endl;
 }
-

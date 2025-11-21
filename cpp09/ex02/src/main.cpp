@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 13:37:39 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/21 01:08:48 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 12:09:21 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <limits>
 #include <cerrno>  // errno, ERANGE
 #include <climits> // Needed for INT_MAX
-#include <ctime> // for clock()
 
 #include <vector>
 #include <list>
@@ -117,8 +116,8 @@ bool isListSorted(const std::list<int>& list)
 {
 	if (list.size() <= 1)
 		return true;
-    std::list<int>::const_iterator current = list.begin();
-    std::list<int>::const_iterator previous = list.begin();
+	std::list<int>::const_iterator current = list.begin();
+	std::list<int>::const_iterator previous = list.begin();
 	std::advance(current, 1); 
 
 	while (current != list.end())
@@ -136,13 +135,13 @@ void testCompNmbs(int argc)
 	std::cout << "\033[33m" << "\nTEST: Number of comparisons" << "\033[0m"  << std::endl;
 	size_t maxComp = compTest(argc - 1);
 	if (maxComp >= PmergeMe::nmbCompVec)
-		std::cout << "\033[32m" << "Number of comparisons in VECTOR is " << PmergeMe::nmbCompVec << " and do not exceed the max limit: " << maxComp << "\n\033[0m" << std::endl;
+		std::cout << "\033[32m" << "Comparisons in VECTOR is " << PmergeMe::nmbCompVec << " and do not exceed the max limit: " << maxComp << "\n\033[0m" << std::endl;
 	else
-		std::cout << "\033[31m" << "Number of comparisons in VECTOR is " << PmergeMe::nmbCompVec << " and EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
+		std::cout << "\033[31m" << "Comparisons in VECTOR is " << PmergeMe::nmbCompVec << " and EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
 	if (maxComp >= PmergeMe::nmbCompList)
-		std::cout << "\033[32m" << "Number of comparisons in LIST is " << PmergeMe::nmbCompList << " and do not exceed the max limit: " << maxComp << "\n\033[0m" << std::endl;
+		std::cout << "\033[32m" << "Comparisons in LIST is " << PmergeMe::nmbCompList << " and do not exceed the max limit: " << maxComp << "\n\033[0m" << std::endl;
 	else
-		std::cout << "\033[31m" << "Number of comparisons in LIST is " << PmergeMe::nmbCompList << " and  EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
+		std::cout << "\033[31m" << "Comparisons in LIST is " << PmergeMe::nmbCompList << " and  EXCEEDS the max limit: " << maxComp << "\n\033[0m" << std::endl;
 }
 
 void testSorting(const std::vector<int>& vec, const std::list<int>& list)
@@ -150,16 +149,14 @@ void testSorting(const std::vector<int>& vec, const std::list<int>& list)
 	std::cout << "\033[33m" << "TEST: Sorting" << "\033[0m"  << std::endl;
 
 	if (isVecSorted(vec))
-		std::cout << "\033[32m" << "VECTOR IS SORTED!" << "\n\033[0m" << std::endl;
+		std::cout << "\033[32m" << "VECTOR IS SORTED!" << "\033[0m" << std::endl;
 	else
-		std::cout << "\033[31m" << "VECTOR IS UNSORTED!" << "\n\033[0m" << std::endl;
+		std::cout << "\033[31m" << "VECTOR IS UNSORTED!" << "\033[0m" << std::endl;
 	if (isListSorted(list))
-		std::cout << "\033[32m" << "LIST IS SORTED!" << "\n\033[0m" << std::endl;
+		std::cout << "\033[32m" << "LIST IS SORTED!" << "\033[0m" << std::endl;
 	else
-		std::cout << "\033[31m" << "LIST IS UNSORTED!" << "\n\033[0m" << std::endl;
+		std::cout << "\033[31m" << "LIST IS UNSORTED!" << "\033[0m" << std::endl;
 }
-
-/*clock() returns the processor time (CPU time) used by your program.*/
 
 int main(int argc, char **argv)
 {
@@ -175,8 +172,7 @@ int main(int argc, char **argv)
 
 	PmergeMe pm;
 	
-	std::cout << "\033[32m" << "VECTOR:	" << "\033[0m" << std::endl;
-
+	std::cout << "\n\033[32m" << "---VECTOR---" << "\033[0m" << std::endl;
 	gettimeofday(&startVecTime, NULL);
 
 	std::vector<int> vec = argsToVec(argc, argv);
@@ -190,12 +186,12 @@ int main(int argc, char **argv)
 	std::cout << "After:	";
 	pm.printVector(vec);
 
-	std::cout << "\033[32m" << "LIST:	" << "\033[0m" << std::endl;
 
 	double cpuTimeUsedVec = (endVecTime.tv_sec - startVecTime.tv_sec) * 1000000.0 + (endVecTime.tv_usec - startVecTime.tv_usec);
 	std::cout << "Time to process a range of " << vecSize << " elements with std::vec : " 
-              << std::fixed << std::setprecision(5) << cpuTimeUsedVec << " us" << std::endl;
+			<< std::fixed << std::setprecision(5) << cpuTimeUsedVec << " us" << std::endl;
 
+	std::cout << "\n\033[32m" << "---LIST---" << "\033[0m" << std::endl;
 	gettimeofday(&startListTime, NULL);
 
 	std::list<int> list = argsToList(argc, argv);
@@ -211,7 +207,7 @@ int main(int argc, char **argv)
 
 	double cpuTimeUsedList = (endListTime.tv_sec - startListTime.tv_sec) * 1000000.0 + (endListTime.tv_usec - startListTime.tv_usec);
 	std::cout << "Time to process a range of " << listSize << " elements with std::list : " 
-              << std::fixed << std::setprecision(5) << cpuTimeUsedList << " us" << std::endl;
+			  << std::fixed << std::setprecision(5) << cpuTimeUsedList << " us" << std::endl;
 
 	testCompNmbs(argc);
 	testSorting(vec, list);
