@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 15:26:28 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/14 15:46:21 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 00:40:20 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,15 @@ PmergeMe::~PmergeMe(){}
 
 void PmergeMe::printVector(const std::vector<int>& vec)
 {
-	// std::cout << "[";
 	for (size_t i = 0; i < vec.size(); ++i) {
 		std::cout << vec[i] << " ";
 	}
-	// std::cout << "]";
 	std::cout << std::endl;
-
 }
 
 
 /*Insertion with specific order defined by the JACOBSTHAL number sequence
-to optimize the number of comparisons.
-
-TO ADD!!!!!!!!! 3, 5, 11, ..
-
-*/
+to optimize the number of comparisons.*/
 
 long PmergeMe::_jacobsthalNumber(long n)
 {

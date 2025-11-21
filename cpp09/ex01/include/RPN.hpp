@@ -6,9 +6,12 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 11:45:31 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/18 15:39:17 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 00:21:55 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef RPN_HPP
+#define RPN_HPP
 
 #include <iostream>
 #include <sstream> // for stringstream
@@ -34,12 +37,13 @@ class RPN
 		~RPN();
 
 		bool reversePolishNotation(const std::string& expression);
+	
 	private:
+		std::stack<int> _operands;
 
-	bool _checkInput(const std::string& expression);
-	bool _doCalculation(char operation);
-	bool _isOperator(const std::string& token) const;
-	std::stack<int> _operands;
-
-
+		bool _checkInput(const std::string& expression);
+		bool _doCalculation(char operation);
+		bool _isOperator(const std::string& token) const;
 };
+
+#endif

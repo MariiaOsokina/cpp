@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 11:45:38 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/18 15:53:33 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 00:18:34 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int main (int argc, char **argv)
 		std::cerr << "Error: Please pass the parameter as one string" <<  std::endl;
 		return 1;
 	}
-	class RPN rpm;
+	
+	RPN rpm;
 	
 	if (!rpm.reversePolishNotation(argv[1]))
 		return 1; // Returns non-zero status (failure)

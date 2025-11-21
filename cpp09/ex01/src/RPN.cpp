@@ -6,7 +6,7 @@
 /*   By: mosokina <mosokina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 11:45:35 by mosokina          #+#    #+#             */
-/*   Updated: 2025/11/18 15:59:24 by mosokina         ###   ########.fr       */
+/*   Updated: 2025/11/21 00:29:32 by mosokina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,24 @@ bool RPN::_isOperator(const std::string& token) const
 		return false ;
 }
 
+
 bool RPN::_checkInput(const std::string& expression)
 {
+	if (expression.empty())
+		return false;
+	
 	std::stringstream ss(expression);
 	std::string token;
-
+	bool hasTokens = false;
 	while (ss >> token)
 	{
+		hasTokens = true;
 		if (token.size() != 1)
 			return false;
 		if (std::isdigit(token[0]) == false && !_isOperator(token))
 			return false;
 	}
-	return true;
+	return hasTokens;
 }
 
 bool RPN::_doCalculation(char operation)
@@ -94,7 +99,7 @@ bool RPN::reversePolishNotation(const std::string& expression)
 {
 	if (!_checkInput(expression))
 	{
-		std::cerr << "Error: improper input!" << std::endl;
+		std::cerr << "Error" << std::endl;
 		return false;
 	}
 	std::stringstream ss(expression);
@@ -103,8 +108,10 @@ bool RPN::reversePolishNotation(const std::string& expression)
 	while (ss >> token)
 	{
 		if (_isOperator(token))
+		{
 			if (!_doCalculation(token[0]))
-				return false ;
+				return false ;			
+		}
 		else
 			_operands.push(token[0] - '0');					
 	}
